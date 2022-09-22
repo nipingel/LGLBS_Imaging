@@ -33,26 +33,26 @@ def main():
 	#vis_name='imaging/wlmctr/wlmctr_B+C+D_hi21cm.ms'
 	vis_name=vis_path
 	## output image properties
-	restore_beam = '35arcsec'
-	cell_size = '7arcsec'
-	im_size = 750
+	restore_beam = 'common'
+	cell_size = '1.25arcsec'
+	im_size = 3072
 	## automasking parameters ##
 	use_mask = 'auto-multithresh'
 	sidelobe_threshold = 2.5
 	noise_threshold = 3.5
 	min_beam_frac = 0.3
-	lownoisethreshold = 1.75
+	lownoisethreshold = 1.5
 	negativethreshold = 0.0
 	grow_iters=75
 	dogrowprune=False
 	verbose = True
 	## deconvolution parameters
 	deconvolver_mode = 'multiscale'
-	ms_scales = [0, 8, 16, 32, 64, 128]
-	tot_niter = 4000
-	min_threshold = '5mJy'
+	ms_scales = [0, 8, 16, 32, 64, 128, 256, 512, 1024]
+	tot_niter = 10000
+	min_threshold = '3.0mJy'
 	tclean(vis=vis_path, imagename=output_name, selectdata = True, field = 'WLM_1_CTR', restfreq=rest_freq, specmode = 'mfs', phasecenter=phasecenter,imsize=im_size, 
-		cell=cell_size, restoringbeam=restore_beam, pblimit = 0.1,  weighting='briggs', robust = 0.75, gridder='standard', pbcor=True, niter=tot_niter, deconvolver = deconvolver_mode, 
+		cell=cell_size, restoringbeam=restore_beam, pblimit = 0.1,  weighting='briggs', robust = 2.0, gridder='standard', pbcor=True, niter=tot_niter, deconvolver = deconvolver_mode, 
 		scales = ms_scales, smallscalebias = 0.4, cyclefactor = 0.8, minpsffraction=0.05, maxpsffraction = 0.8, threshold = min_threshold, usemask = use_mask, pbmask = 0.5, 
 		sidelobethreshold = sidelobe_threshold, noisethreshold = noise_threshold, minbeamfrac = min_beam_frac, lownoisethreshold = lownoisethreshold, negativethreshold = 0.0, growiterations = grow_iters, 
 		dogrowprune = False, verbose = True)

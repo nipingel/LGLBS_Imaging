@@ -15,17 +15,23 @@ HOME=$PWD
 
 ## untar measurement set
 ms_name="wlmctr_B+C+D_hi21cm.ms_chan"$1
+source_name="WLM"
 
 ## copy measurement set to working directory
-cp -r /projects/vla-processing/measurement_sets/$ms_name ./
+cp -r /projects/vla-processing/measurement_sets/$source_name/$ms_name ./
 
 ## define input values
 output_name="wlmctr_BCD_chan"$1
+tarball_name=$output_name".tar"
 
 # make casa call to imaging script
 casa-6.5.0-15-py3.8/bin/casa --logfile wlmctr_BCD_chan$1.log -c image_WLM.py -v $ms_name -o $output_name
 
-mv $output_name* /projects/vla-processing/images/WLM
+## tar result
+tar -cvf $tarball_name $output_name*
+
+mv $tarball_name /projects/vla-processing/images$soure_name
 
 ## clean up
 rm -rf $ms_name
+rm -rf $output_name*
