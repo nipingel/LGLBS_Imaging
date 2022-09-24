@@ -40,7 +40,7 @@ Requirements=(Target.HasCHTCStaging == true)
 transfer_input_files = /home/nmpingel/LGLBS/LGLBS_Imaging/image_WLM.py, /home/nmpingel/LGLBS/LGLBS_Imaging/image_WLM.sh
 request_cpus = 1
 request_memory = 10GB
-request_disk = 300GB
+request_disk = 10GB
 #
 # Tell HTCondor to run 1 instances of our job:
 queue 500

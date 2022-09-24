@@ -24,13 +24,17 @@ cp -r /projects/vla-processing/measurement_sets/$source_name/$ms_name ./
 output_name="wlmctr_BCD_chan"$1
 tarball_name=$output_name".tar"
 
+## added to continue a clean
+#cp /projects/vla-processing/images/WLM/$output_name".tar" .
+#tar -xvf $output_name".tar"
+
 # make casa call to imaging script
-casa-6.5.0-15-py3.8/bin/casa --logfile wlmctr_BCD_chan$1.log -c image_WLM.py -v $ms_name -o $output_name
+casa-6.5.0-15-py3.8/bin/casa --logfile $output_name".log" -c image_WLM.py -v $ms_name -o $output_name
 
 ## tar result
 tar -cvf $tarball_name $output_name*
 
-mv $tarball_name /projects/vla-processing/images$soure_name
+mv $tarball_name /projects/vla-processing/images/$source_name
 
 ## clean up
 rm -rf $ms_name
