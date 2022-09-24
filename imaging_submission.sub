@@ -21,8 +21,8 @@ executable = image_WLM.sh
 
 ## argument: split-out channel for imaging
 ## set up start and end channels
-#chan = $INT(275,%d)
-chan = $INT(Process,%d)
+chan = $INT(input_chan,%d)
+#chan = $INT(Process,%d)
 log = image_WLM_chan$(chan).log
 
 arguments = $(chan)
@@ -43,4 +43,5 @@ request_memory = 10GB
 request_disk = 10GB
 #
 # Tell HTCondor to run 1 instances of our job:
-queue 500
+#queue 500
+queue input_chan from leftover_channels.txt
