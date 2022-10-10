@@ -1,3 +1,5 @@
+#!/usr/bin/env condor_submit
+
 # transfer.sub
 # submit transfer jobs from LGLBS share to /projects staging area
 
@@ -7,13 +9,13 @@
 
 dest_dir   = /projects/vla-processing/measurement_sets/rclone-test/dest
 
-executable = rclone-wrapper.sh
+executable = transfer.sh
 
 arguments  = MeasurementSets/$(fname) $(dest_dir)
 
-output     = transfer-$(Process).out
-error      = transfer-$(Process).err
-log        = transfer-$(Process).log
+output     = log/transfer-$(Process).out
+error      = log/transfer-$(Process).err
+log        = log/transfer-$(Process).log
 
 # want /projects staging area, and want to run at CS near Ceph cluster
 Requirements = (Target.HasCHTCStaging == true && Facility == "CS_2360")
@@ -21,6 +23,9 @@ Requirements = (Target.HasCHTCStaging == true && Facility == "CS_2360")
 
 # could transfer these, but for now store them under /projects/vla-processing
 #transfer_input_files = rclone rclone.conf
+request_cpus   = 1
+request_memory = 1GB
+request_disk   = 1GB
 
 queue fname from transfer-list.txt
 

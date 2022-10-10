@@ -20,7 +20,7 @@ rclone_base=/projects/vla-processing/measurement_sets/rclone-test
 PATH=$PATH:$rclone_base/bin
 conf=$rclone_base/config/rclone.conf
 
-rclone lglbs:"$src" "$dest" --config "$conf"
+rclone sync lglbs:"$src" "$dest" --config "$conf"
 
 touch "$dest_file.done"
 
