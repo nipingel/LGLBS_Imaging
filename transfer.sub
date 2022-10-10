@@ -1,0 +1,26 @@
+# transfer.sub
+# submit transfer jobs from LGLBS share to /projects staging area
+
+# default vanilla universe is fine for now
+#universe = docker
+#docker_image = nipingel/casa:latest
+
+dest_dir   = /projects/vla-processing/measurement_sets/rclone-test/dest
+
+executable = rclone-wrapper.sh
+
+arguments  = MeasurementSets/$(fname) $(dest_dir)
+
+output     = transfer-$(Process).out
+error      = transfer-$(Process).err
+log        = transfer-$(Process).log
+
+# want /projects staging area, and want to run at CS near Ceph cluster
+Requirements = (Target.HasCHTCStaging == true && Facility == "CS_2360")
++HasCHTCStaging = true
+
+# could transfer these, but for now store them under /projects/vla-processing
+#transfer_input_files = rclone rclone.conf
+
+queue fname from transfer-list.txt
+
