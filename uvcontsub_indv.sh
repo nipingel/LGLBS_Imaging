@@ -5,18 +5,25 @@
 
 cd tmp
 
-##  set measurement set nam, copy and untar
-tar_name=$1".tar"
-cp /projects/vla-processing/GASKAP-HI/measurement_sets/38814/phase_shifted/$tar_name .
-tar -xvf $tar_name
+tar -xzf ../packages.tar.gz -directory .
+tar -xzf ../analysis_scripts.tar -directory .
 
-chanRange=""
-order=0
+HOME=$PWD
+
+## untar measurement set to current working directory
+tar -xvf /projects/vla-processing/measurement_sets/WLM/$ms_name --directory .
+## define untarred name
+tar_name=$1
+untar_name=(${tar_name//.tar/ })
+
+v_sys="-125"
+v_width="210"
+order="0"
 
 # make casa call to imaging script
-casa-6.5.0-15-py3.8/bin/casa --logfile uvcontsub.log -c uvcontsub_indv.py -p $untar_name -c $order -l $chanRange
+casa-6.5.0-15-py3.8/bin/casa --logfile uvcontsub.log -c uvcontsub_indv.py -p $untar_name -o $order -v $v_sys -w $v_width
 
 ## pack up and copy back
-tar -cvf $1"_contsub.tar" $1".contsub"
-mv $1".contsub.tar" /projects/vla-processing/GASKAP-HI/measurement_sets/38814/contsub
-rm $tar_name
+tar -cvf $untar_name"_contsub.tar" $untar_name".contsub"
+mv $untar_name"_contsub.tar" /projects/vla-processing/measurement_sets/WLM
+rm $untar_name

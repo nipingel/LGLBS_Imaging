@@ -26,12 +26,11 @@ ms_path = args.path
 spw_val = args.spw
 def main():
 	vis_name = ms_path
-	output_vis = '%s_spw%d' % (ms_path, spw_val)
+	output_vis = '%s_spw%s' % (ms_path, spw_val)
 	intent_str = 'OBSERVE_TARGET*'
-	spw_str='0:%s' % i
-	timebin_str = '20s'
+	timebin_str = '5s'
 	datacolumn_name = 'data'
-	split(vis = vis_name, outputvis = output_vis, spw=spw_str, datacolumn=datacolumn_name, intent = intent_str, timebin = timebin_str)
+	split(vis = vis_name, outputvis = output_vis, spw=spw_val, datacolumn=datacolumn_name, intent = intent_str, timebin = timebin_str)
 if __name__=='__main__':
 	main()
 	exit()
