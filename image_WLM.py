@@ -34,8 +34,8 @@ def main():
 	vis_name=vis_path
 	## output image properties
 	restore_beam = 'common'
-	cell_size = '1.25arcsec'
-	im_size = 3072
+	cell_size = '0.75arcsec'
+	im_size = 5120
 	## automasking parameters ##
 	use_mask = 'pb'
 	#use_mask = 'auto-multithresh'
@@ -52,10 +52,10 @@ def main():
 	ms_scales = [0, 8, 16, 32, 64, 128, 256, 512, 1024]
 	#ms_scales = [64, 128, 256, 512]
 	tot_niter = 10000
-	min_threshold = '3.0mJy'
+	min_threshold = '2.175mJy'
 	restart_parameter = False
-	tclean(vis=vis_path, imagename=output_name, selectdata = True, field = 'WLM_1_CTR', restfreq=rest_freq, specmode = 'mfs', phasecenter=phasecenter,imsize=im_size, 
-		cell=cell_size, restoringbeam=restore_beam, pblimit = 0.1,  weighting='briggs', robust = 2.0, gridder='wproject', pbcor=True, niter=tot_niter, deconvolver = deconvolver_mode, 
+	tclean(vis=vis_path, imagename=output_name, selectdata = True, restfreq=rest_freq, specmode = 'mfs', phasecenter=phasecenter,imsize=im_size, 
+		cell=cell_size, restoringbeam=restore_beam, pblimit = 0.1,  weighting='briggs', robust = 1.5, gridder='wproject', pbcor=True, niter=tot_niter, deconvolver = deconvolver_mode, 
 		scales = ms_scales, smallscalebias = 0.4, cyclefactor = 0.8, minpsffraction=0.05, maxpsffraction = 0.8, threshold = min_threshold, usemask = use_mask, pbmask = 0.5, 
 		sidelobethreshold = sidelobe_threshold, noisethreshold = noise_threshold, minbeamfrac = min_beam_frac, lownoisethreshold = lownoisethreshold, negativethreshold = 0.0, growiterations = grow_iters, 
 		dogrowprune = False, verbose = True, restart = restart_parameter)

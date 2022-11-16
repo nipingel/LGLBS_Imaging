@@ -34,10 +34,10 @@ Requirements=(Target.HasCHTCStaging == true)
 
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
-transfer_input_files = /home/nmpingel/LGLBS/LGLBS_Imaging/combine_images.sh, /home/nmpingel/LGLBS/LGLBS_Imaging/combine_images.py
+transfer_input_files = combine_images.sh, combine_images.py
 request_cpus = 1
 request_memory = 20GB
-request_disk = 50GB
+request_disk = 100GB
 #
 # Tell HTCondor to run 1 instances of our job:
 queue 1

@@ -1,5 +1,5 @@
-# imaging_submission_wlm.sub
-# script to base submission of LGLBS imaging jobs
+# uvcontsub_all.sub
+# script to submit job to split spw 0 (HI) from LGLBS measurement sets
 #
 # Specify the HTCondor Universe (vanilla is the default and is used
 #  for almost all jobs) and your desired name of the HTCondor log file,
@@ -8,40 +8,29 @@
 #  queue number assigned to this set of jobs at the time of submission.
 universe = docker
 docker_image = nipingel/casa:latest
-log = image_wlm_chan$(Process).log
 #
 # Specify your executable (single binary or a script that runs several
 #  commands), arguments, and a files for HTCondor to store standard
 #  output (or "screen output").
 #  $(Process) will be a integer number for each job, starting with "0"
 #  and increasing for the relevant number of jobs.
-
-## imaging ()
-executable = image_WLM.sh
-
-## argument: split-out channel for imaging
-## set up start and end channels
-#chan = $INT(input_chan,%d)
-chan = $INT(Process,%d)
-log = image_WLM_chan$(chan).log
-
-arguments = $(chan)
-output = image_WLM_chan$(chan).out
-error = image_WLM_chan$(chan).err
-
+executable = uvcontsub_indv.sh
+arguments = $(ms_name)
+output = contsub_$(Process).out
+error = contsub_$(Process).err
+log = contsub_$(Process).log
+#
 # Specify that HTCondor should transfer files to and from the
 #  computer where each job runs. The last of these lines *would* be
 #  used if there were any other files needed for the executable to use.
 Requirements=(Target.HasCHTCStaging == true)
 +HasCHTCStaging=true
-
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
-transfer_input_files = image_WLM.py, image_WLM.sh
-request_cpus = 1
-request_memory = 20GB
-request_disk = 10GB
+transfer_input_files = uvcontsub_indv.py, freq_chans.npy, uvcontsub_indv.sh, /home/nmpingel/software/analysis_scripts.tar, /home/nmpingel/student_projects/packages.tar.gz
+request_cpus = 2
+request_memory = 10GB
+request_disk = 200GB
 #
 # Tell HTCondor to run 1 instances of our job:
-queue 500
-#queue input_chan from leftover_channels.txt
+queue ms_name from measurement_set_list_spw5.txt

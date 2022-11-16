@@ -7,7 +7,7 @@
 #  your job. Wherever you see $(Cluster), HTCondor will insert the 
 #  queue number assigned to this set of jobs at the time of submission.
 universe = vanilla
-log = unpack_casa_images$(Process).log
+log = untar_casa_images$(Process).log
 #
 # Specify your executable (single binary or a script that runs several
 #  commands), arguments, and a files for HTCondor to store standard
@@ -17,10 +17,11 @@ log = unpack_casa_images$(Process).log
 executable = untar_casa_images.sh
 
 ## argument: link to wget checksum
-chan = $INT(Process,%d)
+#chan = $INT(Process,%d)
+chan = $INT(chan_num,%d)
 arguments = $(chan)
-output = unpack_casa_images$(chan).out
-error = unpack_casa_images$(chan).err
+output = untar_casa_images$(chan).out
+error = untar_casa_images$(chan).err
 
 #
 # Specify that HTCondor should transfer files to and from the
@@ -33,7 +34,8 @@ Requirements=(Target.HasCHTCStaging == true)
 transfer_input_files = /home/nmpingel/GASKAP-HI/GASKAP_Imaging/untar_casa_images.sh
 request_cpus = 1
 request_memory = 100MB
-request_disk = 1GB
+request_disk = 3GB
 #
 # Tell HTCondor to run 1 instances of our job:
-queue 500
+#queue 500
+queue chan_num from chan_nums.txt

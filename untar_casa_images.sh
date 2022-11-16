@@ -7,14 +7,10 @@ cd tmp
 
 ## set source-specific parameters
 source_name="WLM"
-tarball_str="wlmctr_BCD_chan"
-tarball_name="wlmctr_BCD_chan"$1".tar"
-
-## copy tarball
-cp /projects/vla-processing/images/$source_name/$tarball_name ./
+file_name="wlmctr_ABCD_chan"$1
 
 ## untar 
-tar -xvf $tarball_name
+tar -xvf /projects/vla-processing/images/$source_name/$file_name".tar" --directory .
 
 ## move to designated directory
 mv *.image /projects/vla-processing/images/$source_name
@@ -22,5 +18,5 @@ mv *.image.pbcor /projects/vla-processing/images/$source_name
 mv *.residual /projects/vla-processing/images/$source_name
 
 ## clean up
-rm -rf $tarball_str*
+rm -rf $file_name*
 

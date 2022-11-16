@@ -14,18 +14,18 @@ tar -xvf casa-6.5.0-15-py3.8.tar
 HOME=$PWD
 
 ## untar measurement set
-ms_name="wlmctr_BCD_chan"
+image_name="wlmctr_ABCD_chan"
 source_name="WLM"
 suffix="image"
-output_name="WLM_BCD"
+output_name="WLM_ABCD"
 
 ## copy measurement set to working directory
-cp -r /projects/vla-processing/images/$source_name/$ms_name*$suffix ./
+cp -r /projects/vla-processing/images/$source_name/$image_name*$suffix ./
 
 # make casa call to imaging script
-casa-6.5.0-15-py3.8/bin/casa --logfile wlmctr_BCD_chan$1.log -c combine_images.py -f $suffix -o $output_name -d 1.954
+casa-6.5.0-15-py3.8/bin/casa -c combine_images.py -f $suffix -o $output_name -d 1.954
 
 mv $output_name* /projects/vla-processing/images/$source_name
 
 ## clean up
-rm -rf $ms_name*
+rm -rf $image_name*
