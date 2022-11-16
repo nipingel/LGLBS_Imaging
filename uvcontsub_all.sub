@@ -15,7 +15,7 @@ docker_image = nipingel/casa:latest
 #  $(Process) will be a integer number for each job, starting with "0"
 #  and increasing for the relevant number of jobs.
 executable = uvcontsub_indv.sh
-
+arguments = $(ms_name)
 output = contsub_$(Process).out
 error = contsub_$(Process).err
 log = contsub_$(Process).log
@@ -27,10 +27,10 @@ Requirements=(Target.HasCHTCStaging == true)
 +HasCHTCStaging=true
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
-transfer_input_files = /home/nmpingel/LGLBS/LGLBS_Imaging/uvcontsub_indv.py, /home/nmpingel/LGLBS/LGLBS_Imaging/uvcontsub_indv.sh
+transfer_input_files = uvcontsub_indv.py, freq_chans.npy, uvcontsub_indv.sh, /home/nmpingel/software/analysis_scripts.tar, /home/nmpingel/student_projects/packages.tar.gz
 request_cpus = 2
 request_memory = 10GB
-request_disk = 100GB
+request_disk = 200GB
 #
 # Tell HTCondor to run 1 instances of our job:
-queue ms_name from measurement_set_names.txt
+queue ms_name from measurement_set_list_spw5.txt
