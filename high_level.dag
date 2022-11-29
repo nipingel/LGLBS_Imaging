@@ -1,0 +1,36 @@
+
+JOB  T1 transfer.sub
+VARS T1 fname="abc.tar"
+
+JOB  A1 split_spw.sub
+VARS A1 fname="abc.tar"
+
+JOB  B1 ms_tranform.sub
+VARS B1 fname="abc.tar"
+
+JOB  C1 statwt_all.sub
+VARS C1 fname="abc.tar"
+
+JOB  D1 uvcontsub_all.sh
+VARS D1 fname="abc.tar"
+
+JOB  E1 concat_all.sub
+VARS E1 fname="abc.tar"
+
+JOB  F1 split_channels
+VARS F1 fname="abc.tar"
+
+JOB  G1 imaging_submission.sub
+VARS G1 fname="abc.tar"
+
+JOB  H1 combine_images.sub
+VARS H1 fname="abc.tar"
+
+PARENT T1 CHILD A1
+PARENT A1 CHILD B1
+PARENT C1 CHILD D1
+PARENT D1 CHILD E1
+PARENT E1 CHILD F1
+PARENT F1 CHILD G1
+PARENT G1 CHILD H1
+
