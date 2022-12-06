@@ -1,61 +1,77 @@
+#!/usr/bin/env condor_submit_dag
 
 JOB  T1 transfer.sub
 JOB  T2 transfer.sub
-VARS T1 fname="abc1.tar"
-VARS T2 fname="abc2.tar"
-
-JOB  A1 split_spw.sub
-JOB  A2 split_spw.sub
-VARS A1 fname="abc1.tar"
-VARS A2 fname="abc2.tar"
-
-JOB  B1 ms_tranform.sub
-JOB  B2 ms_tranform.sub
-VARS B1 fname="abc1.tar"
-VARS B2 fname="abc2.tar"
-
-JOB  C1 statwt_all.sub
-JOB  C2 statwt_all.sub
-VARS C1 fname="abc1.tar"
-VARS C2 fname="abc2.tar"
-
-JOB  D1 uvcontsub_all.sh
-JOB  D2 uvcontsub_all.sh
-VARS D1 fname="abc1.tar"
-VARS D2 fname="abc2.tar"
-
-JOB  E1 concat_all.sub
-JOB  E2 concat_all.sub
-VARS E1 fname="abc1.tar"
-VARS E2 fname="abc2.tar"
-
-JOB  F1 split_channels
-JOB  F2 split_channels
-VARS F1 fname="abc1.tar"
-VARS F2 fname="abc2.tar"
-
-JOB  G1 imaging_submission.sub
-JOB  G2 imaging_submission.sub
-VARS G1 fname="abc1.tar"
-VARS G2 fname="abc2.tar"
-
-JOB  H1 combine_images.sub
-JOB  H2 combine_images.sub
-VARS H1 fname="abc1.tar"
-VARS H2 fname="abc2.tar"
+VARS T1 fname="file1.tar"
+VARS T2 fname="file2.tar"
 
 PARENT T1 CHILD A1
 PARENT T2 CHILD A2
+
+JOB  A1 split_spw.sub
+JOB  A2 split_spw.sub
+VARS A1 fname="file1.tar"
+VARS A2 fname="file2.tar"
+
 PARENT A1 CHILD B1
 PARENT A2 CHILD B2
+
+JOB  B1 ms_tranform.sub
+JOB  B2 ms_tranform.sub
+VARS B1 fname="file1.spw5"
+VARS B2 fname="file2.spw5"
+
+PARENT B1 CHILD C1
+PARENT B2 CHILD C2
+
+JOB  C1 statwt_all.sub
+JOB  C2 statwt_all.sub
+VARS C1 fname="file1.spw5.transformed"
+VARS C2 fname="file2.spw5.transformed"
+
 PARENT C1 CHILD D1
 PARENT C2 CHILD D2
+
+JOB  D1 uvcontsub_all.sh
+JOB  D2 uvcontsub_all.sh
+VARS D1 fname="file1.spw5.transformed.wt"
+VARS D2 fname="file2.spw5.transformed.wt"
+
 PARENT D1 CHILD E1
-PARENT D2 CHILD E2
+PARENT D2 CHILD E1
+
+JOB  E1 concat_all.sub
+
+#input_list (file.spw5.transformed.wt.contsub.concat.list) looks like:
+#file1.spw5.transformed.wt.contsub
+#file2.spw5.transformed.wt.contsub
+
+VARS E1 input_list="file.spw5.transformed.wt.contsub.concat.list"
+VARS E1 out_fname="file.spw5.transformed.wt.contsub.concat"
+
 PARENT E1 CHILD F1
-PARENT E2 CHILD F2
+
+
+#MIGHT START HERE:
+
+JOB  F1 split_channels.sub
+VARS F1 fname="file.spw5.transformed.wt.contsub.concat"
+
 PARENT F1 CHILD G1
-PARENT F2 CHILD G2
+PARENT F1 CHILD G2
+
+JOB  G1 imaging_submission.sub
+JOB  G2 imaging_submission.sub
+VARS G1 fname="file.spw5.transformed.wt.contsub.concat.chan1"
+VARS G2 fname="file.spw5.transformed.wt.contsub.concat.chan2"
+
 PARENT G1 CHILD H1
-PARENT G2 CHILD H2
+PARENT G2 CHILD H1
+
+JOB  H1 combine_images.sub
+VARS H1 input_list="file.spw5.transformed.wt.contsub.concat.chans.list"
+#file.spw5.transformed.wt.contsub.concat.chan1.tar
+#file.spw5.transformed.wt.contsub.concat.chan2.tar
+VARS H1 out_fname="file.spw5.transformed.wt.contsub.concat.cube.fits"
+
 
