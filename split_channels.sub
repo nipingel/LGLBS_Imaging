@@ -22,7 +22,7 @@ ec = $(sc) + 5
 start_chan = $INT(sc,%d)
 end_chan = $INT(ec,%d)
 
-arguments = $(start_chan) $(end_chan) 
+arguments = $(fname) $(start_chan) $(end_chan) 
 output = channel_split_$(start_chan)_to_$(end_chan).out
 error = channel_split__$(start_chan)_to_$(end_chan).err
 log = channel_split_$(start_chan)_to_$(end_chan).log

@@ -1,10 +1,10 @@
 #!/bin/bash
 #
-# image_WLM.sh
-# execution script for imaging of sub cube around absorption source
+# image_channel.sh
+# execution script for imaging single channel of LGLBS sources 
 
 ## untar CASA
-mv image_WLM.py tmp
+mv image_channel.py tmp
 cd tmp
 cp /scratch/casa-6.5.0-15-py3.8.tar.xz .
 xz -d casa-6.5.0-15-py3.8.tar.xz
@@ -14,21 +14,20 @@ tar -xvf casa-6.5.0-15-py3.8.tar
 HOME=$PWD
 
 ## untar measurement set
-ms_name="wlmctr_A+B+C+D_hi21cm.ms_chan"$1
+ms_name=$1"_chan"$3".tar"
 source_name="WLM"
 
 ## copy measurement set to working directory
-cp -r /projects/vla-processing/measurement_sets/$source_name/$ms_name ./
+tar -xvf /projects/vla-processing/measurement_sets/$source_name/$ms_name --directory .
 
-## define input values
-output_name="wlmctr_ABCD_chan"$1
+output_name=$2"_chan"$3
 
 ## added to continue a clean
 #cp /projects/vla-processing/images/WLM/$output_name".tar" .
 #tar -xvf $output_name".tar"
 
 # make casa call to imaging script
-casa-6.5.0-15-py3.8/bin/casa --logfile $output_name".log" -c image_WLM.py -v $ms_name -o $output_name
+casa-6.5.0-15-py3.8/bin/casa --logfile $output_name".log" -c image_channel.py -v $ms_name -o $output_name
 
 ## tar result
 tar -cvf $output_name".tar" $output_name*

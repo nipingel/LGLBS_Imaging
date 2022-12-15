@@ -8,7 +8,7 @@
 #  queue number assigned to this set of jobs at the time of submission.
 universe = docker
 docker_image = nipingel/casa:latest
-log = image_wlm_chan$(Process).log
+log = WLM_image_chan$(Process).log
 #
 # Specify your executable (single binary or a script that runs several
 #  commands), arguments, and a files for HTCondor to store standard
@@ -17,7 +17,7 @@ log = image_wlm_chan$(Process).log
 #  and increasing for the relevant number of jobs.
 
 ## imaging ()
-executable = image_WLM.sh
+executable = image_channel.sh
 
 ## argument: split-out channel for imaging
 ## set up start and end channels
@@ -25,9 +25,9 @@ executable = image_WLM.sh
 chan = $INT(Process,%d)
 log = image_WLM_chan$(chan).log
 
-arguments = $(chan)
-output = image_WLM_chan$(chan).out
-error = image_WLM_chan$(chan).err
+arguments = $(fname) $(oname) $(chan)
+output = WLM_image_chan$(chan).out
+error = WLM_image_chan$(chan).err
 
 # Specify that HTCondor should transfer files to and from the
 #  computer where each job runs. The last of these lines *would* be
@@ -37,7 +37,7 @@ Requirements=(Target.HasCHTCStaging == true)
 
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
-transfer_input_files = image_WLM.py, image_WLM.sh
+transfer_input_files = image_channel.py, image_channel.sh
 request_cpus = 1
 request_memory = 20GB
 request_disk = 10GB

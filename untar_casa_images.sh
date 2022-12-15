@@ -7,7 +7,7 @@ cd tmp
 
 ## set source-specific parameters
 source_name="WLM"
-file_name="wlmctr_ABCD_chan"$1
+file_name=$1"_chan"$2
 
 ## untar 
 tar -xvf /projects/vla-processing/images/$source_name/$file_name".tar" --directory .

@@ -1,0 +1,23 @@
+#!/usr/bin/env WLM_test_dag.dag
+
+## SPLIT OUT INDIVIDUAL CHANNELS
+
+#JOB  A split_channels.sub
+#VARS A fname="wlmctr_A+B+C+D_hi21cm.ms"
+
+#PARENT A CHILD B
+
+JOB  B imaging_submission.sub
+VARS B fname="wlmctr_A+B+C+D_hi21cm.ms" oname="wlmctr_ABCD"
+
+PARENT B CHILD C
+
+JOB C untar_casa_images.sub
+VARS C file_prefix="wlmctr_ABCD"
+
+JOB D combine_images.sub
+VARS D suffix="image" output_name="wlmctr_ABCD_cube"
+
+#file.spw5.transformed.wt.contsub.concat.chan1.tar
+#file.spw5.transformed.wt.contsub.concat.chan2.tar
+#VARS H1 out_fname="file.spw5.transformed.wt.contsub.concat.cube.fits"

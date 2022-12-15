@@ -17,9 +17,9 @@ log = untar_casa_images$(Process).log
 executable = untar_casa_images.sh
 
 ## argument: link to wget checksum
-#chan = $INT(Process,%d)
-chan = $INT(chan_num,%d)
-arguments = $(chan)
+chan = $INT(Process,%d)
+#chan = $INT(chan_num,%d)
+arguments = $(file_prefix) $(chan)
 output = untar_casa_images$(chan).out
 error = untar_casa_images$(chan).err
 
@@ -37,5 +37,5 @@ request_memory = 100MB
 request_disk = 3GB
 #
 # Tell HTCondor to run 1 instances of our job:
-#queue 500
-queue chan_num from chan_nums.txt
+queue 500
+#queue chan_num from chan_nums.txt

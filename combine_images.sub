@@ -22,7 +22,7 @@ executable = combine_images.sh
 ## argument: split-out channel for imaging
 ## set up start and end channels
 
-arguments = $(chan)
+arguments = $(suffix) $(output_name)
 output = collate_images.out
 error = collate_images.err
 

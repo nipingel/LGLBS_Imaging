@@ -19,18 +19,22 @@ tar -xvf casa-6.5.0-15-py3.8.tar
 HOME=$PWD
 ## untar measurement set
 ## define untarred name
-ms_name="wlmctr_A+B+C+D_hi21cm.ms"
+#ms_name="wlmctr_A+B+C+D_hi21cm.ms"
+ms_name=$1
 
 ## untar measurement set to working directory
 tar -xvf /projects/vla-processing/measurement_sets/WLM/$ms_name".tar" --directory .
 
 # make casa call to imaging script
-casa-6.5.0-15-py3.8/bin/casa -c split_channels.py -p $ms_name -s $1 -e $2
+casa-6.5.0-15-py3.8/bin/casa -c split_channels.py -p $1 -s $2 -e $3
 
-#tar -cvf split_chans_$1_to_$2.tar *_chan* *.log
+## tar measurement sets into files for each splitted-out channel
+for i in $( eval echo {$2..$3})
+do 
+tar -cvf $ms_name"_chan"$i".tar" $ms_name"_chan"$i
+done
 
-mv *_chan* /projects/vla-processing/measurement_sets/WLM
-mv imaging/wlmctr/*_chan* /projects/vla-processing/measurement_sets/WLM
+mv $ms_name"_chan"*".tar" /projects/vla-processing/measurement_sets/WLM
 
 ## clean up
 rm -rf $ms_name
