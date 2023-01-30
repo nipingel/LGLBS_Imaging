@@ -10,7 +10,7 @@ dest_dir   = /projects/vla-processing/measurement_sets/$(src_name)
 
 executable = transfer.sh
 
-arguments  = staged_measurement_sets/old_May22/$(fname) $(dest_dir)
+arguments  = MeasurementSets/$(fname) $(dest_dir)
 
 output     = ms-transfer-$(Process).out
 error      = ms-transfer-$(Process).err
