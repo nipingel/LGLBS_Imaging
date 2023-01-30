@@ -26,10 +26,12 @@ ms_name=$1
 tar -xvf /projects/vla-processing/measurement_sets/WLM/$ms_name".tar" --directory .
 
 # make casa call to imaging script
-casa-6.5.0-15-py3.8/bin/casa -c split_channels.py -p $1 -s $2 -e $3
+casa-6.5.0-15-py3.8/bin/casa -c split_channels.py -p $ms_name -s $2 -e $3
 
 ## tar measurement sets into files for each splitted-out channel
-for i in $( eval echo {$2..$3})
+## arithmetic for loop
+last_chan=$(($3-1))
+for i in $( eval echo {$2..$last_chan})
 do 
 tar -cvf $ms_name"_chan"$i".tar" $ms_name"_chan"$i
 done

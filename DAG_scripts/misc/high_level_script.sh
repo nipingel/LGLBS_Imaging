@@ -105,8 +105,3 @@ condor_submit imaging_submission.sub
 condor_submit combine_images.sub
 
 ## CLEAN UP???	
-
-
-
-
-

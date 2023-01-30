@@ -19,7 +19,7 @@ suffix=$1
 output_name=$2
 
 ## copy measurement set to working directory
-cp -r /projects/vla-processing/images/$source_name/*$suffix ./
+cp -r /projects/vla-processing/images/$source_name/*"."$suffix ./
 
 # make casa call to imaging script
 casa-6.5.0-15-py3.8/bin/casa -c combine_images.py -f $suffix -o $output_name -d 1.954

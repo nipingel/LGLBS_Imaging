@@ -8,7 +8,6 @@
 #  queue number assigned to this set of jobs at the time of submission.
 universe = docker
 docker_image = nipingel/casa:latest
-log = WLM_image_chan$(Process).log
 #
 # Specify your executable (single binary or a script that runs several
 #  commands), arguments, and a files for HTCondor to store standard
@@ -23,9 +22,8 @@ executable = image_channel.sh
 ## set up start and end channels
 #chan = $INT(input_chan,%d)
 chan = $INT(Process,%d)
-log = image_WLM_chan$(chan).log
-
 arguments = $(fname) $(oname) $(chan)
+log = WLM_image_chan$(chan).log
 output = WLM_image_chan$(chan).out
 error = WLM_image_chan$(chan).err
 

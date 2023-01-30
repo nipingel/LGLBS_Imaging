@@ -4,16 +4,15 @@
 
 #JOB  A split_channels.sub
 #VARS A fname="wlmctr_A+B+C+D_hi21cm.ms"
-
 #PARENT A CHILD B
 
-JOB  B imaging_submission.sub
-VARS B fname="wlmctr_A+B+C+D_hi21cm.ms" oname="wlmctr_ABCD"
-
-PARENT B CHILD C
+#JOB  B imaging_submission.sub
+#VARS B fname="wlmctr_A+B+C+D_hi21cm.ms" oname="wlmctr_ABCD"
+#PARENT B CHILD C
 
 JOB C untar_casa_images.sub
 VARS C file_prefix="wlmctr_ABCD"
+PARENT C CHILD D
 
 JOB D combine_images.sub
 VARS D suffix="image" output_name="wlmctr_ABCD_cube"
