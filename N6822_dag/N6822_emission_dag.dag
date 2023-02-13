@@ -1,0 +1,94 @@
+#!/usr/bin/env N6822_emssion.dag.dag
+
+## TRANSFER STAGED MEASUREMENT SETS
+
+## transfer.sub to transfer measurement sets from Google Drive using rclone
+## executable:
+## - transfer.sh
+## inputs:
+## - src_name: source name
+## output:
+## - tarball measurement set
+#JOB A transfer.sub
+#VARS A src_name="WLM"
+#PARENT A CHILD B
+
+## run split_channels.sub to split off the HI or OH spectral windows
+## executable:
+## - split_spw.sh (runs split_spw.py)
+## inputs: 
+## - ms_name: file name in input textfile
+## - src_name: source name in input textfile
+## - spw_str: string denoting spectral window to be split ('5' for HI line)
+## output:
+## - tarball of measurement sets that have had spectral window split out with 'spw#' where # is the spectral window index appended to name
+JOB B split_spw.sub
+VARS B spw_str="5"
+#PARENT B CHILD C
+
+## place all split-out measurement sets on same spectral axis & reference frame
+## executable:
+## - ms_transform.sh (runs ms_transform.py)
+## inputs:
+## - ms_name: file name in textfile
+## - ref_frame: output reference frame (e.g., 'LSRK' or 'BARY')
+## - chan_width: channel width in units of Hz
+## - src_name: source name
+## output:
+## - tarball of measurement sets that have been transformed to the user provided reference frame and spectral channel width
+#JOB B ms_transform.sub
+#VARS B ref_frame="LSRK" chan_width="1953.71094083786" src_name="WLM"
+#PARENT B CHILD C
+
+## re-weight visibilities based on root mean square noise in emission-free regions. Use systemic velocity and velocity width to mask channels with expected emission. 
+## executable:
+## - statwt_indv.sh (runs statwt_indv.py)
+## arguments:
+## - ms_name: file name in textfile
+## - v_sys: systemic velocity of source
+## - v_width: velocity width of source
+## - src_name: source name
+## output:
+## - tarball of re-weighted, transformed, and split-out measurement sets with '.wt' appended to tarball name
+#JOB C statwt.sub
+#VARS C v_sys="-125" v_width="210" src_name="WLM"
+#PARENT C CHILD D
+
+## concatenate (combine) measurement sets from all VLA configurations
+## executable:
+## - concat.sh (runs concat.py)
+## arguments:
+## - outfile_name: name of concatenated measurement set
+## - src_name: source name
+## output:
+## - tarball of concatenated measurement set (combines VLA configurations A+B)
+#JOB D concat.sub
+#VARS D src_name="WLM" outfile_name="WLM_A+B.ms"
+
+## run tclean to get cubelets centered on each background source
+## executable:
+## - abs_cubelet.sh (runs abs_cubelet.py)
+## inputs:
+## - RA: Right Acension string from textfile (e.g., 00h40m13.8)
+## - Dec: Declination string form textfile (e.g., +40d50m04.73)
+## - ms_name: concatenated measurement set
+## - start_velocity: starting LSRK velocity (km/s)
+## - chan_nums: number of output channels
+## - field_id: field ID for source
+## - src_name: source name
+## - output:
+## - tarball of 2D cubelets for each source
+JOB F abs_cubelet.sub
+VARS F ms_name="WLM_A+B.ms.tar" start_velocity="-200" chan_nums="500" src_name="WLM" field_id="3"
+## PARENT F CHILD G
+
+## finally, combine the 2D images into 3-dimensional data cube (dims: sky position, sky position, frequency/velocity)
+## executable:
+## - combine_images.sh (runs combine_image.py)
+## arguments:
+## - (in combine_images.sh for combine_images.py) suffix (combine all files with *.residual, *.image, etc...)
+## - (in combine_images.sh for combine_images.py) name of output data cube (in FITS format)
+## - (in combine_images.sh for combine_images.py) spectral width of channels in kHz
+## output:
+## - final data cube
+#condor_submit combine_images.sub
