@@ -19,12 +19,13 @@
 ## inputs: 
 ## - ms_name: file name in input textfile
 ## - src_name: source name in input textfile
+## - src_config: source and config (prefix on file name from Google drive)
 ## - spw_str: string denoting spectral window to be split ('5' for HI line)
 ## output:
 ## - tarball of measurement sets that have had spectral window split out with 'spw#' where # is the spectral window index appended to name
 JOB B split_spw.sub
-VARS B spw_str="5"
-#PARENT B CHILD C
+VARS B spw_str="5" src_name="NGC6822"
+PARENT B CHILD C
 
 ## place all split-out measurement sets on same spectral axis & reference frame
 ## executable:
@@ -36,9 +37,9 @@ VARS B spw_str="5"
 ## - src_name: source name
 ## output:
 ## - tarball of measurement sets that have been transformed to the user provided reference frame and spectral channel width
-#JOB B ms_transform.sub
-#VARS B ref_frame="LSRK" chan_width="1953.71094083786" src_name="WLM"
-#PARENT B CHILD C
+JOB C ms_transform.sub
+VARS C ref_frame="LSRK" chan_width="1953.71094083786" src_name="NGC6822"
+#PARENT C CHILD D
 
 ## re-weight visibilities based on root mean square noise in emission-free regions. Use systemic velocity and velocity width to mask channels with expected emission. 
 ## executable:
