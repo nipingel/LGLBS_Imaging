@@ -30,6 +30,6 @@ f = open('%s.txt' % output_name, "w")
 for f_name in input_list:
 	full_name = f_name.split('/')[-1]
 	name_array = full_name.split('_')
-	f.write('%s, %s_%s' % (full_name, name_array[0], name_array[1]))
+	f.write('%s, %s_%s_' % (full_name, name_array[0], name_array[1]))
 	f.write('\n')
 f.close()
