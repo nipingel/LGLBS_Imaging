@@ -24,7 +24,7 @@
 ## output:
 ## - tarball of measurement sets that have had spectral window split out with 'spw#' where # is the spectral window index appended to name
 JOB B split_spw.sub
-VARS B src_name="NGC6822"
+VARS B src_name="NGC6822" v_sys=-44, v_width=210, rest_freq=1.420406
 PARENT B CHILD C
 
 ## place all split-out measurement sets on same spectral axis & reference frame

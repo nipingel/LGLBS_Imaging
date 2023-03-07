@@ -3,7 +3,9 @@
 Split out a user provided spectral window from a measurement set
 User inputs:
 -p --path - <required> path of ms file
--s --spw - <required> spw
+-v --vsys -  <required> systematic velocity (assumed LSRK)'
+-w --vwidth - <required> velocity width
+-r --restfreq - <required> rest freq (assumed GHz)
 __author__="Nickolas Pingel"
 __version__="1.0"
 __email__="nmpingel@wisc.edu"
@@ -11,21 +13,39 @@ __status__="Production"
 """
 # imports
 import argparse
+from phangsPipeline import casaVisRoutines as cvr
+
 
 ## parse user inputs
 parser = argparse.ArgumentParser()
 parser.add_argument('-p', '--path', help = '<required> path to measurement set', required = True)
-parser.add_argument('-s', '--spw', help='<required> spw', required = True)
+parser.add_argument('-v', '--vsys', help='<required> systematic velocity (assumed LSRK)', type = int, required = True)
+parser.add_argument('-w', '--vwidth', help='<required> velocity width', type = int, required = True)
+parser.add_argument('-r', '--rest_freq', help='<required> rest frequency (assumed GHz)', type=float, required = True)
 args, unknown = parser.parse_known_args()
 
 ## get path to measurement set
 ms_path = args.path
 
-## get starting and ending channels
-spw_val = args.spw
+## parse velocity parameters
+vsys = args.v_sys
+vwidth = args.vwidth
+rest_freq = args.rest_freq
+
+## get possible science spws
+spw_science = cvr.find_spws_for_science(infile = ms_path)
+
+## get intended line based on input systemic velocity, width, & rest frequency
+spw_lines = cvr.find_spws_for_line(infile = ms_path, vsys_kms=vsys, vwidth_kms=vwidth, restfreq_ghz=rest_freq)  
+
+## extract overlappying characters in returned strings
+spw_list = list(set(spw).intersection(spw_science))
+## sort to move numerical string to second index (commas will also overlap) 
+spw_list.sort()
+spw_val = spw_list[1] 
 def main():
 	vis_name = ms_path
-	output_vis = '%s_spw%s' % (ms_path, spw_val)
+	output_vis = '%s_spw' % (ms_path)
 	intent_str = 'OBSERVE_TARGET*'
 	timebin_str = '5s'
 	datacolumn_name = 'data'

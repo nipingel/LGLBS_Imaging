@@ -16,7 +16,7 @@ docker_image = nipingel/casa:latest
 #  and increasing for the relevant number of jobs.
 executable = split_spw.sh
 
-arguments = $(ms_name) $(src_config) $(spw_str) $(src_name)
+arguments = $(ms_name) $(src_config) $(v_sys) $(v_width) $(rest_freq) $(src_name)
 output = spw_split-$(Process).out
 error = spw_split-$(Process).err
 log = spw_split-$(Process).log
@@ -28,10 +28,10 @@ Requirements=(Target.HasCHTCStaging == true)
 +HasCHTCStaging=true
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
-transfer_input_files = split_spw.py, split_spw.sh
+transfer_input_files = split_spw.py, split_spw.sh, /home/nmpingel/software/analysis_scripts.tar, /home/nmpingel/software/phangs_imaging_scripts.tar
 request_cpus = 1
 request_memory = 10GB
 request_disk = 300GB
 #
 # Tell HTCondor to run 1 instances of our job:
-queue ms_name,src_config,spw_str from spw-split-list.txt
+queue ms_name,src_config from spw-split-list.txt
