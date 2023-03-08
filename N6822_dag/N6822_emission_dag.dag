@@ -23,9 +23,9 @@
 ## - spw_str: string denoting spectral window to be split ('5' for HI line)
 ## output:
 ## - tarball of measurement sets that have had spectral window split out with 'spw#' where # is the spectral window index appended to name
-JOB B split_spw.sub
-VARS B src_name="NGC6822" v_sys="-44" v_width="210" rest_freq="1.420406"
-PARENT B CHILD C
+#JOB B split_spw.sub
+#VARS B src_name="NGC6822" v_sys="-44" v_width="210" rest_freq="1.420406"
+#PARENT B CHILD C
 
 ## place all split-out measurement sets on same spectral axis & reference frame
 ## executable:
@@ -55,6 +55,8 @@ VARS C ref_frame="LSRK" chan_width="1953.71094083786" src_name="NGC6822"
 #VARS C v_sys="-125" v_width="210" src_name="WLM"
 #PARENT C CHILD D
 
+## CONTSUB
+
 ## concatenate (combine) measurement sets from all VLA configurations
 ## executable:
 ## - concat.sh (runs concat.py)
@@ -79,8 +81,8 @@ VARS C ref_frame="LSRK" chan_width="1953.71094083786" src_name="NGC6822"
 ## - src_name: source name
 ## - output:
 ## - tarball of 2D cubelets for each source
-JOB F abs_cubelet.sub
-VARS F ms_name="WLM_A+B.ms.tar" start_velocity="-200" chan_nums="500" src_name="WLM" field_id="3"
+#JOB F abs_cubelet.sub
+#VARS F ms_name="WLM_A+B.ms.tar" start_velocity="-200" chan_nums="500" src_name="WLM" field_id="3"
 ## PARENT F CHILD G
 
 ## finally, combine the 2D images into 3-dimensional data cube (dims: sky position, sky position, frequency/velocity)
