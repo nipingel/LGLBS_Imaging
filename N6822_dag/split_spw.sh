@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # split_spw.sh
-# execution script to split out spectral window from input LGLBS measurement set 
+# execution script to split off the HI or OH spectral windows 
 
 ## set up working directory
 mv split_spw.py tmp
@@ -10,16 +10,12 @@ mv phangs_imaging_scripts.tar tmp
 cd tmp
 tar -xvf analysis_scripts.tar
 tar -xvf phangs_imaging_scripts.tar
-cp /scratch/casa-6.5.0-15-py3.8.tar.xz .
-xz -d casa-6.5.0-15-py3.8.tar.xz
-tar -xvf casa-6.5.0-15-py3.8.tar
 
 ## change home directory so CASA will run
 HOME=$PWD
 
 export PYTHONPATH=./analysis_scripts:$PYTHONPATH
 export PYTHONPATH=./phangs_imaging_scripts:$PYTHONPATH
-
 
 ## assign input variables
 ms_name=$1
@@ -36,7 +32,7 @@ untar_name=(${truncated_ms_name//.tar/ })
 tar -xvf /projects/vla-processing/measurement_sets/${src_name}/${ms_name} --directory .
 
 # make casa call to split spw script
-casa-6.5.0-15-py3.8/bin/casa --logfile split_spw.log -c split_spw.py -p ${untar_name} -v ${v_sys} -w ${v_width} -r ${rest_freq} -s ${src_name}
+/casa-6.5.0-15-py3.8/bin/casa --logfile split_spw.log -c split_spw.py -p ${untar_name} -v ${v_sys} -w ${v_width} -r ${rest_freq} -s ${src_name}
 
 tar -cvf ${untar_name}"_spw.tar" ${untar_name}"_spw"
 

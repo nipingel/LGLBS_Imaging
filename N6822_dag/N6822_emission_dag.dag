@@ -13,7 +13,7 @@
 #VARS A src_name="WLM"
 #PARENT A CHILD B
 
-## run split_channels.sub to split off the HI or OH spectral windows
+## run split_spw.sub to split off the HI or OH spectral windows
 ## executable:
 ## - split_spw.sh (runs split_spw.py)
 ## inputs: 
@@ -37,8 +37,8 @@
 ## - src_name: source name
 ## output:
 ## - tarball of measurement sets that have been transformed to the user provided reference frame and spectral channel width
-JOB C ms_transform.sub
-VARS C ref_frame="LSRK" chan_width="1953.71094083786" src_name="NGC6822"
+#JOB C ms_transform.sub
+#VARS C ref_frame="LSRK" chan_width="1953.71094083786" src_name="NGC6822"
 #PARENT C CHILD D
 
 ## re-weight visibilities based on root mean square noise in emission-free regions. Use systemic velocity and velocity width to mask channels with expected emission. 
@@ -51,12 +51,25 @@ VARS C ref_frame="LSRK" chan_width="1953.71094083786" src_name="NGC6822"
 ## - src_name: source name
 ## output:
 ## - tarball of re-weighted, transformed, and split-out measurement sets with '.wt' appended to tarball name
-#JOB C statwt.sub
-#VARS C v_sys="-125" v_width="210" src_name="WLM"
-#PARENT C CHILD D
+JOB C statwt.sub
+VARS C v_sys="-44" v_width="210" src_name="NGC6822"
+PARENT C CHILD D
 
 ## CONTSUB
+## concatenate (combine) measurement sets from all VLA configurations
+### executable:
+### - uvcontsub_indv.sh (runs uvcontsub.py)
+### arguments:
+### - ms_name: file name in textfil
+### - v_sys: systemic velocity of source
+### - v_width: velocity width of source
+### - src_name: source name
+### output:
+### - tarball of concatenated measurement set (combines VLA configurations A+B)
+JOB D uvcontsub_all.sub
+VARS D src_name="NGC6822" v_sys="-44" v_width="210"
 
+## CONCAT
 ## concatenate (combine) measurement sets from all VLA configurations
 ## executable:
 ## - concat.sh (runs concat.py)
@@ -65,8 +78,8 @@ VARS C ref_frame="LSRK" chan_width="1953.71094083786" src_name="NGC6822"
 ## - src_name: source name
 ## output:
 ## - tarball of concatenated measurement set (combines VLA configurations A+B)
-#JOB D concat.sub
-#VARS D src_name="WLM" outfile_name="WLM_A+B.ms"
+##JOB D concat.sub
+##VARS D src_name="WLM" outfile_name="WLM_A+B.ms"
 
 ## run tclean to get cubelets centered on each background source
 ## executable:
