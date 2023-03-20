@@ -17,7 +17,7 @@ log = merge_all_vis.log
 #  $(Process) will be a integer number for each job, starting with "0"
 #  and increasing for the relevant number of jobs.
 executable = concat_all.sh
-
+arguments = $(src_name) $(outfile_name)
 output = merge_all_vis.out
 error = merge_all_vis.err
 
@@ -32,7 +32,7 @@ Requirements=(Target.HasCHTCStaging == true)
 transfer_input_files = concat_all.sh, concat_all.py
 request_cpus = 1
 request_memory = 10GB
-request_disk = 100GB
+request_disk = 10GB
 #
 # Tell HTCondor to run 1 instances of our job:
 queue 1

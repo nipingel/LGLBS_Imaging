@@ -25,6 +25,5 @@ tar -xvf /projects/vla-processing/measurement_sets/${src_name}/${ms_name} --dire
 # make casa call to uvcontsub script
 /casa-6.5.0-15-py3.8/bin/casa --logfile uvcontsub.log -c uvcontsub_indv.py -n ${untar_name} -o 1 -v ${v_sys} -w ${v_width}
 
-## pack up and copy back
-tar -cvf $untar_name"_contsub.tar" $untar_name".contsub"
-mv $untar_name"_contsub.tar" /projects/vla-processing/measurement_sets/${src_name}
+## move back to staging. DO NOT tar since files will be concatenated in staging area next
+mv $untar_name".contsub" /projects/vla-processing/measurement_sets/${src_name}

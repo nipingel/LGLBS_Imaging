@@ -51,35 +51,36 @@
 ## - src_name: source name
 ## output:
 ## - tarball of re-weighted, transformed, and split-out measurement sets with '.wt' appended to tarball name
-JOB C statwt.sub
-VARS C v_sys="-44" v_width="210" src_name="NGC6822"
-PARENT C CHILD D
+## JOB C statwt.sub
+## VARS C v_sys="-44" v_width="210" src_name="NGC6822"
+## PARENT C CHILD D
 
 ## CONTSUB
-## concatenate (combine) measurement sets from all VLA configurations
-### executable:
-### - uvcontsub_indv.sh (runs uvcontsub.py)
-### arguments:
-### - ms_name: file name in textfil
-### - v_sys: systemic velocity of source
-### - v_width: velocity width of source
-### - src_name: source name
-### output:
-### - tarball of concatenated measurement set (combines VLA configurations A+B)
+## run continuum subtraction for all measurement sets from all VLA configurations
+## executable:
+## - uvcontsub_indv.sh (runs uvcontsub.py)
+## arguments:
+## - ms_name: file name in textfil
+## - v_sys: systemic velocity of source
+## - v_width: velocity width of source
+## - src_name: source name
+## output:
+## - contsubed measurement sets with '.contsub' suffix appended
 JOB D uvcontsub_all.sub
 VARS D src_name="NGC6822" v_sys="-44" v_width="210"
+PARENT D CHILD E
 
 ## CONCAT
-## concatenate (combine) measurement sets from all VLA configurations
+## concatenate (combine) measurement sets from all VLA configurations in staging area
 ## executable:
 ## - concat.sh (runs concat.py)
 ## arguments:
 ## - outfile_name: name of concatenated measurement set
 ## - src_name: source name
 ## output:
-## - tarball of concatenated measurement set (combines VLA configurations A+B)
-##JOB D concat.sub
-##VARS D src_name="WLM" outfile_name="WLM_A+B.ms"
+## - concatenated measurement set in staging area
+JOB E concat.sub
+VARS E src_name="NGC6822" outfile_name="NGC6822_A+B+C+D.ms"
 
 ## run tclean to get cubelets centered on each background source
 ## executable:
