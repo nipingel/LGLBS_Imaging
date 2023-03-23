@@ -51,9 +51,9 @@
 ## - src_name: source name
 ## output:
 ## - tarball of re-weighted, transformed, and split-out measurement sets with '.wt' appended to tarball name
-## JOB C statwt.sub
-## VARS C v_sys="-44" v_width="210" src_name="NGC6822"
-## PARENT C CHILD D
+## JOB D statwt.sub
+## VARS D v_sys="-44" v_width="210" src_name="NGC6822"
+## PARENT D CHILD E
 
 ## CONTSUB
 ## run continuum subtraction for all measurement sets from all VLA configurations
@@ -66,9 +66,9 @@
 ## - src_name: source name
 ## output:
 ## - contsubed measurement sets with '.contsub' suffix appended
-JOB D uvcontsub_all.sub
-VARS D src_name="NGC6822" v_sys="-44" v_width="210"
-PARENT D CHILD E
+## JOB E uvcontsub_all.sub
+## VARS E src_name="NGC6822" v_sys="-44" v_width="210"
+## PARENT E CHILD F
 
 ## CONCAT
 ## concatenate (combine) measurement sets from all VLA configurations in staging area
@@ -79,8 +79,8 @@ PARENT D CHILD E
 ## - src_name: source name
 ## output:
 ## - concatenated measurement set in staging area
-JOB E concat.sub
-VARS E src_name="NGC6822" outfile_name="NGC6822_A+B+C+D.ms"
+JOB F concat.sub
+VARS F src_name="NGC6822" outfile_name="NGC6822_A+B+C+D.ms"
 
 ## run tclean to get cubelets centered on each background source
 ## executable:

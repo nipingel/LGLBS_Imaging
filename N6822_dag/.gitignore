@@ -1,2 +1,4 @@
 ## ignore docker logs
 docker_stderror
+## ignore error logs
+err_logs

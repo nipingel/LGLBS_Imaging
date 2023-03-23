@@ -31,7 +31,7 @@ Requirements=(Target.HasCHTCStaging == true)
 transfer_input_files = uvcontsub_indv.py, uvcontsub_indv.sh, /home/nmpingel/software/analysis_scripts.tar
 request_cpus = 2
 request_memory = 10GB
-request_disk = 150GB
+request_disk = 215GB
 #
 # Tell HTCondor to run 1 instances of our job:
 queue ms_name from uvcontsub_list.txt
