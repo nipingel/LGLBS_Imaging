@@ -24,12 +24,12 @@ src_name = args.src_name
 output_vis = args.output
 
 ## construct list of ms files to be concatenated
-ms_list = glob.glob('/projects/vla_processing/measurement_sets/%s/*.contsub' % src_name)
-
+ms_list = glob.glob('/projects/vla-processing/measurement_sets/%s/*.contsub' % src_name)
+output_name = '/projects/vla-processing/measurement_sets/%s/%s' % (src_name, output_vis)
 def main():
 	concat_params = {
 		'vis': ms_list,
-		'concatvis':output_vis,
+		'concatvis':output_name,
 		'freqtol':'0.4kHz',
 		'dirtol': '0.1deg'}
 	concat(**concat_params)

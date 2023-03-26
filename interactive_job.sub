@@ -6,7 +6,7 @@ Requirements=(Target.HasCHTCStaging == true)
 +HasCHTCStaging=true
 transfer_input_files = /home/nmpingel/software/analysis_scripts.tar, /home/nmpingel/software/phangs_imaging_scripts.tar
 request_cpus = 1
-request_memory = 20MB
+request_memory = 1GB
 request_disk = 5GB
 
 queue
