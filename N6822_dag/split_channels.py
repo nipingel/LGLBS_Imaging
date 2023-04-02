@@ -18,6 +18,10 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-p', '--path', help = '<required> path to measurement set', required = True)
 parser.add_argument('-s', '--start_chan', help='<required> starting channel for splitting', required = True, type = int)
 parser.add_argument('-e', '--end_chan', help='<required> ending channel for splitting', required = True, type = int)
+parser.add_argument('--split_concat', action='store_true')
+parser.add_argument('--indv_channel', dest='split_concat', action='store_false')
+parser.set_defaults(for_concat=True)
+
 args, unknown = parser.parse_known_args()
 
 ## get path to measurement set
@@ -27,22 +31,31 @@ ms_path = args.path
 start_chan = args.start_chan
 end_chan = args.end_chan
 
+## are we splitting for concat or individual channels for imaging?
+split_concat = args.split_concat
+
 def main():
-
-	## create list of file names
-	output_vis_list = []
-	for i in range(start_chan, end_chan):
-		output_vis_list.append('%s_chan%d' % (ms_path, i))
-
-	cnt = 0
-	for i in range(start_chan, end_chan):
-		## set split parameters and run
+	if split_concat:
 		vis_name = ms_path
-		output_vis = output_vis_list[cnt]
-		spw_str='0:%d' % i
+		output_vis = '%s.split_concat' % ms_path
+		spw_str='0:%d~%d' % (start_chan, end_chan)
 		datacolumn_name = 'data'
-		cnt+=1
 		split(vis = vis_name, outputvis = output_vis, spw=spw_str, datacolumn=datacolumn_name)
+	else:
+		## create list of file names
+		output_vis_list = []
+		for i in range(start_chan, end_chan):
+			output_vis_list.append('%s_chan%d' % (ms_path, i))
+
+		cnt = 0
+		for i in range(start_chan, end_chan):
+			## set split parameters and run
+			vis_name = ms_path
+			output_vis = output_vis_list[cnt]
+			spw_str='0:%d' % i
+			datacolumn_name = 'data'
+			cnt+=1
+			split(vis = vis_name, outputvis = output_vis, spw=spw_str, datacolumn=datacolumn_name)
 if __name__=='__main__':
 	main()
 	exit()
