@@ -15,9 +15,6 @@ HOME=$PWD
 ms_name=$1
 source_name=$2
 
-## we work directly in staging area without 
-tar -xvf /projects/vla-processing/measurement_sets/$source_name/$ms_name".tar" --directory .
-
 # make casa call to imaging script
 /casa-6.5.0-15-py3.8/bin/casa -c split_channels.py -p $ms_name -s $3 -e $4 --split_concat
 
