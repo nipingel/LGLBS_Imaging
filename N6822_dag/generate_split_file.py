@@ -17,6 +17,7 @@ __status__="Production"
 # imports
 import argparse
 import sys
+import os
 import glob as glob
 import csv
 sys.path.append('/home/nmpingel/software/analysis_scripts')
@@ -51,7 +52,7 @@ def build_lists(file_list):
 
 ## function to pull out measurement sets that have different number of total channels 
 ## than the minimum number
-def parse_lists(ms_list, tot_chans_list, freq_chan_list):
+def parse_lists(ms_list, tot_chans_list, freq_chan_list, ext):
 	min_total_chans = np.min(tot_chans_list)
 	## get indices of measurement set list that exceed minimum number of channels
 	bad_idxs = np.where(np.array(tot_chans_list) > min_total_chans)
@@ -65,6 +66,12 @@ def parse_lists(ms_list, tot_chans_list, freq_chan_list):
 	## extract one instance of freq_chans from measurement set that has minimum number of total channels
 	extracted_min_freq_chan_list = [freq_chan_list[i] for i in good_idxs[0]]
 	extracted_min_ms_list = [ms_list[i] for i in good_idxs[0]]
+
+	## append 'split_concat' file extension so subsequent concat can capture all measurement sets
+	for old_name in extracted_min_ms_list:
+		new_name = min_ms.replace(ext, 'split_concat')
+		os.rename(old_name, new_name)
+
 	## account for instance where extracted_min_freq_chan_list is only a single element
 	if len(extracted_min_freq_chan_list) > 1:
 		return extracted_ms_list, extracted_freq_chan_list, extracted_min_freq_chan_list[0]
@@ -114,7 +121,7 @@ def main():
 	total_channels_list, freq_channels_list = build_lists(ms_list)
 
 	## parse lists to find ms files with total channels that exceed the minimum
-	extracted_ms_list, extracted_freq_chan_list, min_freq_chans = parse_lists(ms_list, total_channels_list, freq_channels_list)
+	extracted_ms_list, extracted_freq_chan_list, min_freq_chans = parse_lists(ms_list, total_channels_list, freq_channels_list, file_ext)
 
 	## get lists of starting and ending channels for splitting
 	start_chan_list, end_chan_list = define_start_and_end_channels(min_freq_chans, extracted_freq_chan_list)
