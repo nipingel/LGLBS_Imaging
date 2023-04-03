@@ -70,8 +70,18 @@
 ## VARS E src_name="NGC6822" v_sys="-44" v_width="210"
 ## PARENT E CHILD F
 
-## TODO HERE
-## call generate_spit_file.py to generate input step for SPLIT OF CONCAT step
+## GENERATE INPUT  FOR SPLIT CONCAT STEP
+## call generate_spit_file.py to generate input for SPLIT OF CONCAT step
+## executable:
+## - generate_spit_file.sh (runs generate_spit_file.py)
+## arguments:
+## - src_name: source name
+## - extension: file extension for measurement sets to be analyzed
+## - output: output name for generated csv file
+## output:
+## - a csv file that has three columns: name of measurement set, starting channel to split, ending channel to split for concat
+##JOB F generate_spit_filesub
+##VARS F src_name="NGC6822" extension="contsub" output="split_concat_list"
 
 ## SPLIT FOR CONCAT
 ## split out channels from measurement sets with more than minumum number of total channels
@@ -82,11 +92,8 @@
 ## - src_name: source name
 ## output:
 ## - split out measurement sets with equal number of channels so concat step will combine into a single spw
-JOB F split_channels_concat.sub
-VARS F src_name="NGC6822"
-
-## TODO HERE
-## ensure channels that were not split for concat have the same file extension for concat step
+## JOB G split_channels_concat.sub
+## VARS G src_name="NGC6822"
 
 ## CONCAT
 ## concatenate (combine) measurement sets from all VLA configurations in staging area
@@ -97,8 +104,20 @@ VARS F src_name="NGC6822"
 ## - src_name: source name
 ## output:
 ## - concatenated measurement set in staging area
-## JOB F concat_all.sub
-## VARS F src_name="NGC6822" outfile_name="NGC6822_A+B+C+D.ms"
+JOB H concat_all.sub
+VARS H src_name="NGC6822" outfile_name="NGC6822_A+B+C+D.ms"
+
+## COMBINE_SPW
+## run mstransform again to combine all spectral windows in concatenated measurement set
+## executable:
+## - combine_spw.sh (runs combine_spw.py)
+## arguments:
+## - input_name: input_name of concatended measurement set
+## - src_name: source name
+## output:
+## - concantenated measurement set with a single spectral window
+JOB F concat_all.sub
+VARS F src_name="NGC6822" input_name="NGC6822_A+B+C+D.ms"
 
 ## run tclean to get cubelets centered on each background source
 ## executable:
