@@ -116,8 +116,8 @@ VARS H src_name="NGC6822" outfile_name="NGC6822_A+B+C+D.ms"
 ## - src_name: source name
 ## output:
 ## - concantenated measurement set with a single spectral window
-JOB F concat_all.sub
-VARS F src_name="NGC6822" input_name="NGC6822_A+B+C+D.ms"
+## JOB F combine_spw.sub
+## VARS F src_name="NGC6822" input_name="NGC6822_A+B+C+D.ms"
 
 ## run tclean to get cubelets centered on each background source
 ## executable:

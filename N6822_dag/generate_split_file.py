@@ -69,7 +69,7 @@ def parse_lists(ms_list, tot_chans_list, freq_chan_list, ext):
 
 	## append 'split_concat' file extension so subsequent concat can capture all measurement sets
 	for old_name in extracted_min_ms_list:
-		new_name = min_ms.replace(ext, 'split_concat')
+		new_name = old_name.replace(ext, 'contsub.split_concat')
 		os.rename(old_name, new_name)
 
 	## account for instance where extracted_min_freq_chan_list is only a single element
