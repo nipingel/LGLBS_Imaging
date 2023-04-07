@@ -104,8 +104,8 @@
 ## - src_name: source name
 ## output:
 ## - concatenated measurement set in staging area
-JOB H concat_all.sub
-VARS H src_name="NGC6822" outfile_name="NGC6822_A+B+C+D.ms"
+##JOB H concat_all.sub
+## VARS H src_name="NGC6822" outfile_name="NGC6822_A+B+C+D.ms"
 
 ## COMBINE_SPW
 ## run mstransform again to combine all spectral windows in concatenated measurement set
@@ -116,8 +116,8 @@ VARS H src_name="NGC6822" outfile_name="NGC6822_A+B+C+D.ms"
 ## - src_name: source name
 ## output:
 ## - concantenated measurement set with a single spectral window
-## JOB F combine_spw.sub
-## VARS F src_name="NGC6822" input_name="NGC6822_A+B+C+D.ms"
+JOB G combine_spw.sub
+VARS G src_name="NGC6822" input_name="NGC6822_A+B+C+D.ms"
 
 ## run tclean to get cubelets centered on each background source
 ## executable:

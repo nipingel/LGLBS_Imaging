@@ -19,7 +19,7 @@ parser.add_argument('-n', '--name', help='<required> name of input measurement s
 args, unknown = parser.parse_known_args()
 
 ## parse measurement set list & output
-src_name = args.src_name
+src_name = args.source_name
 input_name = args.name
 
 ## construct list of ms files to be concatenated
@@ -27,7 +27,12 @@ ms_path = '/projects/vla-processing/measurement_sets/%s/%s' % (src_name, input_n
 output_vis = ms_path.replace('.ms', '_combined_spw.ms')
 
 def main():
-	mstransform(vis = ms_path, outputvis = output_vis, datacolumn = 'data', combinespws = True)
+	mstransform_params = {
+		'vis': ms_path,
+		'outputvis': output_vis,
+		'datacolumn': 'data',
+		'combinespws': True}
+	mstransform(**mstransform_params)
 if __name__=='__main__':
 	main()
 	exit()
