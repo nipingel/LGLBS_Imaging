@@ -35,9 +35,9 @@ Requirements=(Target.HasCHTCStaging == true)
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
 transfer_input_files = split_channels.py, split_channels.sh
-request_cpus = 4
+request_cpus = 1
 request_memory = 10GB
-request_disk = 45GB
+request_disk = 10GB
 #
 # Tell HTCondor to run 1 instances of our job:
 queue 100

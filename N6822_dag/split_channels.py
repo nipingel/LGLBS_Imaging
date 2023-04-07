@@ -36,11 +36,12 @@ split_concat = args.split_concat
 
 def main():
 	if split_concat:
-		vis_name = ms_path
-		output_vis = '%s.split_concat' % ms_path
-		spw_str='0:%d~%d' % (start_chan, end_chan)
-		datacolumn_name = 'data'
-		split(vis = vis_name, outputvis = output_vis, spw=spw_str, datacolumn=datacolumn_name)
+		split_params = {
+		'vis': ms_path,
+		'outputvis': '%s.split_concat' % ms_path,
+		'spw': '0:%d~%d' % (start_chan, end_chan),
+		'datacolumn': 'data'}
+		split(**split_params)
 	else:
 		## create list of file names
 		output_vis_list = []
@@ -49,13 +50,19 @@ def main():
 
 		cnt = 0
 		for i in range(start_chan, end_chan):
+			split_params = {
+			'vis': vis_name,
+			'outputvis': output_vis_list[cnt],
+			'spw': '0:%d' % i,
+			'datacolumn': 'data'}
+
 			## set split parameters and run
 			vis_name = ms_path
 			output_vis = output_vis_list[cnt]
 			spw_str='0:%d' % i
 			datacolumn_name = 'data'
 			cnt+=1
-			split(vis = vis_name, outputvis = output_vis, spw=spw_str, datacolumn=datacolumn_name)
+			split(**split_params)
 if __name__=='__main__':
 	main()
 	exit()
