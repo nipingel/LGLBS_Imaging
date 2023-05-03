@@ -21,11 +21,12 @@ executable = image_channel.sh
 ## argument: split-out channel for imaging
 ## set up start and end channels
 #chan = $INT(input_chan,%d)
-chan = $INT(Process,%d)
-arguments = $(fname) $(oname) $(chan)
-log = WLM_image_chan$(chan).log
-output = WLM_image_chan$(chan).out
-error = WLM_image_chan$(chan).err
+sc = $(Process)+770
+chan = $INT(sc,%d)
+arguments = $(chan)
+log = NGC6822_image_chan$(chan).log
+output = NGC6822_image_chan$(chan).out
+error = NGC6822_image_chan$(chan).err
 
 # Specify that HTCondor should transfer files to and from the
 #  computer where each job runs. The last of these lines *would* be
@@ -37,9 +38,9 @@ Requirements=(Target.HasCHTCStaging == true)
 #  each job will need on the computer where it runs.
 transfer_input_files = image_channel.py, image_channel.sh
 request_cpus = 1
-request_memory = 20GB
-request_disk = 10GB
+request_memory = 5GB
+request_disk = 30GB
 #
 # Tell HTCondor to run 1 instances of our job:
-queue 500
+queue 1
 #queue input_chan from leftover_channels.txt

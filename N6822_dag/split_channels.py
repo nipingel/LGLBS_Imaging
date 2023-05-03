@@ -51,7 +51,7 @@ def main():
 		cnt = 0
 		for i in range(start_chan, end_chan):
 			split_params = {
-			'vis': vis_name,
+			'vis': ms_path,
 			'outputvis': output_vis_list[cnt],
 			'spw': '0:%d' % i,
 			'datacolumn': 'data'}

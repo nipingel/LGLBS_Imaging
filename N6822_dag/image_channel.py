@@ -24,18 +24,18 @@ args, unknown = parser.parse_known_args()
 vis_path = args.vis_path
 #phase_center = args.phase_center
 #start_chan = args.start_chan
-output_name = args.output_name
+output_name = 'NGC6822_A+B+C+D_combined_spw.ms_chan770_dirty'
 
 def main():
-	phasecenter='J2000 00h01m58.161s -15d27m39.34'
+	phasecenter='J2000 19h44m57.74s -14d48m12.4'
 	rest_freq='1.42040571183GHz'
 	#output_name='wlm_center'
 	#vis_name='imaging/wlmctr/wlmctr_B+C+D_hi21cm.ms'
-	vis_name=vis_path
+	vis_name= 'NGC6822_A+B+C+D_combined_spw.ms_chan770'
 	## output image properties
 	restore_beam = 'common'
 	cell_size = '0.75arcsec'
-	im_size = 5120
+	im_size = 8192
 	## automasking parameters ##
 	use_mask = 'pb'
 	#use_mask = 'auto-multithresh'
@@ -51,11 +51,11 @@ def main():
 	deconvolver_mode = 'multiscale'
 	ms_scales = [0, 8, 16, 32, 64, 128, 256, 512, 1024]
 	#ms_scales = [64, 128, 256, 512]
-	tot_niter = 10000
+	tot_niter = 0
 	min_threshold = '2.175mJy'
 	restart_parameter = False
-	tclean(vis=vis_path, imagename=output_name, selectdata = True, restfreq=rest_freq, specmode = 'mfs', phasecenter=phasecenter,imsize=im_size, 
-		cell=cell_size, restoringbeam=restore_beam, pblimit = 0.1,  weighting='briggs', robust = 1.5, gridder='wproject', pbcor=True, niter=tot_niter, deconvolver = deconvolver_mode, 
+	tclean(vis=vis_path, imagename=output_name, selectdata = True, datacolumn = 'data', restfreq=rest_freq, specmode = 'mfs', phasecenter=phasecenter,imsize=im_size, 
+		cell=cell_size, restoringbeam=restore_beam, pblimit = 0.1,  weighting='briggs', robust = 1.0, gridder='wproject', pbcor=True, niter=tot_niter, deconvolver = deconvolver_mode, 
 		scales = ms_scales, smallscalebias = 0.4, cyclefactor = 0.8, minpsffraction=0.05, maxpsffraction = 0.8, threshold = min_threshold, usemask = use_mask, pbmask = 0.5, 
 		sidelobethreshold = sidelobe_threshold, noisethreshold = noise_threshold, minbeamfrac = min_beam_frac, lownoisethreshold = lownoisethreshold, negativethreshold = 0.0, growiterations = grow_iters, 
 		dogrowprune = False, verbose = True, restart = restart_parameter)

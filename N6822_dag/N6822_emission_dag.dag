@@ -131,7 +131,7 @@
 ## output:
 ## - tarballs of individual channels
 JOB J split_channels.sub
-VARS J input_name="NGC6822_A+B+C+D.ms" src_name="NGC6822"
+VARS J input_name="NGC6822_A+B+C+D_combined_spw.ms" src_name="NGC6822"
 
 ## run tclean to get cubelets centered on each background source
 ## executable:
