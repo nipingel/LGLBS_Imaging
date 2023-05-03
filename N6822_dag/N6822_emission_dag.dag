@@ -20,12 +20,15 @@
 ## - ms_name: file name in input textfile
 ## - src_name: source name in input textfile
 ## - src_config: source and config (prefix on file name from Google drive)
-## - spw_str: string denoting spectral window to be split ('5' for HI line)
+## - timebin_str: number of seconds to average visibilites (config-dependent)
+## - v_sys: systemic velocity of source
+## - v_width: velocity width of source
+## - rest_freq: rest frequency of spectral line
 ## output:
-## - tarball of measurement sets that have had spectral window split out with 'spw#' where # is the spectral window index appended to name
-#JOB B split_spw.sub
-#VARS B src_name="NGC6822" v_sys="-44" v_width="210" rest_freq="1.420406"
-#PARENT B CHILD C
+## - tarball of measurement sets that have had spectral window split out with '_spw' appended to file name
+JOB B split_spw.sub
+VARS B src_name="NGC6822" v_sys="-44" v_width="210" rest_freq="1.420406"
+PARENT B CHILD C
 
 ## place all split-out measurement sets on same spectral axis & reference frame
 ## executable:
@@ -37,23 +40,9 @@
 ## - src_name: source name
 ## output:
 ## - tarball of measurement sets that have been transformed to the user provided reference frame and spectral channel width
-#JOB C ms_transform.sub
-#VARS C ref_frame="LSRK" chan_width="1953.71094083786" src_name="NGC6822"
-#PARENT C CHILD D
-
-## re-weight visibilities based on root mean square noise in emission-free regions. Use systemic velocity and velocity width to mask channels with expected emission. 
-## executable:
-## - statwt_indv.sh (runs statwt_indv.py)
-## arguments:
-## - ms_name: file name in textfile
-## - v_sys: systemic velocity of source
-## - v_width: velocity width of source
-## - src_name: source name
-## output:
-## - tarball of re-weighted, transformed, and split-out measurement sets with '.wt' appended to tarball name
-## JOB D statwt.sub
-## VARS D v_sys="-44" v_width="210" src_name="NGC6822"
-## PARENT D CHILD E
+JOB C ms_transform.sub
+VARS C ref_frame="LSRK" chan_width="1953.71094083786" src_name="NGC6822"
+PARENT C CHILD D
 
 ## CONTSUB
 ## run continuum subtraction for all measurement sets from all VLA configurations
@@ -66,12 +55,12 @@
 ## - src_name: source name
 ## output:
 ## - contsubed measurement sets with '.contsub' suffix appended
-## JOB E uvcontsub_all.sub
-## VARS E src_name="NGC6822" v_sys="-44" v_width="210"
-## PARENT E CHILD F
+JOB D uvcontsub_all.sub
+VARS D src_name="NGC6822" v_sys="-44" v_width="210"
+PARENT D CHILD E
 
 ## GENERATE INPUT  FOR SPLIT CONCAT STEP
-## call generate_spit_file.py to generate input for SPLIT OF CONCAT step
+## call generate_spit_file.py to generate input for SPLIT CONCAT step
 ## executable:
 ## - generate_spit_file.sh (runs generate_spit_file.py)
 ## arguments:
@@ -80,8 +69,9 @@
 ## - output: output name for generated csv file
 ## output:
 ## - a csv file that has three columns: name of measurement set, starting channel to split, ending channel to split for concat
-##JOB F generate_spit_filesub
-##VARS F src_name="NGC6822" extension="contsub" output="split_concat_list"
+JOB E generate_spit_filesub
+VARS E src_name="NGC6822" extension="contsub" output="split_concat_list"
+PARENT E CHILD F
 
 ## SPLIT FOR CONCAT
 ## split out channels from measurement sets with more than minumum number of total channels
@@ -89,11 +79,13 @@
 ## executable:
 ## - split_channels_concat.sh (runs split_channels.py)
 ## arguments:
-## - src_name: source name
+## - ms_name - full path to measurement set (input text file)
+## - start_chan - starting channel to split (input text file)
+## - end_chan - ending channel to split (input text file)
 ## output:
 ## - split out measurement sets with equal number of channels so concat step will combine into a single spw
-## JOB G split_channels_concat.sub
-## VARS G src_name="NGC6822"
+JOB F split_channels_concat.sub
+PARENT F CHILD G
 
 ## CONCAT
 ## concatenate (combine) measurement sets from all VLA configurations in staging area
@@ -118,6 +110,20 @@
 ## - concantenated measurement set with a single spectral window
 ## JOB I combine_spw.sub
 ## VARS I src_name="NGC6822" input_name="NGC6822_A+B+C+D.ms"
+
+## re-weight visibilities based on root mean square noise in emission-free regions. Use systemic velocity and velocity width to mask channels with expected emission. 
+## executable:
+## - statwt_indv.sh (runs statwt_indv.py)
+## arguments:
+## - ms_name: file name in textfile
+## - v_sys: systemic velocity of source
+## - v_width: velocity width of source
+## - src_name: source name
+## output:
+## - tarball of re-weighted, transformed, and split-out measurement sets with '.wt' appended to tarball name
+## JOB D statwt.sub
+## VARS D v_sys="-44" v_width="210" src_name="NGC6822"
+## PARENT D CHILD E
 
 ## SPLIT FOR IMAGING
 ## split out channels from concatenated measurement set for imaging

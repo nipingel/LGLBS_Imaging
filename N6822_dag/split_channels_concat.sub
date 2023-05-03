@@ -16,7 +16,7 @@ docker_image = nipingel/casa:latest
 #  and increasing for the relevant number of jobs.
 executable = split_channels_concat.sh
 
-arguments = $(ms_name) $(src_name) $(start_chan) $(end_chan) 
+arguments = $(ms_name) $(start_chan) $(end_chan) 
 output = channel_split_concat_$(Process).out
 error = channel_split_concat_$(Process).err
 log = channel_split_concat_$(Process).log

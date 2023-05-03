@@ -84,6 +84,7 @@ fitorder = args.order
 ## parse velocities
 vsys = args.vsys
 vwidth = args.vwidth
+
 def main():
 	fitspwStr = '0:'
 	chan_str = construct_spw_str(vsys, vwidth, msName)

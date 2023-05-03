@@ -49,7 +49,6 @@ def build_lists(file_list):
 		freq_chans_list.append(spw_dict['chanFreqs'])
 	return tot_chans_list, freq_chans_list
 
-
 ## function to pull out measurement sets that have different number of total channels 
 ## than the minimum number
 def parse_lists(ms_list, tot_chans_list, freq_chan_list, ext):
@@ -71,13 +70,11 @@ def parse_lists(ms_list, tot_chans_list, freq_chan_list, ext):
 	for old_name in extracted_min_ms_list:
 		new_name = old_name.replace(ext, 'contsub.split_concat')
 		os.rename(old_name, new_name)
-
 	## account for instance where extracted_min_freq_chan_list is only a single element
 	if len(extracted_min_freq_chan_list) > 1:
 		return extracted_ms_list, extracted_freq_chan_list, extracted_min_freq_chan_list[0]
 	else:
 		return extracted_ms_list, extracted_freq_chan_list, extracted_min_freq_chan_list
-
 
 ## function to determine first and last channels to be split out from measurement sets with greater number of channels 
 def define_start_and_end_channels(min_freq_chans, freq_chan_list):
@@ -132,8 +129,3 @@ def main():
 if __name__=='__main__':
 	main()
 	exit()
-
-
-
-
-

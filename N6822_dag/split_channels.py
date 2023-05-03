@@ -40,7 +40,8 @@ def main():
 		'vis': ms_path,
 		'outputvis': '%s.split_concat' % ms_path,
 		'spw': '0:%d~%d' % (start_chan, end_chan),
-		'datacolumn': 'data'}
+		'datacolumn': 'data'
+		}
 		split(**split_params)
 	else:
 		## create list of file names
@@ -54,7 +55,8 @@ def main():
 			'vis': ms_path,
 			'outputvis': output_vis_list[cnt],
 			'spw': '0:%d' % i,
-			'datacolumn': 'data'}
+			'datacolumn': 'data'
+			}
 
 			## set split parameters and run
 			vis_name = ms_path

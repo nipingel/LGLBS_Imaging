@@ -1,5 +1,5 @@
 # uvcontsub_all.sub
-# script to submit job to split spw 0 (HI) from LGLBS measurement sets
+# script to submit job to subtract continuum from LGLBS measurement set
 #
 # Specify the HTCondor Universe (vanilla is the default and is used
 #  for almost all jobs) and your desired name of the HTCondor log file,
@@ -14,7 +14,6 @@ docker_image = nipingel/casa:latest
 #  output (or "screen output").
 #  $(Process) will be a integer number for each job, starting with "0"
 #  and increasing for the relevant number of jobs.
-
 executable = uvcontsub_indv.sh
 arguments = $(ms_name) $(v_sys) $(v_width) $(src_name)
 output = contsub_$(Process).out
@@ -31,7 +30,7 @@ Requirements=(Target.HasCHTCStaging == true)
 transfer_input_files = uvcontsub_indv.py, uvcontsub_indv.sh, /home/nmpingel/software/analysis_scripts.tar
 request_cpus = 2
 request_memory = 10GB
-request_disk = 215GB
+request_disk = 300GB
 #
 # Tell HTCondor to run 1 instances of our job:
-queue ms_name from uvcontsub_list.txt
+queue ms_name from uvcontsub-list.txt

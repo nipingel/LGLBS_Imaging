@@ -1,5 +1,5 @@
 # split_spw.sub
-# script to submit job to split spw 0 (HI) from LGLBS measurement sets
+# script to submit job to split a a spectral window from LGLBS measurement sets
 #
 # Specify the HTCondor Universe (vanilla is the default and is used
 #  for almost all jobs) and your desired name of the HTCondor log file,
@@ -15,8 +15,7 @@ docker_image = nipingel/casa:latest
 #  $(Process) will be a integer number for each job, starting with "0"
 #  and increasing for the relevant number of jobs.
 executable = split_spw.sh
-
-arguments = $(ms_name) $(src_config) $(v_sys) $(v_width) $(rest_freq) $(src_name)
+arguments = $(ms_name) $(src_config) $(time_bin_str) $(v_sys) $(v_width) $(rest_freq) $(src_name)
 output = spw_split-$(Process).out
 error = spw_split-$(Process).err
 log = spw_split-$(Process).log
@@ -34,4 +33,4 @@ request_memory = 10GB
 request_disk = 300GB
 #
 # Tell HTCondor to run 1 instances of our job:
-queue ms_name,src_config from spw-split-list.txt
+queue ms_name,src_config,time_bin_str from spw-split-list.txt

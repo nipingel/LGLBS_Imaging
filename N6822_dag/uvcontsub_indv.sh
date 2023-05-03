@@ -1,12 +1,9 @@
 #!/bin/bash
 #
 # uvcontsub_all.sh
-# execution script to shift phase centre of ASKAP measurement sets to user specified value
+# execution script to subtract continuum from a LGLBS measurement set
 
-## set up working directory
-mv uvcontsub_indv.py tmp
-cd tmp
-tar -xvf ../analysis_scripts.tar --directory .
+tar -xvf analysis_scripts.tar --directory .
 
 ## set PYTHONPATH environment variable so statwt.py can import analysis tools
 export PYTHONPATH=./analysis_scripts:$PYTHONPATH
@@ -25,5 +22,5 @@ tar -xvf /projects/vla-processing/measurement_sets/${src_name}/${ms_name} --dire
 # make casa call to uvcontsub script
 /casa-6.5.0-15-py3.8/bin/casa --logfile uvcontsub.log -c uvcontsub_indv.py -n ${untar_name} -o 1 -v ${v_sys} -w ${v_width}
 
-## move back to staging. DO NOT tar since files will be concatenated in staging area next
+## move back to staging. DO NOT tar since files will be set up for concatenation in staging area next
 mv $untar_name".contsub" /projects/vla-processing/measurement_sets/${src_name}
