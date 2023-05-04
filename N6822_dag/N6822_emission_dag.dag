@@ -13,6 +13,7 @@
 #VARS A src_name="WLM"
 #PARENT A CHILD B
 
+## SPLIT_SPW
 ## run split_spw.sub to split off the HI or OH spectral windows
 ## executable:
 ## - split_spw.sh (runs split_spw.py)
@@ -30,6 +31,7 @@ JOB B split_spw.sub
 VARS B src_name="NGC6822" v_sys="-44" v_width="210" rest_freq="1.420406"
 PARENT B CHILD C
 
+## MSTRANSFORM
 ## place all split-out measurement sets on same spectral axis & reference frame
 ## executable:
 ## - ms_transform.sh (runs ms_transform.py)
@@ -59,7 +61,7 @@ JOB D uvcontsub_all.sub
 VARS D src_name="NGC6822" v_sys="-44" v_width="210"
 PARENT D CHILD E
 
-## GENERATE INPUT  FOR SPLIT CONCAT STEP
+## GENERATE INPUT FOR SPLIT CONCAT STEP
 ## call generate_spit_file.py to generate input for SPLIT CONCAT step
 ## executable:
 ## - generate_spit_file.sh (runs generate_spit_file.py)
@@ -93,11 +95,13 @@ PARENT F CHILD G
 ## - concat.sh (runs concat.py)
 ## arguments:
 ## - outfile_name: name of concatenated measurement set
+## - extension: file extension to use for concatenation
 ## - src_name: source name
 ## output:
 ## - concatenated measurement set in staging area
-##JOB H concat_all.sub
-## VARS H src_name="NGC6822" outfile_name="NGC6822_A+B+C+D.ms"
+JOB G concat_all.sub
+VARS G src_name="NGC6822" extension="split_concat" outfile_name="NGC6822_A+B+C+D.ms"
+PARENT G CHILD H
 
 ## COMBINE_SPW
 ## run mstransform again to combine all spectral windows in concatenated measurement set
@@ -108,22 +112,24 @@ PARENT F CHILD G
 ## - src_name: source name
 ## output:
 ## - concantenated measurement set with a single spectral window
-## JOB I combine_spw.sub
-## VARS I src_name="NGC6822" input_name="NGC6822_A+B+C+D.ms"
+JOB H combine_spw.sub
+VARS H src_name="NGC6822" input_name="NGC6822_A+B+C+D.ms"
+PARENT H CHILD I
 
+## STATWT
 ## re-weight visibilities based on root mean square noise in emission-free regions. Use systemic velocity and velocity width to mask channels with expected emission. 
 ## executable:
 ## - statwt_indv.sh (runs statwt_indv.py)
 ## arguments:
-## - ms_name: file name in textfile
+## - ms_name: file name of concatenated measurement set
 ## - v_sys: systemic velocity of source
 ## - v_width: velocity width of source
 ## - src_name: source name
 ## output:
-## - tarball of re-weighted, transformed, and split-out measurement sets with '.wt' appended to tarball name
-## JOB D statwt.sub
-## VARS D v_sys="-44" v_width="210" src_name="NGC6822"
-## PARENT D CHILD E
+## - re-weighted concatenated measurement sets with '.wt' appended to name
+JOB I statwt.sub
+VARS I ms_name="NGC6822_A+B+C+D.comb_spw" v_sys="-44" v_width="210" src_name="NGC6822"
+PARENT I CHILD J
 
 ## SPLIT FOR IMAGING
 ## split out channels from concatenated measurement set for imaging
@@ -137,25 +143,24 @@ PARENT F CHILD G
 ## output:
 ## - tarballs of individual channels
 JOB J split_channels.sub
-VARS J input_name="NGC6822_A+B+C+D_combined_spw.ms" src_name="NGC6822"
+VARS J input_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822"
+PARENT J CHILD K
 
-## run tclean to get cubelets centered on each background source
+## IMAGING
+## run tclean to imagine single channels
 ## executable:
-## - abs_cubelet.sh (runs abs_cubelet.py)
+## - image_channel.sh (runs image_channel.py)
 ## inputs:
-## - RA: Right Acension string from textfile (e.g., 00h40m13.8)
-## - Dec: Declination string form textfile (e.g., +40d50m04.73)
-## - ms_name: concatenated measurement set
-## - start_velocity: starting LSRK velocity (km/s)
-## - chan_nums: number of output channels
-## - field_id: field ID for source
+## - ms_name: concatenated measurement set (without channel number ID, to be appended in execution script)
+## - phase_center_string: coordinate string to set phase center
 ## - src_name: source name
-## - output:
-## - tarball of 2D cubelets for each source
-#JOB F abs_cubelet.sub
-#VARS F ms_name="WLM_A+B.ms.tar" start_velocity="-200" chan_nums="500" src_name="WLM" field_id="3"
-## PARENT F CHILD G
+## output:
+## - tarball containing tclean output for single spectral channels
+JOB K image_channel.sub
+VARS K ms_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822" phase_center_str="19h44m57.74s -14d48m12.4"
+## PARENT K CHILD L
 
+## TODO ##
 ## finally, combine the 2D images into 3-dimensional data cube (dims: sky position, sky position, frequency/velocity)
 ## executable:
 ## - combine_images.sh (runs combine_image.py)

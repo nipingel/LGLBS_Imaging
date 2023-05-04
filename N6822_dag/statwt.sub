@@ -8,7 +8,6 @@
 #  queue number assigned to this set of jobs at the time of submission.
 universe = docker
 docker_image = nipingel/casa:latest
-log = reweight_$(Process).log
 
 #
 # Specify your executable (single binary or a script that runs several
@@ -18,8 +17,9 @@ log = reweight_$(Process).log
 #  and increasing for the relevant number of jobs.
 executable = statwt.sh
 arguments = $(ms_name) $(v_sys) $(v_width) $(src_name)
-output = reweight_$(Process).out
-error = reweight_$(Process).err
+output = reweight.out
+error = reweight.err
+log = reweight.log
 
 #
 # Specify that HTCondor should transfer files to and from the
@@ -32,7 +32,7 @@ Requirements=(Target.HasCHTCStaging == true)
 transfer_input_files = statwt.sh, statwt.py, /home/nmpingel/software/analysis_scripts.tar
 request_cpus = 1
 request_memory = 10GB
-request_disk = 100GB
+request_disk = 10GB
 #
 # Tell HTCondor to run 1 instances of our job:
-queue ms_name from statwt_list.txt
+queue 1

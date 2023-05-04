@@ -29,7 +29,7 @@ untar_name=(${truncated_ms_name//.tar/ })
 tar -xvf /projects/vla-processing/measurement_sets/${src_name}/${ms_name} --directory .
 
 # make casa call to split spw script
-/casa-6.5.0-15-py3.8/bin/casa --logfile split_spw.log -c split_spw.py -p ${untar_name} -v ${v_sys} -w ${v_width} -r ${rest_freq} -t ${time_bin_str}
+/casa-6.5.0-15-py3.8/bin/casa --nologfile -c split_spw.py -p ${untar_name} -v ${v_sys} -w ${v_width} -r ${rest_freq} -t ${time_bin_str}
 
 tar -cvf ${untar_name}"_spw.tar" ${untar_name}"_spw"
 

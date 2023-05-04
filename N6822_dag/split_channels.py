@@ -1,5 +1,5 @@
 """
-8/3/2022
+5/4/2023
 Split out a user provided channel range from input ms file
 User inputs:
 -p --path - <required> path of ms file

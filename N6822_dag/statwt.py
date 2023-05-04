@@ -1,10 +1,10 @@
 """
-11/14/2i022
+05/04/2023
 reweight measurement sets based on rms of emission-free channels
 User inputs:
 -v --vsys - systemic velocity of source (assumed LSRK)
 -w --vwidth - velocity width of source
--n --msPath - path of measurement set
+-n --ms_path - path of measurement set
 __author__="Nickolas Pingel"
 __version__="1.0"
 __email__="nmpingel@wisc.edu"
@@ -90,7 +90,6 @@ def main():
 		'vis': msName,
 		'fitspw': fitspwStr,
 		'excludechans': True,
-		'timebin': '0.001s',
 		'datacolumn': 'data'}
 	statwt(**statwt_params)
 if __name__=='__main__':
