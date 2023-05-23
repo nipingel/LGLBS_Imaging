@@ -16,7 +16,7 @@ ms_name=$1
 v_sys=$2
 v_width=$3
 src_name=$4
-full_path=/projects/vla-processing/measurement_sets/${src_name}/${ms_name}.
+full_path=/projects/vla-processing/measurement_sets/${src_name}/${ms_name}
 
 ## make call to casa
 /casa-6.5.0-15-py3.8/bin/casa --nologfile -c statwt.py -n ${full_path} -v ${v_sys} -w ${v_width}

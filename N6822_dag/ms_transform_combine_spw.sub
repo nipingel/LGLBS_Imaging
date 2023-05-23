@@ -27,7 +27,7 @@ Requirements=(Target.HasCHTCStaging == true)
 +HasCHTCStaging=true
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
-transfer_input_files = combine_spw.py, combine_spw.sh
+transfer_input_files =  ms_transform_combine_spw.py,  ms_transform_combine_spw.sh
 request_cpus = 1
 request_memory = 10GB
 request_disk = 10GB

@@ -17,7 +17,7 @@ docker_image = nipingel/casa:latest
 executable = split_channels.sh
 
 ## set up start and end channels
-sc = $(Process)*5+$(525)
+sc = $(Process)*5 + 1000
 ec = $(sc) + 5
 start_chan = $INT(sc,%d)
 end_chan = $INT(ec,%d)
@@ -40,4 +40,4 @@ request_memory = 10GB
 request_disk = 10GB
 #
 # Tell HTCondor to run number of instances of our job:
-queue 95
+queue 50

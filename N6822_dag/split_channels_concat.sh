@@ -11,4 +11,4 @@ HOME=$PWD
 full_path=$1
 
 # make casa call to imaging script
-/casa-6.5.0-15-py3.8/bin/casa --nologfile -c split_channels.py -p ${full_path} -s $3 -e $4 --split_concat
+/casa-6.5.0-15-py3.8/bin/casa --nologfile -c split_channels.py -p ${full_path} -s $2 -e $3 --split_concat

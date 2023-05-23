@@ -17,11 +17,11 @@ docker_image = nipingel/casa:latest
 
 ## imaging executable
 executable = image_channel.sh
-1
+
 ## determine channel to image
-sc = $(Process)+475
+sc = $(Process)+800
 chan = $INT(sc,%d)
-arguments = $(chan) $(ms_name) $(src_name) $(phase_center_str)
+arguments = $(chan) $(ms_name) $(src_name) $(ra_phase_center) $(dec_phase_center)
 log = NGC6822_image_chan$(chan).log
 output = NGC6822_image_chan$(chan).out
 error = NGC6822_image_chan$(chan).err
@@ -36,8 +36,8 @@ Requirements=(Target.HasCHTCStaging == true)
 #  each job will need on the computer where it runs.
 transfer_input_files = image_channel.py, image_channel.sh
 request_cpus = 1
-request_memory = 5GB
+request_memory = 50GB
 request_disk = 30GB
 #
 # Tell HTCondor to run 475 instances of our job:
-queue 525
+queue 424

@@ -17,7 +17,7 @@ docker_image = nipingel/casa:latest
 #  and increasing for the relevant number of jobs.
 executable = generate_split_file.sh
 
-arguments = $(src_name) $(extension) $(output)
+arguments = $(src_name) $(extension) $(output_name)
 output = file_split_split_generate.out
 error = file_split_split_generate.err
 log = file_split_split_generate.log

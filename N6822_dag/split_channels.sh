@@ -15,7 +15,7 @@ full_path="/projects/vla-processing/measurement_sets/"${source_name}"/"${ms_name
 /casa-6.5.0-15-py3.8/bin/casa --nologfile -c split_channels.py -p ${full_path} -s $3 -e $4 --indv_channel
 
 ## tar measurement sets into files for each splitted-out channel
-cd /projects/vla-processing/measurement_sets/${source_name}/${ms_name}
+cd /projects/vla-processing/measurement_sets/${source_name}
 
 ## arithmetic for loop
 last_chan=$(($4-1))

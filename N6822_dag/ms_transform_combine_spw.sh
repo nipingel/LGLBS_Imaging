@@ -3,9 +3,6 @@
 # contcat_all.sh
 # execution script to run ms_transform to combine spectral windows in a concatenated measurement set
 
-mv combine_spw.py tmp
-cd tmp
-
 ## change home directory so CASA will run
 HOME=$PWD
 

@@ -3,7 +3,8 @@
 Image LGLBS source around user provided phase center
 User inputs:
 -v --vis_path - <required> path of ms file
--p --phase_center - <required> phase center in form e.g.: J2000 00h40m13.8 +40d50m04.73'
+-r --ra - <required> ra phase center in form e.g.: 00h40m13.8 
+-d --dec - <required> dec phase center in form e.g.: +40d50m04.73
 -p --output_name - <required> name of output file
 __author__="Nickolas Pingel"
 __version__="1.0"
@@ -16,15 +17,18 @@ import argparse
 ## parse user inputs
 parser = argparse.ArgumentParser()
 parser.add_argument('-v', '--vis_path', help = '<required> name of measurement set', required = True)
-parser.add_argument('-p', '--phase_center', help = '<required> phase center in form e.g.: J2000 00h40m13.8 +40d50m04.73', required = True)
+parser.add_argument('-r', '--ra', help = '<required> ra phase center in form e.g.: 00h40m13.8', required = True)
+parser.add_argument('-d', '--dec', help = '<required> ra phase center in form e.g.: +40d50m04.73', required = True)
 parser.add_argument('-o', '--output_name', help = '<required> name of output file', required = True)
 args, unknown = parser.parse_known_args()
 
 vis_path = args.vis_path
-phase_center = args.phase_center
+ra_phase_center = args.ra
+dec_phase_center = args.dec
 output_name = args.output_name
 
 def main():
+	#casalog.filter('DEBUG2')   
 	## define tclean variables below
 	## image output properties
 	im_size = 8192
@@ -42,20 +46,21 @@ def main():
 	verbose = True
 	## deconvolution parameters
 	deconvolver_mode = 'multiscale'
-	ms_scales = [0, 8, 16, 32, 64, 128, 256, 512, 1024, 2048]
-	tot_niter = 100000
-	min_threshold = '2.175mJy'
+	ms_scales = [0, 8, 16, 32, 64, 128, 256]
+	tot_niter = 100000 
+	min_threshold = '1.5mJy'
 	restart_parameter = False
 	## tclean dictionary
 	tclean_params={
 		'vis':vis_path,
 		'imagename':output_name,
-		'phasecenter':'J2000 %s' % phase_center,
+		'phasecenter':'J2000 %s %s' % (ra_phase_center, dec_phase_center),
 		'restfreq':'1.42040571183GHz',
 		'selectdata': True,
-		'datacolumn': data,
+		'datacolumn': 'data',
 		'specmode':'mfs',
 		'imsize':im_size,
+		'cell':cell_size,
 		'restoringbeam': restore_beam, 
 		'pblimit':0.1, 
 		'weighting':'briggs', 
@@ -71,7 +76,7 @@ def main():
 		'maxpsffraction':0.8, 
 		'threshold':min_threshold, 
 		'usemask':use_mask, 
-		'pbmask':0.5, 
+		'pbmask':0.2, 
 		'sidelobethreshold':sidelobe_threshold, 
 		'noisethreshold':noise_threshold, 
 		'minbeamfrac':min_beam_frac, 

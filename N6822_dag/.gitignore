@@ -1,4 +1,4 @@
 ## ignore docker logs
 docker_stderror
-## ignore error logs
-err_logs
+## ignore directory holding logs
+log_files

@@ -71,9 +71,9 @@
 ## - output: output name for generated csv file
 ## output:
 ## - a csv file that has three columns: name of measurement set, starting channel to split, ending channel to split for concat
-JOB E generate_split_filesub
-VARS E src_name="NGC6822" extension="contsub" output="split_concat_list"
-PARENT E CHILD F
+##JOB E generate_split_file.sub
+##VARS E src_name="NGC6822" extension="contsub" output_name="split_concat_list"
+##PARENT E CHILD F
 
 ## SPLIT FOR CONCAT
 ## split out channels from measurement sets with more than minumum number of total channels
@@ -86,8 +86,8 @@ PARENT E CHILD F
 ## - end_chan - ending channel to split (input text file)
 ## output:
 ## - split out measurement sets with equal number of channels so concat step will combine into a single spw
-JOB F split_channels_concat.sub
-PARENT F CHILD G
+##JOB F split_channels_concat.sub
+##PARENT F CHILD G
 
 ## CONCAT
 ## concatenate (combine) measurement sets from all VLA configurations in staging area
@@ -99,27 +99,27 @@ PARENT F CHILD G
 ## - src_name: source name
 ## output:
 ## - concatenated measurement set in staging area
-JOB G concat_all.sub
-VARS G src_name="NGC6822" extension="split_concat" outfile_name="NGC6822_A+B+C+D.ms"
-PARENT G CHILD H
+##JOB G concat.sub
+##VARS G src_name="NGC6822" extension="split_concat" outfile_name="NGC6822_A+B+C+D.ms"
+##PARENT G CHILD H
 
 ## COMBINE_SPW
 ## run mstransform again to combine all spectral windows in concatenated measurement set
 ## executable:
-## - combine_spw.sh (runs combine_spw.py)
+## -  ms_transform_combine_spw.sh (runs c  ms_transform_combine_spw.py)
 ## arguments:
 ## - input_name: input_name of concatended measurement set
 ## - src_name: source name
 ## output:
 ## - concantenated measurement set with a single spectral window
-JOB H combine_spw.sub
-VARS H src_name="NGC6822" input_name="NGC6822_A+B+C+D.ms"
-PARENT H CHILD I
+##JOB H ms_transform_combine_spw.sub
+##VARS H src_name="NGC6822" input_name="NGC6822_A+B+C+D.ms"
+##PARENT H CHILD I
 
 ## STATWT
 ## re-weight visibilities based on root mean square noise in emission-free regions. Use systemic velocity and velocity width to mask channels with expected emission. 
 ## executable:
-## - statwt_indv.sh (runs statwt_indv.py)
+## - statwt.sh (runs statwt.py)
 ## arguments:
 ## - ms_name: file name of concatenated measurement set
 ## - v_sys: systemic velocity of source
@@ -127,9 +127,9 @@ PARENT H CHILD I
 ## - src_name: source name
 ## output:
 ## - re-weighted concatenated measurement sets with '.wt' appended to name
-JOB I statwt.sub
-VARS I ms_name="NGC6822_A+B+C+D.comb_spw" v_sys="-44" v_width="210" src_name="NGC6822"
-PARENT I CHILD J
+##JOB I statwt.sub
+##VARS I ms_name="NGC6822_A+B+C+D.comb_spw" v_sys="-44" v_width="210" src_name="NGC6822"
+##PARENT I CHILD J
 
 ## SPLIT FOR IMAGING
 ## split out channels from concatenated measurement set for imaging
@@ -142,9 +142,9 @@ PARENT I CHILD J
 ## - end_chan: ending channel to split
 ## output:
 ## - tarballs of individual channels
-JOB J split_channels.sub
-VARS J input_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822"
-PARENT J CHILD K
+#JOB J split_channels.sub
+##VARS J input_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822"
+##PARENT J CHILD K
 
 ## IMAGING
 ## run tclean to imagine single channels
@@ -152,12 +152,13 @@ PARENT J CHILD K
 ## - image_channel.sh (runs image_channel.py)
 ## inputs:
 ## - ms_name: concatenated measurement set (without channel number ID, to be appended in execution script)
-## - phase_center_string: coordinate string to set phase center
+## - ra_phase_center: ra coordinate string to set phase center
+## - dec_phase_center: dec coordinate string to set phase center
 ## - src_name: source name
 ## output:
 ## - tarball containing tclean output for single spectral channels
 JOB K image_channel.sub
-VARS K ms_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822" phase_center_str="19h44m57.74s -14d48m12.4"
+VARS K ms_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822" ra_phase_center="19h44m57.74s" dec_phase_center="-14d48m12.4"
 ## PARENT K CHILD L
 
 ## TODO ##

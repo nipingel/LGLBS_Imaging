@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# uvcontsub_all.sh
+# uvcontsub.sh
 # execution script to subtract continuum from a LGLBS measurement set
 
 tar -xvf analysis_scripts.tar --directory .
@@ -20,7 +20,7 @@ untar_name=(${ms_name//.tar/ })
 tar -xvf /projects/vla-processing/measurement_sets/${src_name}/${ms_name} --directory .
 
 # make casa call to uvcontsub script
-/casa-6.5.0-15-py3.8/bin/casa --logfile uvcontsub.log -c uvcontsub_indv.py -n ${untar_name} -o 1 -v ${v_sys} -w ${v_width}
+/casa-6.5.0-15-py3.8/bin/casa --nologfile -c uvcontsub.py -n ${untar_name} -o 1 -v ${v_sys} -w ${v_width}
 
 ## move back to staging. DO NOT tar since files will be set up for concatenation in staging area next
 mv $untar_name".contsub" /projects/vla-processing/measurement_sets/${src_name}
