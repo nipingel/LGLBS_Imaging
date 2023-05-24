@@ -1,5 +1,5 @@
 """
-09/21/2022
+05/23/2023
 This script takes a user provided file extension (e.g., '.image'), compiles a list, and iterively 
 hacks each file's metadata. The parameters that will be corrected (can also be specified by the user): 
 rest frequency and frequency resolution. Once the headers are corrected, The images are then
@@ -53,9 +53,6 @@ for file in fileList:
 
 ## combine images
 ia.imageconcat(outfile = '%s.combImage' % outFile , infiles = fileList, relax = False)
-
-## convert to LSRK
-imreframe(imagename = '%s.combImage' % outFile, output = '%s_lsrk.combImage' % outFile, outframe = 'lsrk')
 
 ## write out FITS file
 exportfits(imagename = '%s_lsrk.combImage' % outFile, fitsimage = '%s_lsrk.fits' % outFile, velocity = True, dropdeg = True, history = False)

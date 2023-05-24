@@ -1,30 +1,24 @@
 #!/bin/bash
 #
 # combine_images.sh
-# execution script for imaging of sub cube around absorption source
-
-## untar CASA
-mv combine_images.py tmp
-cd tmp
-cp /scratch/casa-6.5.0-15-py3.8.tar.xz .
-xz -d casa-6.5.0-15-py3.8.tar.xz
-tar -xvf casa-6.5.0-15-py3.8.tar
+# execution script for combining processed individual spectral channels
 
 ## change home directory so CASA will run
 HOME=$PWD
 
-## untar measurement set
-source_name="WLM"
-suffix=$1
-output_name=$2
+## unpack user arguments
+file_suffix=$1
+src_name=$2
+output_name=$3
+delta_nu=$4
 
-## copy measurement set to working directory
-cp -r /projects/vla-processing/images/$source_name/*"."$suffix ./
+## change working directory to staging area
+mv combine_images.py /projects/vla-processing/images/${src_name}
+cd /projects/vla-processing/images/${src_name}
+
 
 # make casa call to imaging script
-casa-6.5.0-15-py3.8/bin/casa -c combine_images.py -f $suffix -o $output_name -d 1.954
-
-mv $output_name* /projects/vla-processing/images/$source_name
+/casa-6.5.0-15-py3.8/bin/casa -c combine_images.py -f ${file_suffix} -o ${output_name} -d ${delta_nu}
 
 ## clean up
-rm -rf $image_name*
+rm combine_images.py

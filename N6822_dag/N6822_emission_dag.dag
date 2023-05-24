@@ -161,14 +161,18 @@ JOB K image_channel.sub
 VARS K ms_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822" ra_phase_center="19h44m57.74s" dec_phase_center="-14d48m12.4"
 ## PARENT K CHILD L
 
-## TODO ##
+## COMBINE IMAGES
 ## finally, combine the 2D images into 3-dimensional data cube (dims: sky position, sky position, frequency/velocity)
 ## executable:
 ## - combine_images.sh (runs combine_image.py)
-## arguments:
-## - (in combine_images.sh for combine_images.py) suffix (combine all files with *.residual, *.image, etc...)
-## - (in combine_images.sh for combine_images.py) name of output data cube (in FITS format)
-## - (in combine_images.sh for combine_images.py) spectral width of channels in kHz
+## inputs:
+## - suffix (combine all files with *.suffix)
+## - output_name: name of output data cube (in FITS format)
+## - delta_nu: spectral width of channels in kHz
 ## output:
 ## - final data cube
-#condor_submit combine_images.sub
+JOB L combine_images.sub
+VARS L suffix = "im" src_name="NGC6822" output_name="NGC6822_ABCD" delta_nu="1953.71094083"
+##PARENT L CHILD M
+
+## TODO: ADD FEATHERING
