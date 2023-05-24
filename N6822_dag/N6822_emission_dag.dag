@@ -161,18 +161,33 @@ JOB K image_channel.sub
 VARS K ms_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822" ra_phase_center="19h44m57.74s" dec_phase_center="-14d48m12.4"
 ## PARENT K CHILD L
 
+## UNTAR FOR COMBINATION
+## untar and move back desired output images to staging area for combination
+## executable:
+## - untar_images.sh (runs untar_images.sh)
+## inputs:
+## - suffix: CASA file suffix to move back to staging (e.g., image, image.pbcor, residual, etc.)
+## - src_name: source_name
+## - file_name: root name of files
+## output:
+## - extracted CASA image file in staging area
+JOB M untar_images.sub
+VARS M suffix="image.pbcor" src_name="NGC6822" root_file_name="NGC6822_A+B+C+D.comb_spw.wt"
+PARENT M CHILD N
+
 ## COMBINE IMAGES
 ## finally, combine the 2D images into 3-dimensional data cube (dims: sky position, sky position, frequency/velocity)
 ## executable:
 ## - combine_images.sh (runs combine_image.py)
 ## inputs:
-## - suffix (combine all files with *.suffix)
+## - suffix: combine all files with *.suffix
 ## - output_name: name of output data cube (in FITS format)
+## - src_name: source name
 ## - delta_nu: spectral width of channels in kHz
 ## output:
 ## - final data cube
-JOB L combine_images.sub
-VARS L suffix = "im" src_name="NGC6822" output_name="NGC6822_ABCD" delta_nu="1953.71094083"
+JOB N combine_images.sub
+VARS N suffix = "image.pbcor" src_name="NGC6822" output_name="NGC6822_ABCD" delta_nu="1953.71094083"
 ##PARENT L CHILD M
 
 ## TODO: ADD FEATHERING
