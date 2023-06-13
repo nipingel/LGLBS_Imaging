@@ -52,8 +52,8 @@ for file in fileList:
 	imhead(imagename = file, mode = 'put', hdkey = 'cdelt4', hdvalue = freqResStr)
 
 ## combine images
-ia.imageconcat(outfile = '%s.combImage' % outFile , infiles = fileList, relax = False)
+ia.imageconcat(outfile = '%s.combImage' % outFile , infiles = fileList, relax = True)
 
 ## write out FITS file
-exportfits(imagename = '%s_lsrk.combImage' % outFile, fitsimage = '%s_lsrk.fits' % outFile, velocity = True, dropdeg = True, history = False)
+exportfits(imagename = '%s.combImage' % outFile, fitsimage = '%s.fits' % outFile, velocity = True, dropdeg = True, history = False)
 

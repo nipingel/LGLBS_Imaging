@@ -157,9 +157,9 @@
 ## - src_name: source name
 ## output:
 ## - tarball containing tclean output for single spectral channels
-JOB K image_channel.sub
-VARS K ms_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822" ra_phase_center="19h44m57.74s" dec_phase_center="-14d48m12.4"
-## PARENT K CHILD L
+##JOB K image_channel.sub
+##VARS K ms_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822" ra_phase_center="19h44m57.74s" dec_phase_center="-14d48m12.4"
+##PARENT K CHILD L
 
 ## UNTAR FOR COMBINATION
 ## untar and move back desired output images to staging area for combination
@@ -171,9 +171,9 @@ VARS K ms_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822" ra_phase_center=
 ## - file_name: root name of files
 ## output:
 ## - extracted CASA image file in staging area
-JOB M untar_images.sub
-VARS M suffix="image.pbcor" src_name="NGC6822" root_file_name="NGC6822_A+B+C+D.comb_spw.wt"
-PARENT M CHILD N
+##JOB L untar_images.sub
+##VARS L suffix="image.pbcor" src_name="NGC6822" root_file_name="NGC6822_A+B+C+D.comb_spw.wt"
+##PARENT L CHILD M
 
 ## COMBINE IMAGES
 ## finally, combine the 2D images into 3-dimensional data cube (dims: sky position, sky position, frequency/velocity)
@@ -186,8 +186,8 @@ PARENT M CHILD N
 ## - delta_nu: spectral width of channels in kHz
 ## output:
 ## - final data cube
-JOB N combine_images.sub
-VARS N suffix = "image.pbcor" src_name="NGC6822" output_name="NGC6822_ABCD" delta_nu="1953.71094083"
+JOB M combine_images.sub
+VARS M suffix = "image.pbcor" src_name="NGC6822" output_name="NGC6822_ABCD" delta_nu="1953.71094083"
 ##PARENT L CHILD M
 
 ## TODO: ADD FEATHERING

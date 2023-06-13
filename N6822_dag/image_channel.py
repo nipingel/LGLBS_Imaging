@@ -48,7 +48,7 @@ def main():
 	deconvolver_mode = 'multiscale'
 	ms_scales = [0, 8, 16, 32, 64, 128, 256]
 	tot_niter = 100000 
-	min_threshold = '1.5mJy'
+	min_threshold = '2.5mJy'
 	restart_parameter = False
 	## tclean dictionary
 	tclean_params={
@@ -64,7 +64,7 @@ def main():
 		'restoringbeam': restore_beam, 
 		'pblimit':0.1, 
 		'weighting':'briggs', 
-		'robust':0.5, 
+		'robust':1.0, 
 		'gridder':'wproject', 
 		'pbcor':True, 
 		'niter':tot_niter, 

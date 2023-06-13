@@ -12,7 +12,7 @@ ms_name=$2"_chan"${chan_num}
 src_name=$3
 ra_phase_center=$4
 dec_phase_center=$5
-output_name=${ms_name}"_full"
+output_name=${ms_name}"_robust1.0"
 
 ## tar measurement set to working directory
 tar -xvf /projects/vla-processing/measurement_sets/${src_name}/indv_channels/${ms_name}".tar" --directory .
