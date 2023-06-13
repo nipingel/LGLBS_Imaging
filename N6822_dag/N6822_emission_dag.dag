@@ -161,6 +161,21 @@
 ##VARS K ms_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822" ra_phase_center="19h44m57.74s" dec_phase_center="-14d48m12.4"
 ##PARENT K CHILD L
 
+## RESTART IMAGING
+## run tclean to imagine single channels
+## executable:
+## - image_channel.sh (runs image_channel.py)
+## inputs:
+## - ms_name: concatenated measurement set (without channel number ID, to be appended in execution script)
+## - ra_phase_center: ra coordinate string to set phase center
+## - dec_phase_center: dec coordinate string to set phase center
+## - src_name: source name
+## output:
+## - tarball containing tclean output for single spectral channels
+JOB K restart_image_channel.sub
+VARS K ms_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822" ra_phase_center="19h44m57.74s" dec_phase_center="-14d48m12.4"
+PARENT K CHILD L
+
 ## UNTAR FOR COMBINATION
 ## untar and move back desired output images to staging area for combination
 ## executable:
@@ -171,9 +186,9 @@
 ## - file_name: root name of files
 ## output:
 ## - extracted CASA image file in staging area
-##JOB L untar_images.sub
-##VARS L suffix="image.pbcor" src_name="NGC6822" root_file_name="NGC6822_A+B+C+D.comb_spw.wt"
-##PARENT L CHILD M
+JOB L untar_images.sub
+VARS L suffix="image.pbcor" src_name="NGC6822" root_file_name="NGC6822_A+B+C+D.comb_spw.wt"
+PARENT L CHILD M
 
 ## COMBINE IMAGES
 ## finally, combine the 2D images into 3-dimensional data cube (dims: sky position, sky position, frequency/velocity)
@@ -188,6 +203,7 @@
 ## - final data cube
 JOB M combine_images.sub
 VARS M suffix = "image.pbcor" src_name="NGC6822" output_name="NGC6822_ABCD" delta_nu="1953.71094083"
-##PARENT L CHILD M
+PARENT L CHILD M
+
 
 ## TODO: ADD FEATHERING
