@@ -157,9 +157,9 @@
 ## - src_name: source name
 ## output:
 ## - tarball containing tclean output for single spectral channels
-##JOB K image_channel.sub
-##VARS K ms_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822" ra_phase_center="19h44m57.74s" dec_phase_center="-14d48m12.4"
-##PARENT K CHILD L
+JOB K image_channel.sub
+VARS K ms_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822" ra_phase_center="19h44m57.74s" dec_phase_center="-14d48m12.4"
+PARENT K CHILD L
 
 ## RESTART IMAGING
 ## run tclean to imagine single channels
@@ -172,9 +172,9 @@
 ## - src_name: source name
 ## output:
 ## - tarball containing tclean output for single spectral channels
-JOB K restart_image_channel.sub
-VARS K ms_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822" ra_phase_center="19h44m57.74s" dec_phase_center="-14d48m12.4"
-PARENT K CHILD L
+##JOB K restart_image_channel.sub
+##VARS K ms_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822" ra_phase_center="19h44m57.74s" dec_phase_center="-14d48m12.4"
+##PARENT K CHILD L
 
 ## UNTAR FOR COMBINATION
 ## untar and move back desired output images to staging area for combination
