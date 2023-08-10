@@ -32,28 +32,51 @@ restFreqStr = '%sMHz' % args.restFreq
 freqResStr = '%skHz' % args.freqRes
 outFile = args.outFile
 
-print('Correcting headers and creating cube from files with extension: %s' % fileExt)
-print('Setting rest frequency: %s [MHz]' % restFreqStr)
-print('Setting frequency resolution: %s [kHz]' % freqResStr)
-print('Creating cube: %s.fits' % outFile)
 
-## create list of files
-fileList = glob.glob('*.%s' % fileExt)
+def main():
+	print('Correcting headers and creating cube from files with extension: %s' % fileExt)
+	print('Setting rest frequency: %s [MHz]' % restFreqStr)
+	print('Setting frequency resolution: %s [kHz]' % freqResStr)
+	print('Creating cube: %s.fits' % outFile)
 
-## ensure list is in ascending channel order
-fileList.sort()
+	## create list of files
+	fileList = glob.glob('*.%s' % fileExt)
 
-## loop through list to correct headers
-for file in fileList:
-	## set rest freq
-	imhead(imagename = file, mode = 'put', hdkey = 'restfreq', hdvalue = restFreqStr)
+	## ensure list is in ascending channel order
+	fileList.sort()
 
-	## set frequency resolution
-	imhead(imagename = file, mode = 'put', hdkey = 'cdelt4', hdvalue = freqResStr)
+	## loop through list to correct headers
+	for file in fileList:
+		## set rest freq
+		imhead(imagename = file, mode = 'put', hdkey = 'restfreq', hdvalue = restFreqStr)
 
-## combine images
-ia.imageconcat(outfile = '%s.combImage' % outFile , infiles = fileList, relax = True)
+		## set frequency resolution
+		imhead(imagename = file, mode = 'put', hdkey = 'cdelt4', hdvalue = freqResStr)
 
-## write out FITS file
-exportfits(imagename = '%s.combImage' % outFile, fitsimage = '%s.fits' % outFile, velocity = True, dropdeg = True, history = False)
+	## combine images
+	ia.imageconcat(outfile = '%s.combImage' % outFile , infiles = fileList, relax = True)
 
+	## smooth to common beam size
+	imsmooth_params = {
+		'kernel':'commonbeam',
+		'imagename':'%s.combImage' % outFile,
+		'outfile':'%s.combImage' % outFile,
+		'overwrite': True
+	}
+	imsmooth(**imsmooth_params)
+
+	## export
+	exportfits_params = {
+		'imagename':'%s.combImage' % outFile,
+		'fitsimage':'%s.fits' % outFile,
+		'velocity': True,
+		'dropdeg': True,
+		'history': False,
+		'dropstokes': True
+	}
+	## write out FITS file
+	exportfits(**exportfits_params)
+	
+if __name__=='__main__':
+	main()
+	exit()
