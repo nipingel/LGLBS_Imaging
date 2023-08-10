@@ -17,6 +17,10 @@ docker_image = nipingel/casa:latest
 
 ## imaging executable
 executable = image_channel.sh
+ms_name=NGC6822_A+B+C+D.comb_spw.wt
+src_name=NGC6822
+ra_phase_center=19h44m57.74s 
+dec_phase_center=-14d48m12.4
 
 ## determine channel to image
 sc = $(Process)+800

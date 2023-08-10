@@ -1,12 +1,13 @@
 # software build file
-universe = docker
-docker_image = nipingel/casa:latest
+universe = vanilla
+#docker_image = nipingel/casa:latest
+#docker_image = docker:latest
 
 Requirements=(Target.HasCHTCStaging == true)
 +HasCHTCStaging=true
 transfer_input_files = /home/nmpingel/software/analysis_scripts.tar, /home/nmpingel/software/phangs_imaging_scripts.tar
 request_cpus = 1
 request_memory = 1GB
-request_disk = 5GB
+request_disk = 1GB
 
 queue

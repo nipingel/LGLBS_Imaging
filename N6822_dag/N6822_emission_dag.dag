@@ -203,7 +203,7 @@ PARENT L CHILD M
 ## - final data cube
 JOB M combine_images.sub
 VARS M suffix = "image.pbcor" src_name="NGC6822" output_name="NGC6822_ABCD" delta_nu="1953.71094083"
-PARENT L CHILD M
+#PARENT M CHILD N
 
 
 ## TODO: ADD FEATHERING
