@@ -6,8 +6,7 @@
 #  which is where HTCondor will describe what steps it takes to run 
 #  your job. Wherever you see $(Cluster), HTCondor will insert the 
 #  queue number assigned to this set of jobs at the time of submission.
-universe = docker
-docker_image = nipingel/casa:latest
+universe = vanilla
 
 #
 # Specify your executable (single binary or a script that runs several
