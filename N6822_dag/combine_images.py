@@ -46,28 +46,27 @@ def main():
 	fileList.sort()
 
 	## loop through list to correct headers
-	for file in fileList:
+	#for file in fileList:
 		## set rest freq
-		imhead(imagename = file, mode = 'put', hdkey = 'restfreq', hdvalue = restFreqStr)
+		#imhead(imagename = file, mode = 'put', hdkey = 'restfreq', hdvalue = restFreqStr)
 
 		## set frequency resolution
-		imhead(imagename = file, mode = 'put', hdkey = 'cdelt4', hdvalue = freqResStr)
+		#imhead(imagename = file, mode = 'put', hdkey = 'cdelt4', hdvalue = freqResStr)
 
 	## combine images
-	ia.imageconcat(outfile = '%s.combImage' % outFile , infiles = fileList, relax = True)
+	#ia.imageconcat(outfile = '%s.combImage' % outFile , infiles = fileList, relax = True)
 
 	## smooth to common beam size
 	imsmooth_params = {
 		'kernel':'commonbeam',
 		'imagename':'%s.combImage' % outFile,
-		'outfile':'%s.combImage' % outFile,
-		'overwrite': True
+		'outfile':'%s.combImage.commonbeam' % outFile,
 	}
 	imsmooth(**imsmooth_params)
 
 	## export
 	exportfits_params = {
-		'imagename':'%s.combImage' % outFile,
+		'imagename':'%s.combImage.commonbeam' % outFile,
 		'fitsimage':'%s.fits' % outFile,
 		'velocity': True,
 		'dropdeg': True,

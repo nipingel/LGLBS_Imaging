@@ -157,9 +157,9 @@
 ## - src_name: source name
 ## output:
 ## - tarball containing tclean output for single spectral channels
-JOB K image_channel.sub
-VARS K ms_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822" ra_phase_center="19h44m57.74s" dec_phase_center="-14d48m12.4"
-PARENT K CHILD L
+##JOB K image_channel.sub
+##VARS K ms_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822" ra_phase_center="19h44m57.74s" dec_phase_center="-14d48m12.4"
+##PARENT K CHILD L
 
 ## RESTART IMAGING
 ## run tclean to imagine single channels
@@ -187,7 +187,7 @@ PARENT K CHILD L
 ## output:
 ## - extracted CASA image file in staging area
 JOB L untar_images.sub
-VARS L suffix="image.pbcor" src_name="NGC6822" root_file_name="NGC6822_A+B+C+D.comb_spw.wt"
+VARS L suffix="image" src_name="NGC6822" root_file_name="NGC6822_A+B+C+D.comb_spw.wt"
 PARENT L CHILD M
 
 ## COMBINE IMAGES
@@ -202,8 +202,7 @@ PARENT L CHILD M
 ## output:
 ## - final data cube
 JOB M combine_images.sub
-VARS M suffix = "image.pbcor" src_name="NGC6822" output_name="NGC6822_ABCD" delta_nu="1953.71094083"
+VARS M suffix = "image" src_name="NGC6822" output_name="NGC6822_ABCD" delta_nu="1953.71094083"
 #PARENT M CHILD N
-
 
 ## TODO: ADD FEATHERING
