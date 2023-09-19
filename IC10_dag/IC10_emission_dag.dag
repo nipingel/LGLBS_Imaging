@@ -11,7 +11,7 @@
 ## - tarball measurement set
 JOB A transfer.sub
 VARS A src_name="IC10"
-PARENT A CHILD B
+## PARENT A CHILD B
 
 ## SPLIT_SPW
 ## run split_spw.sub to split off the HI or OH spectral windows
