@@ -10,8 +10,8 @@
 ## output:
 ## - tarball measurement set
 JOB A transfer.sub
-#VARS A src_name="WLM"
-#PARENT A CHILD B
+VARS A src_name="IC10"
+PARENT A CHILD B
 
 ## SPLIT_SPW
 ## run split_spw.sub to split off the HI or OH spectral windows
@@ -201,8 +201,8 @@ JOB A transfer.sub
 ## - delta_nu: spectral width of channels in kHz
 ## output:
 ## - final data cube
-JOB M combine_images.sub
-VARS M suffix = "image" src_name="NGC6822" output_name="NGC6822_ABCD" delta_nu="1953.71094083"
+## JOB M combine_images.sub
+## VARS M suffix = "image" src_name="NGC6822" output_name="NGC6822_ABCD" delta_nu="1953.71094083"
 #PARENT M CHILD N
 
 ## TODO: ADD FEATHERING
