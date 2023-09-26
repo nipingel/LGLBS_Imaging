@@ -6,16 +6,15 @@
 # default vanilla universe is fine for now
 #universe = docker
 #docker_image = nipingel/casa:latest
-
-dest_dir   = /projects/vla-processing/measurement_sets/rclone-test/dest
+dest_dir   = /projects/vla-processing/measurement_sets/$(src_name)
 
 executable = transfer.sh
 
 arguments  = MeasurementSets/$(fname) $(dest_dir)
 
-output     = log/transfer-$(Process).out
-error      = log/transfer-$(Process).err
-log        = log/transfer-$(Process).log
+output     = ms-transfer-$(Process).out
+error      = ms-transfer-$(Process).err
+log        = ms-transfer-$(Process).log
 
 # want /projects staging area, and want to run at CS near Ceph cluster
 Requirements = (Target.HasCHTCStaging == true && Facility == "CS_2360")
@@ -28,4 +27,3 @@ request_memory = 1GB
 request_disk   = 1GB
 
 queue fname from transfer-list.txt
-

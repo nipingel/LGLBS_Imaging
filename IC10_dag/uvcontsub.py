@@ -1,5 +1,5 @@
 """
-11/07/2i022
+05/03/2023
 Perform continuum subtraction by fitting low order polynomial over a range of required input list of 
 channels, polynomial fit order, and full path of ms file name. 
 User inputs:
@@ -16,7 +16,6 @@ __status__="Production"
 import argparse
 import sys
 sys.path.append('./analysis_scripts')
-sys.path.append('./packages')
 import numpy as np 
 from scipy.ndimage import label
 import analysisUtils as au
@@ -36,7 +35,6 @@ def MW_indices(freq_arr):
 	vel_axis= c*(1-freq_arr/nu_0)
 	inds = ((vel_axis >= -200.0*1e3) * (vel_axis <= 200*1e3))
 	return inds
-
 
 ## function to convert provided vsys and vwidth to high and low frequency ranges
 def compute_freq_range_hz(vsys, vwidth):
@@ -71,7 +69,6 @@ def construct_spw_str(vsys, vwidth, ms_path):
 		this_mask = (regions == ii)
 		low_chan = np.min(chan_axis[this_mask])
 		high_chan = np.max(chan_axis[this_mask])
-		print(low_chan, high_chan)
 		this_spw_string = str(low_chan)+'~'+str(high_chan)
 		if first_string:
 			spw_flagging_string += this_spw_string
@@ -87,6 +84,7 @@ fitorder = args.order
 ## parse velocities
 vsys = args.vsys
 vwidth = args.vwidth
+
 def main():
 	fitspwStr = '0:'
 	chan_str = construct_spw_str(vsys, vwidth, msName)
