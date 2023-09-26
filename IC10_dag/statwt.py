@@ -1,10 +1,10 @@
 """
-11/14/2i022
+05/04/2023
 reweight measurement sets based on rms of emission-free channels
 User inputs:
 -v --vsys - systemic velocity of source (assumed LSRK)
 -w --vwidth - velocity width of source
--n --msPath - path of measurement set
+-n --ms_path - path of measurement set
 __author__="Nickolas Pingel"
 __version__="1.0"
 __email__="nmpingel@wisc.edu"
@@ -17,7 +17,7 @@ sys.path.append('./analysis_scripts')
 import numpy as np 
 from scipy.ndimage import label
 import analysisUtils as au
-from astropy import units as u
+#from astropy import units as u
 
 ## parse user inputs
 parser = argparse.ArgumentParser()
@@ -29,7 +29,8 @@ args, unknown = parser.parse_known_args()
 ## function to construct MW mask
 def MW_indices(freq_arr):
 	nu_0 = 1.42040575e9
-	vel_axis= u.c.value*(1-freq_arr/nu_0)
+	c_0 = 299792458.0
+	vel_axis= c_0*(1-freq_arr/nu_0)
 	inds = ((vel_axis >= -200.0*1e3) * (vel_axis <= 200*1e3))
 	return inds
 
@@ -37,15 +38,16 @@ def MW_indices(freq_arr):
 ## function to convert provided vsys and vwidth to high and low frequency ranges
 def compute_freq_range_hz(vsys, vwidth):
 	nu_0 = 1.42040575e9
+	c_0 = 299792458.0
 	v_low = vsys - vwidth/2
 	v_high = vsys + vwidth/2
-	freq_low = nu_0*(1-v_low/u.c.value)
-	freq_high = nu_0*(1-v_high/u.c.value)
+	freq_low = nu_0*(1-v_low/c_0)
+	freq_high = nu_0*(1-v_high/c_0)
 	return freq_low, freq_high
 
 ## function to determine which relevant channel range to exclude (based on systematic velocity and expected velocity width)
-def construct_spw_str(vsys, vwidth):
-	vm = au.ValueMapping(msPath)
+def construct_spw_str(msName, vsys, vwidth):
+	vm = au.ValueMapping(msName)
 	freq_axis = vm.spwInfo[0]['chanFreqs']
 	half_chan = abs(freq_axis[1]-freq_axis[0])*0.5
 	chan_axis = np.arange(len(freq_axis))
@@ -78,17 +80,17 @@ def construct_spw_str(vsys, vwidth):
 msName = args.msPath
 
 ## parse velocities
-vsys = args.v_sys
+vsys = args.vsys
 vwidth = args.vwidth
 def main():
 	fitspwStr = '0:'
-	chan_str = construct_spw_str(vsys, vwidth)
+	chan_str = construct_spw_str(msName, vsys, vwidth)
 	fitspwStr += chan_str
 	statwt_params = {
 		'vis': msName,
 		'fitspw': fitspwStr,
 		'excludechans': True,
-		'timebin': '0.001s'}
+		'datacolumn': 'data'}
 	statwt(**statwt_params)
 if __name__=='__main__':
 	main()

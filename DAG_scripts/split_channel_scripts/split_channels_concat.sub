@@ -1,4 +1,4 @@
-# split_channels.sub
+# split_channels_concat.sub
 # script to submit job to split channels from staged & calibrated LGLBS measurement set
 #
 # Specify the HTCondor Universe (vanilla is the default and is used
@@ -14,18 +14,12 @@ docker_image = nipingel/casa:latest
 #  output (or "screen output").
 #  $(Process) will be a integer number for each job, starting with "0"
 #  and increasing for the relevant number of jobs.
-executable = split_channels.sh
+executable = split_channels_concat.sh
 
-## set up start and end channels
-sc = $(Process)*5 + 1000
-ec = $(sc) + 5
-start_chan = $INT(sc,%d)
-end_chan = $INT(ec,%d)
-
-arguments = $(input_name) $(src_name) $(start_chan) $(end_chan) 
-output = channel_split_$(start_chan)_to_$(end_chan).out
-error = channel_split_$(start_chan)_to_$(end_chan).err
-log = channel_split_$(start_chan)_to_$(end_chan).log
+arguments = $(ms_name) $(start_chan) $(end_chan) 
+output = channel_split_concat_$(Process).out
+error = channel_split_concat_$(Process).err
+log = channel_split_concat_$(Process).log
 #
 # Specify that HTCondor should transfer files to and from the
 #  computer where each job runs. The last of these lines *would* be
@@ -34,10 +28,10 @@ Requirements=(Target.HasCHTCStaging == true)
 +HasCHTCStaging=true
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
-transfer_input_files = split_channels.py, split_channels.sh
+transfer_input_files = split_channels.py, split_channels_concat.sh
 request_cpus = 1
 request_memory = 10GB
 request_disk = 10GB
 #
-# Tell HTCondor to run number of instances of our job:
-queue 50
+# Tell HTCondor to run 1 instances of our job:
+queue ms_name,start_chan,end_chan from split_concat_list.csv

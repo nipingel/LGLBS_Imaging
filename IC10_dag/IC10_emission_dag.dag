@@ -42,24 +42,24 @@ PARENT B CHILD C
 ## - src_name: source name
 ## output:
 ## - tarball of measurement sets that have been transformed to the user provided reference frame and spectral channel width
-##JOB C ms_transform.sub
-##VARS C ref_frame="LSRK" chan_width="1953.71094083786" src_name="NGC6822"
-##PARENT C CHILD D
+JOB C ms_transform.sub
+VARS C ref_frame="LSRK" chan_width="1953.71094083786" src_name="IC10"
+PARENT C CHILD D
 
 ## CONTSUB
 ## run continuum subtraction for all measurement sets from all VLA configurations
 ## executable:
 ## - uvcontsub.sh (runs uvcontsub.py)
 ## arguments:
-## - ms_name: file name in textfil
+## - ms_name: file name in textfile
 ## - v_sys: systemic velocity of source
 ## - v_width: velocity width of source
 ## - src_name: source name
 ## output:
 ## - contsubed measurement sets with '.contsub' suffix appended
-##JOB D uvcontsub.sub
-##VARS D src_name="NGC6822" v_sys="-44" v_width="210"
-##PARENT D CHILD E
+JOB D uvcontsub.sub
+VARS D src_name="IC10" v_sys="-340" v_width="210"
+PARENT D CHILD E
 
 ## GENERATE INPUT FOR SPLIT CONCAT STEP
 ## call generate_spit_file.py to generate input for SPLIT CONCAT step
@@ -71,9 +71,9 @@ PARENT B CHILD C
 ## - output: output name for generated csv file
 ## output:
 ## - a csv file that has three columns: name of measurement set, starting channel to split, ending channel to split for concat
-##JOB E generate_split_file.sub
-##VARS E src_name="NGC6822" extension="contsub" output_name="split_concat_list"
-##PARENT E CHILD F
+JOB E generate_split_file.sub
+VARS E src_name="IC10" extension="contsub" output_name="split_concat_list"
+PARENT E CHILD F
 
 ## SPLIT FOR CONCAT
 ## split out channels from measurement sets with more than minumum number of total channels
@@ -86,8 +86,8 @@ PARENT B CHILD C
 ## - end_chan - ending channel to split (input text file)
 ## output:
 ## - split out measurement sets with equal number of channels so concat step will combine into a single spw
-##JOB F split_channels_concat.sub
-##PARENT F CHILD G
+JOB F split_channels_concat.sub
+PARENT F CHILD G
 
 ## CONCAT
 ## concatenate (combine) measurement sets from all VLA configurations in staging area
@@ -99,9 +99,9 @@ PARENT B CHILD C
 ## - src_name: source name
 ## output:
 ## - concatenated measurement set in staging area
-##JOB G concat.sub
-##VARS G src_name="NGC6822" extension="split_concat" outfile_name="NGC6822_A+B+C+D.ms"
-##PARENT G CHILD H
+JOB G concat.sub
+VARS G src_name="IC10" extension="split_concat" outfile_name="IC10_A+B+C+D.ms"
+PARENT G CHILD H
 
 ## COMBINE_SPW
 ## run mstransform again to combine all spectral windows in concatenated measurement set
@@ -112,9 +112,9 @@ PARENT B CHILD C
 ## - src_name: source name
 ## output:
 ## - concantenated measurement set with a single spectral window
-##JOB H ms_transform_combine_spw.sub
-##VARS H src_name="NGC6822" input_name="NGC6822_A+B+C+D.ms"
-##PARENT H CHILD I
+JOB H ms_transform_combine_spw.sub
+VARS H src_name="IC10" input_name="IC10_A+B+C+D.ms"
+PARENT H CHILD I
 
 ## STATWT
 ## re-weight visibilities based on root mean square noise in emission-free regions. Use systemic velocity and velocity width to mask channels with expected emission. 
@@ -127,9 +127,9 @@ PARENT B CHILD C
 ## - src_name: source name
 ## output:
 ## - re-weighted concatenated measurement sets with '.wt' appended to name
-##JOB I statwt.sub
-##VARS I ms_name="NGC6822_A+B+C+D.comb_spw" v_sys="-44" v_width="210" src_name="NGC6822"
-##PARENT I CHILD J
+JOB I statwt.sub
+VARS I ms_name="IC10_A+B+C+D.comb_spw" v_sys="-340" v_width="210" src_name="IC10"
+PARENT I CHILD J
 
 ## SPLIT FOR IMAGING
 ## split out channels from concatenated measurement set for imaging
