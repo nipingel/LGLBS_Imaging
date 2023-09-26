@@ -142,9 +142,9 @@ PARENT I CHILD J
 ## - end_chan: ending channel to split
 ## output:
 ## - tarballs of individual channels
-#JOB J split_channels.sub
-##VARS J input_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822"
-##PARENT J CHILD K
+JOB J split_channels.sub
+VARS J input_name="IC10_A+B+C+D.comb_spw.wt" src_name="IC10"
+PARENT J CHILD K
 
 ## IMAGING
 ## run tclean to imagine single channels
@@ -157,9 +157,9 @@ PARENT I CHILD J
 ## - src_name: source name
 ## output:
 ## - tarball containing tclean output for single spectral channels
-##JOB K image_channel.sub
-##VARS K ms_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822" ra_phase_center="19h44m57.74s" dec_phase_center="-14d48m12.4"
-##PARENT K CHILD L
+JOB K image_channel.sub
+VARS K ms_name="IC10_A+B+C+D.comb_spw.wt" src_name="NGC6822" ra_phase_center="00h20m17.34s" dec_phase_center="59d18m13.6"
+#PARENT K CHILD L
 
 ## RESTART IMAGING
 ## run tclean to imagine single channels
