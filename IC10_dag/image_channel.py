@@ -31,7 +31,7 @@ def main():
 	#casalog.filter('DEBUG2')   
 	## define tclean variables below
 	## image output properties
-	im_size = 8192
+	im_size = 5200
 	cell_size = '0.75arcsec'
 	restore_beam = 'common'
 	## automasking parameters ##

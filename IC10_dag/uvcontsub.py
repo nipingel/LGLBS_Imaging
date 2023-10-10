@@ -44,7 +44,10 @@ def compute_freq_range_hz(vsys, vwidth):
 	v_high = vsys + vwidth/2
 	freq_low = nu_0*(1-v_low/c)
 	freq_high = nu_0*(1-v_high/c)
-	return freq_low, freq_high
+	if freq_low < freq_high:
+		return freq_low, freq_high
+	else:
+		return freq_high, freq_low
 
 ## function to determine which relevant channel range to exclude (based on systematic velocity and expected velocity width)
 def construct_spw_str(vsys, vwidth, ms_path):
@@ -82,8 +85,8 @@ msName = args.msPath
 fitorder = args.order
 
 ## parse velocities
-vsys = args.vsys
-vwidth = args.vwidth
+vsys = args.vsys*1e3 ## km/s
+vwidth = args.vwidth*1e3 ## km/s
 
 def main():
 	fitspwStr = '0:'

@@ -57,9 +57,9 @@
 ## - src_name: source name
 ## output:
 ## - contsubed measurement sets with '.contsub' suffix appended
-## JOB D uvcontsub.sub
-## VARS D src_name="IC10" v_sys="-340" v_width="210"
-## PARENT D CHILD E
+JOB D uvcontsub.sub
+VARS D src_name="IC10" v_sys="-340" v_width="210"
+PARENT D CHILD E
 
 ## GENERATE INPUT FOR SPLIT CONCAT STEP
 ## call generate_spit_file.py to generate input for SPLIT CONCAT step
@@ -99,9 +99,9 @@
 ## - src_name: source name
 ## output:
 ## - concatenated measurement set in staging area
-## JOB G concat.sub
-## VARS G src_name="IC10" extension="split_concat" outfile_name="IC10_A+B+C+D.ms"
-## PARENT G CHILD H
+JOB G concat.sub
+VARS G src_name="IC10" extension="contsub" outfile_name="IC10_A+B+C+D.ms"
+PARENT G CHILD H
 
 ## COMBINE_SPW
 ## run mstransform again to combine all spectral windows in concatenated measurement set
@@ -112,9 +112,9 @@
 ## - src_name: source name
 ## output:
 ## - concantenated measurement set with a single spectral window
-## JOB H ms_transform_combine_spw.sub
-## VARS H src_name="IC10" input_name="IC10_A+B+C+D.ms"
-## PARENT H CHILD I
+JOB H ms_transform_combine_spw.sub
+VARS H src_name="IC10" input_name="IC10_A+B+C+D.ms"
+PARENT H CHILD I
 
 ## STATWT
 ## re-weight visibilities based on root mean square noise in emission-free regions. Use systemic velocity and velocity width to mask channels with expected emission. 
@@ -127,8 +127,8 @@
 ## - src_name: source name
 ## output:
 ## - re-weighted concatenated measurement sets with '.wt' appended to name
-## JOB I statwt.sub
-## VARS I ms_name="IC10_A+B+C+D.comb_spw" v_sys="-340" v_width="210" src_name="IC10"
+JOB I statwt.sub
+VARS I ms_name="IC10_A+B+C+D.comb_spw" v_sys="-340" v_width="210" src_name="IC10"
 ## PARENT I CHILD J
 
 ## SPLIT FOR IMAGING
@@ -142,9 +142,9 @@
 ## - end_chan: ending channel to split
 ## output:
 ## - tarballs of individual channels
-## JOB J split_channels.sub
-## VARS J input_name="IC10_A+B+C+D.comb_spw.wt" src_name="IC10"
-## PARENT J CHILD K
+JOB J split_channels.sub
+VARS J input_name="IC10_A+B+C+D.comb_spw.wt" src_name="IC10"
+PARENT J CHILD K
 
 ## IMAGING
 ## run tclean to imagine single channels
