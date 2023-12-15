@@ -32,6 +32,7 @@ def main():
 	## define tclean variables below
 	## image output properties
 	im_size = 5200
+	field_id = 'IC10_1_CTR'
 	cell_size = '0.75arcsec'
 	restore_beam = 'common'
 	## automasking parameters ##
@@ -57,6 +58,7 @@ def main():
 		'phasecenter':'J2000 %s %s' % (ra_phase_center, dec_phase_center),
 		'restfreq':'1.42040571183GHz',
 		'selectdata': True,
+		'field': field_id,
 		'datacolumn': 'data',
 		'specmode':'mfs',
 		'imsize':im_size,

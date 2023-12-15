@@ -76,15 +76,15 @@ def construct_spw_str(msName, vsys, vwidth):
 			spw_flagging_string += this_spw_string
 			first_string = False
 		else:
-			spw_flagging_string += ','+this_spw_string
+			spw_flagging_string += ';'+this_spw_string
 	return spw_flagging_string
 
 ## parse name of visibiltiy from input path
 msName = args.msPath
 
 ## parse velocities
-vsys = args.vsys
-vwidth = args.vwidth
+vsys = args.vsys*1e3 ## km/s
+vwidth = args.vwidth*1e3 ## km/s
 def main():
 	fitspwStr = '0:'
 	chan_str = construct_spw_str(msName, vsys, vwidth)

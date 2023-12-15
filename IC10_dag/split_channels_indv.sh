@@ -17,9 +17,11 @@ full_path=/projects/vla-processing/measurement_sets/${source_name}/${ms_name}
 ## tar measurement sets into files for each splitted-out channel
 cd /projects/vla-processing/measurement_sets/${source_name}
 
+tar -cvf ${ms_name}"_chan"$3".tar" ${ms_name}"_chan"$3
+
 ## arithmetic for loop
-last_chan=$(($4-1))
-for i in $( eval echo {$3..$last_chan})
-do 
-	tar -cvf ${ms_name}"_chan"$i".tar" ${ms_name}"_chan"$i
-done
+##last_chan=$(($4-1))
+##for i in $( eval echo {$3..$last_chan})
+##do 
+##	tar -cvf ${ms_name}"_chan"$i".tar" ${ms_name}"_chan"$i
+##done
