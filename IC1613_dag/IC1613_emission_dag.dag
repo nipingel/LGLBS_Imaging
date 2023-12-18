@@ -1,0 +1,208 @@
+#!/usr/bin/env IC10_emission_dag.dag
+
+## TRANSFER STAGED MEASUREMENT SETS
+
+## transfer.sub to transfer measurement sets from Google Drive using rclone
+## executable:
+## - transfer.sh
+## inputs:
+## - src_name: source name
+## output:
+## - tarball measurement set
+JOB A transfer.sub
+VARS A src_name="IC1613"
+## PARENT A CHILD B
+
+## SPLIT_SPW
+## run split_spw.sub to split off the HI or OH spectral windows
+## executable:
+## - split_spw.sh (runs split_spw.py)
+## inputs: 
+## - ms_name: file name in input textfile
+## - src_name: source name in input textfile
+## - src_config: source and config (prefix on file name from Google drive)
+## - timebin_str: number of seconds to average visibilites (config-dependent)
+## - v_sys: systemic velocity of source
+## - v_width: velocity width of source
+## - rest_freq: rest frequency of spectral line
+## output:
+## - tarball of measurement sets that have had spectral window split out with '_spw' appended to file name
+## JOB B split_spw.sub
+## VARS B src_name="IC10" v_sys="-340" v_width="210" rest_freq="1.420406"
+## PARENT B CHILD C
+
+## MSTRANSFORM
+## place all split-out measurement sets on same spectral axis & reference frame
+## executable:
+## - ms_transform.sh (runs ms_transform.py)
+## inputs:
+## - ms_name: file name in textfile
+## - ref_frame: output reference frame (e.g., 'LSRK' or 'BARY')
+## - chan_width: channel width in units of Hz
+## - src_name: source name
+## output:
+## - tarball of measurement sets that have been transformed to the user provided reference frame and spectral channel width
+## JOB C ms_transform.sub
+## VARS C ref_frame="LSRK" chan_width="1953.71094083786" src_name="IC10"
+## PARENT C CHILD D
+
+## CONTSUB
+## run continuum subtraction for all measurement sets from all VLA configurations
+## executable:
+## - uvcontsub.sh (runs uvcontsub.py)
+## arguments:
+## - ms_name: file name in textfile
+## - v_sys: systemic velocity of source
+## - v_width: velocity width of source
+## - src_name: source name
+## output:
+## - contsubed measurement sets with '.contsub' suffix appended
+## JOB D uvcontsub.sub
+## VARS D src_name="IC10" v_sys="-340" v_width="210"
+## PARENT D CHILD G
+
+## GENERATE INPUT FOR SPLIT CONCAT STEP
+## call generate_spit_file.py to generate input for SPLIT CONCAT step
+## executable:
+## - generate_spit_file.sh (runs generate_spit_file.py)
+## arguments:
+## - src_name: source name
+## - extension: file extension for measurement sets to be analyzed
+## - output: output name for generated csv file
+## output:
+## - a csv file that has three columns: name of measurement set, starting channel to split, ending channel to split for concat
+## JOB E generate_split_file.sub
+## VARS E src_name="IC10" extension="contsub" output_name="split_concat_list"
+## PARENT E CHILD F
+
+## SPLIT FOR CONCAT
+## split out channels from measurement sets with more than minumum number of total channels
+## to ensure all measurement sets have same number of channels for concat step (runs in staging area)
+## executable:
+## - split_channels_concat.sh (runs split_channels.py)
+## arguments:
+## - ms_name - full path to measurement set (input text file)
+## - start_chan - starting channel to split (input text file)
+## - end_chan - ending channel to split (input text file)
+## output:
+## - split out measurement sets with equal number of channels so concat step will combine into a single spw
+## JOB F split_channels_concat.sub
+## PARENT F CHILD G
+
+## CONCAT
+## concatenate (combine) measurement sets from all VLA configurations in staging area
+## executable:
+## - concat.sh (runs concat.py)
+## arguments:
+## - outfile_name: name of concatenated measurement set
+## - extension: file extension to use for concatenation
+## - src_name: source name
+## output:
+## - concatenated measurement set in staging area
+## JOB G concat.sub
+## VARS G src_name="IC10" extension="contsub" outfile_name="IC10_A+B+C+D.ms"
+## PARENT G CHILD H
+
+## COMBINE_SPW
+## run mstransform again to combine all spectral windows in concatenated measurement set
+## executable:
+## -  ms_transform_combine_spw.sh (runs c  ms_transform_combine_spw.py)
+## arguments:
+## - input_name: input_name of concatended measurement set
+## - src_name: source name
+## output:
+## - concantenated measurement set with a single spectral window
+## JOB H ms_transform_combine_spw.sub
+## VARS H src_name="IC10" input_name="IC10_A+B+C+D.ms"
+## PARENT H CHILD I
+
+## STATWT
+## re-weight visibilities based on root mean square noise in emission-free regions. Use systemic velocity and velocity width to mask channels with expected emission. 
+## executable:
+## - statwt.sh (runs statwt.py)
+## arguments:
+## - ms_name: file name of concatenated measurement set
+## - v_sys: systemic velocity of source
+## - v_width: velocity width of source
+## - src_name: source name
+## output:
+## - re-weighted concatenated measurement sets with '.wt' appended to name
+## JOB I statwt.sub
+## VARS I ms_name="IC10_A+B+C+D.comb_spw" v_sys="-340" v_width="210" src_name="IC10"
+## PARENT I CHILD J
+
+## SPLIT FOR IMAGING
+## split out channels from concatenated measurement set for imaging
+## executable:
+## - split_channels.sh (runs split_channels.py)
+## arguments: 
+## - input_name: name of input concatenated measurement set
+## - src_name: source name
+## - start_chan: starting channel to split
+## - end_chan: ending channel to split
+## output:
+## - tarballs of individual channels
+## JOB J split_channels.sub
+## VARS J input_name="IC10_A+B+C+D.comb_spw.wt" src_name="IC10"
+## PARENT J CHILD K
+
+## IMAGING
+## run tclean to imagine single channels
+## executable:
+## - image_channel.sh (runs image_channel.py)
+## inputs:
+## - ms_name: concatenated measurement set (without channel number ID, to be appended in execution script)
+## - ra_phase_center: ra coordinate string to set phase center
+## - dec_phase_center: dec coordinate string to set phase center
+## - src_name: source name
+## output:
+## - tarball containing tclean output for single spectral channels
+## JOB K image_channel.sub
+## VARS K ms_name="IC10_A+B+C+D.comb_spw.wt" src_name="IC10" ra_phase_center="00h20m17.34s" dec_phase_center="59d18m13.6"
+#PARENT K CHILD L
+
+## RESTART IMAGING
+## run tclean to imagine single channels
+## executable:
+## - image_channel.sh (runs image_channel.py)
+## inputs:
+## - ms_name: concatenated measurement set (without channel number ID, to be appended in execution script)
+## - ra_phase_center: ra coordinate string to set phase center
+## - dec_phase_center: dec coordinate string to set phase center
+## - src_name: source name
+## output:
+## - tarball containing tclean output for single spectral channels
+##JOB K restart_image_channel.sub
+##VARS K ms_name="IC10_A+B+C+D.comb_spw.wt" src_name="IC10" ra_phase_center="19h44m57.74s" dec_phase_center="-14d48m12.4"
+##PARENT K CHILD L
+
+## UNTAR FOR COMBINATION
+## untar and move back desired output images to staging area for combination
+## executable:
+## - untar_images.sh (runs untar_images.sh)
+## inputs:
+## - suffix: CASA file suffix to move back to staging (e.g., image, image.pbcor, residual, etc.)
+## - src_name: source_name
+## - file_name: root name of files
+## output:
+## - extracted CASA image file in staging area
+## JOB L untar_images.sub
+## VARS L suffix="image" src_name="IC10" root_file_name="IC10_A+B+C+D.comb_spw.wt"
+## PARENT L CHILD M
+
+## COMBINE IMAGES
+## finally, combine the 2D images into 3-dimensional data cube (dims: sky position, sky position, frequency/velocity)
+## executable:
+## - combine_images.sh (runs combine_image.py)
+## inputs:
+## - suffix: combine all files with *.suffix
+## - output_name: name of output data cube (in FITS format)
+## - src_name: source name
+## - delta_nu: spectral width of channels in kHz
+## output:
+## - final data cube
+## JOB M combine_images.sub
+## VARS M suffix = "image" src_name="IC10" output_name="IC10_ABCD" delta_nu="1953.71094083"
+#PARENT M CHILD N
+
+## TODO: ADD FEATHERING
