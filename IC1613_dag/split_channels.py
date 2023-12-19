@@ -38,7 +38,7 @@ def main():
 	if split_concat:
 		split_params = {
 		'vis': ms_path,
-		'outputvis': '%s.concat' % ms_path,
+		'outputvis': '%s.split_concat' % ms_path,
 		'spw': '0:%d~%d' % (start_chan, end_chan),
 		'datacolumn': 'data'
 		}
