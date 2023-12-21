@@ -32,7 +32,7 @@ def main():
 	## define tclean variables below
 	## image output properties
 	im_size = 5200
-	field_id = 'IC1613_1_CTR'
+	field_id = 'IC1613'
 	cell_size = '0.75arcsec'
 	restore_beam = 'common'
 	## automasking parameters ##
