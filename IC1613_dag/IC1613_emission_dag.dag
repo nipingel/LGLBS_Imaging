@@ -99,9 +99,9 @@
 ## - src_name: source name
 ## output:
 ## - concatenated measurement set in staging area
-JOB G concat.sub
-VARS G src_name="IC1613" extension="split_concat" outfile_name="IC1613_A+B+C+D.ms"
-PARENT G CHILD H
+## JOB G concat.sub
+## VARS G src_name="IC1613" extension="split_concat" outfile_name="IC1613_A+B+C+D.ms"
+## PARENT G CHILD H
 
 ## COMBINE_SPW
 ## run mstransform again to combine all spectral windows in concatenated measurement set
@@ -112,9 +112,9 @@ PARENT G CHILD H
 ## - src_name: source name
 ## output:
 ## - concantenated measurement set with a single spectral window
-JOB H ms_transform_combine_spw.sub
-VARS H src_name="IC1613" input_name="IC1613_A+B+C+D.ms"
-PARENT H CHILD I
+## JOB H ms_transform_combine_spw.sub
+## VARS H src_name="IC1613" input_name="IC1613_A+B+C+D.ms"
+## PARENT H CHILD I
 
 ## STATWT
 ## re-weight visibilities based on root mean square noise in emission-free regions. Use systemic velocity and velocity width to mask channels with expected emission. 
@@ -127,9 +127,9 @@ PARENT H CHILD I
 ## - src_name: source name
 ## output:
 ## - re-weighted concatenated measurement sets with '.wt' appended to name
-JOB I statwt.sub
-VARS I ms_name="IC1613_A+B+C+D.comb_spw" v_sys="-238" v_width="210" src_name="IC1613"
-PARENT I CHILD J
+## JOB I statwt.sub
+## VARS I ms_name="IC1613_A+B+C+D.comb_spw" v_sys="-238" v_width="210" src_name="IC1613"
+## PARENT I CHILD J
 
 ## SPLIT FOR IMAGING
 ## split out channels from concatenated measurement set for imaging
@@ -142,9 +142,9 @@ PARENT I CHILD J
 ## - end_chan: ending channel to split
 ## output:
 ## - tarballs of individual channels
-JOB J split_channels.sub
-VARS J input_name="IC1613_A+B+C+D.comb_spw.wt" src_name="IC1613"
-PARENT J CHILD K
+## JOB J split_channels.sub
+## VARS J input_name="IC1613_A+B+C+D.comb_spw.wt" src_name="IC1613"
+## PARENT J CHILD K
 
 ## IMAGING
 ## run tclean to imagine single channels
@@ -158,7 +158,7 @@ PARENT J CHILD K
 ## output:
 ## - tarball containing tclean output for single spectral channels
 JOB K image_channel.sub
-VARS K ms_name="IC1613_A+B+C+D.comb_spw.wt" src_name="IC10" ra_phase_center="01h04m47.79s" dec_phase_center="02d07m04.0"
+VARS K ms_name="IC1613_A+B+C+D.comb_spw.wt" src_name="IC1613" ra_phase_center="01h04m47.79s" dec_phase_center="02d07m04.0"
 #PARENT K CHILD L
 
 ## RESTART IMAGING
