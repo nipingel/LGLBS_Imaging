@@ -157,8 +157,8 @@
 ## - src_name: source name
 ## output:
 ## - tarball containing tclean output for single spectral channels
-JOB K image_channel.sub
-VARS K ms_name="IC1613_A+B+C+D.comb_spw.wt" src_name="IC1613" ra_phase_center="01h04m47.79s" dec_phase_center="02d07m04.0"
+## JOB K image_channel.sub
+## VARS K ms_name="IC1613_A+B+C+D.comb_spw.wt" src_name="IC1613" ra_phase_center="01h04m47.79s" dec_phase_center="02d07m04.0"
 #PARENT K CHILD L
 
 ## RESTART IMAGING
@@ -186,9 +186,9 @@ VARS K ms_name="IC1613_A+B+C+D.comb_spw.wt" src_name="IC1613" ra_phase_center="0
 ## - file_name: root name of files
 ## output:
 ## - extracted CASA image file in staging area
-## JOB L untar_images.sub
-## VARS L suffix="image" src_name="IC10" root_file_name="IC10_A+B+C+D.comb_spw.wt"
-## PARENT L CHILD M
+JOB L untar_images.sub
+VARS L suffix="image" src_name="IC1613" root_file_name="IC1613_A+B+C+D.comb_spw.wt"
+PARENT L CHILD M
 
 ## COMBINE IMAGES
 ## finally, combine the 2D images into 3-dimensional data cube (dims: sky position, sky position, frequency/velocity)
@@ -201,8 +201,8 @@ VARS K ms_name="IC1613_A+B+C+D.comb_spw.wt" src_name="IC1613" ra_phase_center="0
 ## - delta_nu: spectral width of channels in kHz
 ## output:
 ## - final data cube
-## JOB M combine_images.sub
-## VARS M suffix = "image" src_name="IC10" output_name="IC10_ABCD" delta_nu="1953.71094083"
+JOB M combine_images.sub
+VARS M suffix = "image" src_name="IC1613" output_name="IC1613_ABCD" delta_nu="1953.71094083"
 #PARENT M CHILD N
 
 ## TODO: ADD FEATHERING
