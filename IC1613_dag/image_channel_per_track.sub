@@ -16,7 +16,7 @@ docker_image = nipingel/casa:latest
 #  and increasing for the relevant number of jobs.
 
 ## imaging executable
-executable = image_channel.sh
+executable = image_channel_per_track.sh
 
 ## user arguments
 ## determine channel to image
@@ -40,7 +40,7 @@ Requirements=(Target.HasCHTCStaging == true) && (OpSysMajorVer =?= 8)
 
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
-transfer_input_files = image_channel.py, image_channel.sh
+transfer_input_files = image_channel_per_track.py, image_channel_per_track.sh
 request_cpus = 1
 request_memory = 15GB
 request_disk = 5GB
