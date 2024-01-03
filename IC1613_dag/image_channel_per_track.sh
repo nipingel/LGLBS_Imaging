@@ -27,7 +27,7 @@ if [ "$1" -lt "100" ] && [ "$1" -gt "9" ]; then
 fi
 
 # make casa call to imaging script
-/casa-6.5.0-15-py3.8/bin/casa --logfile ${output_name}".log" -c image_channel_per_track.py -v ${ms_name} -o ${output_name} -i $(obs_id) -r ${ra_phase_center} -d${dec_phase_center}
+/casa-6.5.0-15-py3.8/bin/casa --logfile ${output_name}".log" -c image_channel_per_track.py -v ${ms_name} -o ${output_name} -i ${obs_id} -r ${ra_phase_center} -d${dec_phase_center}
 
 ## remove the original measurement set
 rm -rf ${ms_name}

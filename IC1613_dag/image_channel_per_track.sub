@@ -20,7 +20,7 @@ executable = image_channel_per_track.sh
 
 ## user arguments
 ## determine channel to image
-chan = 129
+chan = 1129
 ## use process number as observation ID
 obs_id = $(Process)
 ra_phase_center = 01h04m47.79s
