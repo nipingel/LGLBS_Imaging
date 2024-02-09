@@ -16,7 +16,7 @@ docker_image = nipingel/casa:latest
 #  and increasing for the relevant number of jobs.
 
 ## imaging executable
-executable = image_channel_per_track.sh
+executable = image_bad_baseline_ms.sh
 
 ## user arguments
 ## determine channel to image
@@ -25,9 +25,9 @@ ra_phase_center = 01h04m47.79s
 dec_phase_center = 02d07m04.0
 src_name = IC1613
 arguments = $(ms_name) $(src_name) $(ra_phase_center) $(dec_phase_center)
-log = $(src_name)_image_chan$(chan)_obsid_$(Process).log
-output = $(src_name)_image_chan$(chan)_obsid_$(Process).out
-error = $(src_name)_image_chan$(chan)_obsid_$(Process).err
+log = $(src_name)_image_bad_ms_$(Process).log
+output = $(src_name)_image_bad_ms_$(Process).out
+error = $(src_name)_image_bad_ms_$(Process).err
 
 # Specify that HTCondor should transfer files to and from the
 #  computer where each job runs. The last of these lines *would* be
@@ -37,10 +37,10 @@ Requirements=(Target.HasCHTCStaging == true) && (OpSysMajorVer =?= 8)
 
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
-transfer_input_files = image_channel_per_track.py, image_channel_per_track.sh
+transfer_input_files = image_bad_baseline_ms.py, image_bad_baseline_ms.sh
 request_cpus = 1
 request_memory = 15GB
-request_disk = 5GB
+request_disk = 100GB
 #
 # Tell HTCondor to run 475 instances of our job:
 queue ms_name from bad-baseline-ms.txt

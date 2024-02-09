@@ -35,6 +35,7 @@ def main():
 		'datacolumn':'data',
 		'regridms': True,
 		'mode': 'velocity',
+		'restfreq':'1420.406MHz',
 		'nchan':20,
 		'start':'-280.0km/s', 
 		'width':'5.0km/s'
@@ -45,7 +46,7 @@ def main():
 	## define tclean variables below
 	## image output properties
 	im_size = 5200
-	field_id = 'IC1613'
+	field_id = 'IC1613_1_CTR'
 	cell_size = '0.75arcsec'
 	restore_beam = 'common'
 	## automasking parameters ##
@@ -73,7 +74,7 @@ def main():
 		'selectdata': True,
 		'field': field_id, 
 		'datacolumn': 'data',
-		'specmode':'mfs',
+		'specmode':'cube',
 		'imsize':im_size,
 		'cell':cell_size,
 		'restoringbeam': restore_beam, 

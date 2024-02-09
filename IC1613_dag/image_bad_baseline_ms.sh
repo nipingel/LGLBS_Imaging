@@ -16,8 +16,6 @@ output_name=${ms_name}"_postcontsub"
 ## tar measurement set to working directory
 tar -xvf /projects/vla-processing/measurement_sets/${src_name}/${ms_name}".tar" --directory .
 
-$(ms_name) $(src_name) $(ra_phase_center) $(dec_phase_center)
-
 # make casa call to imaging script
 /casa-6.5.0-15-py3.8/bin/casa --logfile ${output_name}".log" -c image_bad_baseline_ms.py -v ${ms_name} -o ${output_name} -r ${ra_phase_center} -d${dec_phase_center}
 
