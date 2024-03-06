@@ -26,12 +26,11 @@ vis_path = args.vis_path
 ra_phase_center = args.ra
 dec_phase_center = args.dec
 output_name = args.output_name
-
 def main():
 	## run ms transform to smooth and extract relevant channel range
 	ms_transform_params = {
 		'vis': vis_path,
-		'outputvis': vis_path.replace('.contsub', '.contsub.mstransform'), 
+		'outputvis': vis_path.replace('.split_spw', '.split_spw.mstransform'), 
 		'datacolumn':'data',
 		'regridms': True,
 		'mode': 'velocity',
@@ -45,9 +44,9 @@ def main():
 	#casalog.filter('DEBUG2')   
 	## define tclean variables below
 	## image output properties
-	im_size = 5200
+	im_size = 1024
 	field_id = 'IC1613_1_CTR'
-	cell_size = '0.75arcsec'
+	cell_size = '3arcsec'
 	restore_beam = 'common'
 	## automasking parameters ##
 	use_mask = 'pb'
@@ -67,7 +66,7 @@ def main():
 	restart_parameter = False
 	## tclean dictionary
 	tclean_params={
-		'vis':vis_path.replace('.contsub', '.contsub.mstransform'),
+		'vis':vis_path.replace('.split_spw', '.split_spw.mstransform'),
 		'imagename':output_name,
 		'phasecenter':'J2000 %s %s' % (ra_phase_center, dec_phase_center),
 		'restfreq':'1.42040571183GHz',
@@ -80,8 +79,8 @@ def main():
 		'restoringbeam': restore_beam, 
 		'pblimit':0.1, 
 		'weighting':'briggs', 
-		'robust':1.0, 
-		'gridder':'wproject', 
+		'robust':0.5, 
+		'gridder':'mosaic', 
 		'pbcor':True, 
 		'niter':tot_niter, 
 		'deconvolver':deconvolver_mode, 

@@ -33,6 +33,7 @@ def main():
 	## image output properties
 	im_size = 5200
 	field_id = 'IC1613'
+	obs_id = '0~7,>8'
 	cell_size = '0.75arcsec'
 	restore_beam = 'common'
 	## automasking parameters ##
@@ -48,7 +49,7 @@ def main():
 	## deconvolution parameters
 	deconvolver_mode = 'multiscale'
 	ms_scales = [0, 8, 16, 32, 64, 128, 256]
-	tot_niter = 100000 
+	tot_niter = 100000
 	min_threshold = '1.9mJy'
 	restart_parameter = False
 	## tclean dictionary
@@ -59,6 +60,7 @@ def main():
 		'restfreq':'1.42040571183GHz',
 		'selectdata': True,
 		'field': field_id,
+		'observation': obs_id,
 		'datacolumn': 'data',
 		'specmode':'mfs',
 		'imsize':im_size,

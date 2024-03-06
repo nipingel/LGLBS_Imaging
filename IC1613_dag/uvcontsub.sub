@@ -15,6 +15,9 @@ docker_image = nipingel/casa:latest
 #  $(Process) will be a integer number for each job, starting with "0"
 #  and increasing for the relevant number of jobs.
 executable = uvcontsub.sh
+v_sys=-44
+v_width=210
+src_name=IC1613
 arguments = $(ms_name) $(v_sys) $(v_width) $(src_name)
 output = contsub_$(Process).out
 error = contsub_$(Process).err
@@ -33,4 +36,5 @@ request_memory = 10GB
 request_disk = 300GB
 #
 # Tell HTCondor to run 1 instances of our job:
-queue ms_name from uvcontsub-list.txt
+#queue ms_name from uvcontsub-list.txt
+queue ms_name from bad-baseline-ms-precontsub-reweight.txt

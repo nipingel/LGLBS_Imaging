@@ -39,8 +39,8 @@ Requirements=(Target.HasCHTCStaging == true) && (OpSysMajorVer =?= 8)
 #  each job will need on the computer where it runs.
 transfer_input_files = image_bad_baseline_ms.py, image_bad_baseline_ms.sh
 request_cpus = 1
-request_memory = 15GB
-request_disk = 100GB
+request_memory = 20GB
+request_disk = 150GB
 #
 # Tell HTCondor to run 475 instances of our job:
-queue ms_name from bad-baseline-ms.txt
+queue ms_name from bad-baseline-ms-precontsub-pretransform.txt 

@@ -19,7 +19,7 @@ docker_image = nipingel/casa:latest
 executable = image_channel.sh
 
 ## determine channel to image
-sc = $(Process)+1000
+sc = $(Process)+1120
 chan = $INT(sc,%d)
 arguments = $(chan) $(ms_name) $(src_name) $(ra_phase_center) $(dec_phase_center)
 log = $(src_name)_image_chan$(chan).log
@@ -40,4 +40,4 @@ request_memory = 15GB
 request_disk = 5GB
 #
 # Tell HTCondor to run 475 instances of our job:
-queue 500
+queue 10
