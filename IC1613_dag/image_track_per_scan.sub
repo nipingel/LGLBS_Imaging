@@ -1,0 +1,50 @@
+# image_channel.sub
+# script to base submission of LGLBS imaging jobs
+# images all scans within a given track
+#
+# Specify the HTCondor Universe (vanilla is the default and is used
+#  for almost all jobs) and your desired name of the HTCondor log file,
+#  which is where HTCondor will describe what steps it takes to run 
+#  your job. Wherever you see $(Cluster), HTCondor will insert the 
+#  queue number assigned to this set of jobs at the time of submission.
+universe = docker
+docker_image = nipingel/casa:latest
+#
+# Specify your executable (single binary or a script that runs several
+#  commands), arguments, and a files for HTCondor to store standard
+#  output (or "screen output").
+#  $(Process) will be a integer number for each job, starting with "0"
+#  and increasing for the relevant number of jobs.
+
+## imaging executable
+executable = image_tracktrack_per_scan.sh
+
+## user arguments
+## determine channel to image
+chan = 1129
+## use process number as scan id for given track (obs_id)
+ra_phase_center = 01h04m47.79s
+dec_phase_center = 02d07m04.0
+ms_name = IC1613_A+B+C+D.comb_spw.wt
+src_name = IC1613
+obs_id = 8
+arguments = $(chan) $(obs_id) $(scan_id) $(ms_name) $(src_name) $(ra_phase_center) $(dec_phase_center)
+log = $(src_name)_image_chan$(chan)_obsid_$(Process).log
+output = $(src_name)_image_chan$(chan)_obsid_$(Process).out
+error = $(src_name)_image_chan$(chan)_obsid_$(Process).err
+
+# Specify that HTCondor should transfer files to and from the
+#  computer where each job runs. The last of these lines *would* be
+#  used if there were any other files needed for the executable to use.
+Requirements=(Target.HasCHTCStaging == true) && (OpSysMajorVer =?= 8)
++HasCHTCStaging=true
+
+# Tell HTCondor what amount of compute resources
+#  each job will need on the computer where it runs.
+transfer_input_files = image_channel_per_track.py, image_channel_per_track.sh
+request_cpus = 1
+request_memory = 15GB
+request_disk = 5GB
+#
+# Tell HTCondor to run 475 instances of our job:
+queue scan_id from scan_id.txt
