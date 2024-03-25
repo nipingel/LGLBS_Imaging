@@ -30,7 +30,7 @@ src_name = IC1613
 obs_id = 8
 arguments = $(chan) $(obs_id) $(scan_id) $(ms_name) $(src_name) $(ra_phase_center) $(dec_phase_center)
 log = $(src_name)_image_chan$(chan)_obsid$(Process)_scanid$(Process).log
-output = $(src_name)_image_chan$(chan)_obsid_$(Process)_scanid$($Process).out
+output = $(src_name)_image_chan$(chan)_obsid_$(Process)_scanid$(Process).out
 error = $(src_name)_image_chan$(chan)_obsid_$(Process)_scanid$(Process).err
 
 # Specify that HTCondor should transfer files to and from the
