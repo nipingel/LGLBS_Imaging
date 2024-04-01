@@ -146,10 +146,12 @@ def main():
 
                 hdulist.flush()
 
-    # Check the units are correct for the GBT data:
-    gbt_bunit = gbt_cube_specinterp.unit
+    # Check the units and beam are correct for the GBT data:
+    gbt_bunit = gbt_cube.unit
+    print(f"GBT original bunit: {gbt_bunit}")
     with fits.open(gbt_reproj_filename, mode="update") as hdulist:
         hdulist[0].header['BUNIT'] = str(gbt_bunit)
+        hdulist[0].header.update(gbt_cube.beam.to_header_keywords())
 
         hdulist.flush()
 
