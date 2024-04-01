@@ -146,6 +146,13 @@ def main():
 
                 hdulist.flush()
 
+    # Check the units are correct for the GBT data:
+    gbt_bunit = gbt_cube_specinterp.unit
+    with fits.open(gbt_reproj_filename, mode="update") as hdulist:
+        hdulist[0].header['BUNIT'] = str(gbt_bunit)
+
+        hdulist.flush()
+
     # Allow reading in the whole cube.
     gbt_cube_specinterp_reproj = SpectralCube.read(gbt_reproj_filename)
     gbt_cube_specinterp_reproj.allow_huge_operations = True
