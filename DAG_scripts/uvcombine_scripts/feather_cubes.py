@@ -58,12 +58,16 @@ if sdfactor is None:
 
 
 def main():
+    import os
+    import warnings
+    from tqdm import tqdm
     from astropy.io import fits
     import numpy as np
     import astropy.units as u
     from astropy.convolution import Gaussian1DKernel
     from spectral_cube import SpectralCube
     from radio_beam import Beam
+
     import sys
     sys.path.append('uvcombine/uvcombine')
     from uvcombine import feather_simple_cube
@@ -90,6 +94,8 @@ def main():
         gbt_cube.wcs.wcs.ctype[2] = "VRAD"
         gbt_cube.mask._wcs.wcs.ctype[2] = "VRAD"
 
+    # VLA spatial mask. Account for coverage across all channels (in case some are empty)
+    vla_spatial_mask = np.any(vla_cube.mask.include(), axis=0)
 
     # If needed, spectrally smooth the GBT cube
     fwhm_factor = np.sqrt(8*np.log(2))
@@ -105,20 +111,44 @@ def main():
     else:
         gbt_cube_specsmooth = gbt_cube
 
-
-    # CASA is writing this out in caps and wcslib doesn't like it
-    target_hdr = vla_cube.header.copy()
-    target_hdr['TIMESYS'] = target_hdr['TIMESYS'].lower()
-
-    # Interpolate the GBT data to the VLA grid
+    # Resample to the same spectral axis
     gbt_cube_specinterp = gbt_cube_specsmooth.spectral_interpolate(vla_cube.spectral_axis)
 
-    # Spatially grid the GBT data to the VLA grid
-    gbt_cube_specinterp_reproj = gbt_cube_specinterp.reproject(target_hdr)
-    gbt_cube_specinterp_reproj.allow_huge_operations = True
+    # Grid the GBT data to the VLA grid
+    ## The full cube reprojection is failing in some cases. I don't understand why.
+    # target_hdr = vla_cube.header.copy()
+    # target_hdr['TIMESYS'] = target_hdr['TIMESYS'].lower()
+    # gbt_cube_specinterp_reproj = gbt_cube_specinterp.reproject(target_hdr)
+    # gbt_cube_specinterp_reproj.to(u.K).write(sd_data_path / f"{this_gbt_filename[:-5]}_vlamatch_{this_key}_reproj.fits",
+    #                                           overwrite=True)
 
-    # And specifically apply the same PB coverage
-    gbt_cube_specinterp_reproj = gbt_cube_specinterp_reproj.with_mask(np.isfinite(vla_cube[0]))
+    # Do a per-channel version to avoid the problem
+    this_sd_filename = Path(sd_cubename).name
+    gbt_reproj_filename = output_path / f"{this_sd_filename[:-5]}_vlamatch.fits"
+    # Generate a copy of the VLA cube
+    if gbt_reproj_filename.exists():
+        gbt_reproj_filename.unlink()
+
+    print(f"Copying {interf_cubename} to {gbt_reproj_filename}")
+    os.system(f"cp {interf_cubename} {gbt_reproj_filename}")
+
+    print("Per channel reprojection")
+    with warnings.catch_warnings():
+        warnings.filterwarnings("ignore", message="WCS1 is missing card")
+        for this_chan in tqdm(range(vla_cube.shape[0])):
+            reproj_chan = gbt_cube_specinterp[this_chan].reproject(vla_cube[this_chan].header)
+
+            # Apply the VLA spatial mask:
+            reproj_chan[~vla_spatial_mask] = np.nan
+
+            with fits.open(gbt_reproj_filename, mode="update") as hdulist:
+                hdulist[0].data[this_chan] = reproj_chan
+
+                hdulist.flush()
+
+    # Allow reading in the whole cube.
+    gbt_cube_specinterp_reproj = SpectralCube.read(gbt_reproj_filename)
+    gbt_cube_specinterp_reproj.allow_huge_operations = True
 
     # Feather with the SD scale factor applied
     feathered_cube = feather_simple_cube(vla_cube.to(u.K),
@@ -141,6 +171,9 @@ def main():
         hdulist[0].header["COMMENT"] = f"Feathered with uvcombine using scfactor={scfactor}"
         hdulist.flush()
 
+    # Clean up the intermediate files:
+    if gbt_reproj_filename.exists():
+        gbt_reproj_filename.unlink()
 
 if __name__=='__main__':
 
