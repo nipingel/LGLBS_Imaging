@@ -1,0 +1,6 @@
+## ignore docker logs
+docker_stderror
+## ignore directory holding logs
+log_files
+## ignore casa summary files containing last task input
+*.last

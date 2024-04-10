@@ -216,4 +216,4 @@
 ## - outpath: output path/filename
 ## - galaxy: name of galaxy
 JOB N feather_cubes.sub
-VARS N src_name="NGC6822" sdcube="N6822_GBT_Jy.eq.nostokes.fits" interfcube=" NGC6822_A+B+C+D_HI_0p4kms.fits" outpath="/projects/vla-processing/images/NGC6822/NGC6822_A+B+C+D_HI_0p4kms.feather.fits" galaxy="ngc6822"
+VARS N src_name="NGC6822" sdcube="N6822_GBT_Jy.eq.nostokes.fits" interfcube=" NGC6822_A+B+C+D_HI_0p4kms.fits" outpath="/projects/vla-processing/images/NGC6822" galaxy="ngc6822"
