@@ -1,34 +1,24 @@
 #!/usr/bin/env M31-single-field_emission_dag.dag
 
 ## TRANSFER AND SPLIT STAGED MEASUREMENT SETS
-## transfer.sub to transfer measurement sets from Google Drive using rclone
+## transfer_and_split.sub to transfer measurement and split spw/single field for imaging
 ## executable:
-## - transfer.sh
+## - transfer_and_split.sh
 ## inputs:
 ## - src_name: source name
-## output:
-## - tarball measurement set
-## JOB A transfer.sub
-## VARS A src_name="IC10"
-## PARENT A CHILD B
-
-## SPLIT_SPW
-## run split_spw.sub to split off the HI or OH spectral windows
-## executable:
-## - split_spw.sh (runs split_spw.py)
-## inputs: 
-## - ms_name: file name in input textfile
-## - src_name: source name in input textfile
-## - src_config: source and config (prefix on file name from Google drive)
 ## - timebin_str: number of seconds to average visibilites (config-dependent)
+## - field_id1: name of first field
+## - field_id2: name of second field
 ## - v_sys: systemic velocity of source
 ## - v_width: velocity width of source
 ## - rest_freq: rest frequency of spectral line
+## - time_bin_str: time binning (5 for B-config)
 ## output:
-## - tarball of measurement sets that have had spectral window split out with '_spw' appended to file name
-## JOB B split_spw.sub
-## VARS B src_name="IC10" v_sys="-340" v_width="210" rest_freq="1.420406"
-## PARENT B CHILD C
+## - tarball split-out measurement set
+JOB A transfer_and_split.sub
+VARS A src_name="M31" v_sys="-296" v_width="700" rest_freq="1.420406" time_bin_str="5" field_id1="M31LARGE_14" field_id2="M31LARGE_47"
+## PARENT A CHILD B
+
 
 ## MSTRANSFORM
 ## place all split-out measurement sets on same spectral axis & reference frame
@@ -214,5 +204,5 @@
 ## - interfcube: name of highres cube
 ## - outpath: output path/filename
 ## - galaxy: name of galaxy
-JOB N feather_cubes.sub
-VARS N src_name="IC10" sdcube="IC10_GBT_Jy.fits" interfcube="IC10_A+B+C+D_HI_0p4kms.fits" outpath="/projects/vla-processing/images/IC10" galaxy="ic10"
+## JOB N feather_cubes.sub
+## VARS N src_name="IC10" sdcube="IC10_GBT_Jy.fits" interfcube="IC10_A+B+C+D_HI_0p4kms.fits" outpath="/projects/vla-processing/images/IC10" galaxy="ic10"
