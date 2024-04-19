@@ -65,8 +65,11 @@ def main():
 		'intent': intent_str,
 		'timebin': timebin_str,
 		'datacolumn': 'data'
-	}
-	split(**split_params)
+    	}
+	try:
+		split(**split_params)
+	except:
+		exit()
 if __name__=='__main__':
 	main()
 	exit()
