@@ -5,7 +5,7 @@
 
 universe = docker
 docker_image = nipingel/casa:latest
-executable = transfer_and_split.sh
+executable = transfer_and_split_globus.sh
 
 arguments  = $(fname) $(src_name) $(v_sys) $(v_width) $(rest_freq) $(time_bin_str) $(field_id1) $(field_id2)
 
@@ -18,7 +18,7 @@ Requirements = (Target.HasCHTCStaging == true)
 +HasCHTCStaging = true
 
 # could transfer these, but for now store them under /projects/vla-processing
-transfer_input_files = transfer_and_split.sh, transfer_and_split.py, /home/nmpingel/software/analysis_scripts.tar, /home/nmpingel/software/phangs_imaging_scripts.tar
+transfer_input_files = transfer_and_split_globus.sh, transfer_and_split.py, /home/nmpingel/software/analysis_scripts.tar, /home/nmpingel/software/phangs_imaging_scripts.tar
 request_cpus   = 1
 request_memory = 10GB
 request_disk   = 300GB

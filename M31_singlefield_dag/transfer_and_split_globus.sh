@@ -13,6 +13,10 @@ field2=$8
 source /miniconda3/etc/profile.d/conda.sh
 conda activate globus_env
 
+## set required environment variables
+export GLOBUS_CLI_CLIENT_ID="6229281c-52b7-4d47-90a1-8dfb7a7a2852"
+export GLOBUS_CLI_CLIENT_SECRET="Xct59EAStFcYlNr2KCaTmfGfhZD29DwHbEH2CRBcbGQ="
+
 tar -xvf analysis_scripts.tar
 tar -xvf phangs_imaging_scripts.tar
 ## change home directory so CASA will run
@@ -23,26 +27,36 @@ export PYTHONPATH=./analysis_scripts:$PYTHONPATH
 export PYTHONPATH=./phangs_imaging_scripts:$PYTHONPATH
 
 ## globus setup
-source_ep=8dec4129-9ab4-451d-a45f-5b4b8471f7a3
-dest_ep=e8fc98cc-9ca8-11eb-92cd-6b08dd67ff48
-out_path=/projects/vla-processing/measurement_sets/{src_name}/single-field-imaging
+source_ep="08f85b7a-9541-4539-a332-5e7f0208b6b7"
+dest_ep="33e45bdb-75ee-4ec0-b9a5-0f944565c2f6"
+
 
 ## start transfer
-task_id=$(globus transfer ${source_ep}:projects/rrg-eros-ab/ekoch/VLAXL/calibrated/${filename} ${dest_ep}:${out_path}/${filename} --jmespath 'task_id' --format=UNIX)
-#task_id=$(globus transfer ${source_ep}:projects/rrg-eros-ab/ekoch/VLAXL/calibrated/archive/${filename} ${dest_ep}:${out_path}/${filename} --jmespath 'task_id' --format=UNIX)
+task_id=$(globus transfer ${source_ep}:${fname} ${dest_ep}:${fname} --jmespath 'task_id' --format=UNIX)
+
+echo "Waiting on 'globus transfer' task '$task_id'"
+globus task wait ${task_id} --polling-interval 120
+if [ $? -eq 0 ]; then
+    echo "${task_id} completed successfully";
+else
+    echo "${task_id} failed!";
+    # exit 1
+fi
+
+echo "Finished transferring at $(date)"
 
 touch ${fname}.done
 tar -xvf ${fname}.tar
 rm ${fname}.tar
 
-## run casa script to split out the necessary fields
-casa --nologfile --log2term --nogui -c transfer_and_split.py -p ${fname} -v ${v_sys} -w ${v_width} -r ${rest_freq} -t ${time_bin_str} -f ${field1}
-casa --nologfile --log2term --nogui -c transfer_and_split.py -p ${fname} -v ${v_sys} -w ${v_width} -r ${rest_freq} -t ${time_bin_str} -f ${field2}
+## parse out the source name and config string after untarring
+ms_name=${fname##*M31_B_}
 
-## get path to measurement set
-ms_path = args.path
+## run casa script to split out the necessary fields
+casa --nologfile --log2term --nogui -c transfer_and_split.py -p ${ms_name} -v ${v_sys} -w ${v_width} -r ${rest_freq} -t ${time_bin_str} -f ${field1}
+casa --nologfile --log2term --nogui -c transfer_and_split.py -p ${ms_name} -v ${v_sys} -w ${v_width} -r ${rest_freq} -t ${time_bin_str} -f ${field2}
 
 ## tar and move to staging
-tar -cvf ${fname}_spw.${field1}.tar ${fname}_spw.${field1}
-tar -cvf ${fname}_spw.${field2}.tar ${fname}_spw.${field2}
-mv ${fname}_spw* /projects/vla-processing/measurement_sets/M31/single-field-imaging
+tar -cvf ${ms_name}_spw.${field1}.tar ${ms_name}_spw.${field1}
+tar -cvf ${ms_name}_spw.${field2}.tar ${ms_name}_spw.${field2}
+mv ${ms_name}_spw* /projects/vla-processing/measurement_sets/M31/single-field-imaging
