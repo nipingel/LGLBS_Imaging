@@ -7,7 +7,7 @@ output = track_interactive.out
 error = track_interactive.err
 Requirements=(Target.HasCHTCStaging == true)
 +HasCHTCStaging=true
-transfer_input_files = /home/nmpingel/LGLBS/LGLBS_Imaging/M31_singlefield_dag/transfer_and_split.sh, /home/nmpingel/LGLBS/LGLBS_Imaging/M31_singlefield_dag/transfer_and_split.py, /home/nmpingel/software/uvcombine.tar, /home/nmpingel/software/analysis_scripts.tar, /home/nmpingel/software/phangs_imaging_scripts.tar, /home/nmpingel/LGLBS/LGLBS_Imaging/N6822_dag/feather_cubes.py
+#transfer_input_files = /home/nmpingel/LGLBS/LGLBS_Imaging/M31_singlefield_dag/transfer_and_split.sh, /home/nmpingel/LGLBS/LGLBS_Imaging/M31_singlefield_dag/transfer_and_split.py, /home/nmpingel/software/uvcombine.tar, /home/nmpingel/software/analysis_scripts.tar, /home/nmpingel/software/phangs_imaging_scripts.tar, /home/nmpingel/LGLBS/LGLBS_Imaging/N6822_dag/feather_cubes.py
 request_cpus = 1
 request_memory = 10GB
 request_disk = 1GB
