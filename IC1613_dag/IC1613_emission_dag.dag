@@ -9,8 +9,8 @@
 ## - src_name: source name
 ## output:
 ## - tarball measurement set
-JOB A transfer.sub
-VARS A src_name="IC1613"
+## JOB A transfer.sub
+## VARS A src_name="IC1613"
 ## PARENT A CHILD B
 
 ## SPLIT_SPW
@@ -28,7 +28,7 @@ VARS A src_name="IC1613"
 ## output:
 ## - tarball of measurement sets that have had spectral window split out with '_spw' appended to file name
 ## JOB B split_spw.sub
-## VARS B src_name="IC10" v_sys="-340" v_width="210" rest_freq="1.420406"
+## VARS B src_name="IC1613" v_sys="-238" v_width="210" rest_freq="1.420406"
 ## PARENT B CHILD C
 
 ## MSTRANSFORM
@@ -43,7 +43,7 @@ VARS A src_name="IC1613"
 ## output:
 ## - tarball of measurement sets that have been transformed to the user provided reference frame and spectral channel width
 ## JOB C ms_transform.sub
-## VARS C ref_frame="LSRK" chan_width="1953.71094083786" src_name="IC10"
+## VARS C ref_frame="LSRK" chan_width="1953.71094083786" src_name="IC1613"
 ## PARENT C CHILD D
 
 ## CONTSUB
@@ -58,8 +58,8 @@ VARS A src_name="IC1613"
 ## output:
 ## - contsubed measurement sets with '.contsub' suffix appended
 ## JOB D uvcontsub.sub
-## VARS D src_name="IC10" v_sys="-340" v_width="210"
-## PARENT D CHILD G
+## VARS D src_name="IC1613" v_sys="-238" v_width="210"
+## PARENT D CHILD E
 
 ## GENERATE INPUT FOR SPLIT CONCAT STEP
 ## call generate_spit_file.py to generate input for SPLIT CONCAT step
@@ -72,7 +72,7 @@ VARS A src_name="IC1613"
 ## output:
 ## - a csv file that has three columns: name of measurement set, starting channel to split, ending channel to split for concat
 ## JOB E generate_split_file.sub
-## VARS E src_name="IC10" extension="contsub" output_name="split_concat_list"
+## VARS E src_name="IC1613" extension="contsub" output_name="split_concat_list"
 ## PARENT E CHILD F
 
 ## SPLIT FOR CONCAT
@@ -100,7 +100,7 @@ VARS A src_name="IC1613"
 ## output:
 ## - concatenated measurement set in staging area
 ## JOB G concat.sub
-## VARS G src_name="IC10" extension="contsub" outfile_name="IC10_A+B+C+D.ms"
+## VARS G src_name="IC1613" extension="split_concat" outfile_name="IC1613_A+B+C+D.ms"
 ## PARENT G CHILD H
 
 ## COMBINE_SPW
@@ -113,7 +113,7 @@ VARS A src_name="IC1613"
 ## output:
 ## - concantenated measurement set with a single spectral window
 ## JOB H ms_transform_combine_spw.sub
-## VARS H src_name="IC10" input_name="IC10_A+B+C+D.ms"
+## VARS H src_name="IC1613" input_name="IC1613_A+B+C+D.ms"
 ## PARENT H CHILD I
 
 ## STATWT
@@ -128,7 +128,7 @@ VARS A src_name="IC1613"
 ## output:
 ## - re-weighted concatenated measurement sets with '.wt' appended to name
 ## JOB I statwt.sub
-## VARS I ms_name="IC10_A+B+C+D.comb_spw" v_sys="-340" v_width="210" src_name="IC10"
+## VARS I ms_name="IC1613_A+B+C+D.comb_spw" v_sys="-238" v_width="210" src_name="IC1613"
 ## PARENT I CHILD J
 
 ## SPLIT FOR IMAGING
@@ -143,7 +143,7 @@ VARS A src_name="IC1613"
 ## output:
 ## - tarballs of individual channels
 ## JOB J split_channels.sub
-## VARS J input_name="IC10_A+B+C+D.comb_spw.wt" src_name="IC10"
+## VARS J input_name="IC1613_A+B+C+D.comb_spw.wt" src_name="IC1613"
 ## PARENT J CHILD K
 
 ## IMAGING
@@ -158,8 +158,8 @@ VARS A src_name="IC1613"
 ## output:
 ## - tarball containing tclean output for single spectral channels
 ## JOB K image_channel.sub
-## VARS K ms_name="IC10_A+B+C+D.comb_spw.wt" src_name="IC10" ra_phase_center="00h20m17.34s" dec_phase_center="59d18m13.6"
-#PARENT K CHILD L
+## VARS K ms_name="IC1613_A+B+C+D.comb_spw.wt" src_name="IC1613" ra_phase_center="01h04m47.79s" dec_phase_center="02d07m04.0"
+## PARENT K CHILD L
 
 ## RESTART IMAGING
 ## run tclean to imagine single channels
@@ -172,8 +172,8 @@ VARS A src_name="IC1613"
 ## - src_name: source name
 ## output:
 ## - tarball containing tclean output for single spectral channels
-##JOB K restart_image_channel.sub
-##VARS K ms_name="IC10_A+B+C+D.comb_spw.wt" src_name="IC10" ra_phase_center="19h44m57.74s" dec_phase_center="-14d48m12.4"
+## JOB K restart_image_channel.sub
+## VARS K ms_name="IC1613_A+B+C+D.comb_spw.wt" src_name="IC1613" ra_phase_center="19h44m57.74s" dec_phase_center="-14d48m12.4"
 ##PARENT K CHILD L
 
 ## UNTAR FOR COMBINATION
@@ -186,9 +186,9 @@ VARS A src_name="IC1613"
 ## - file_name: root name of files
 ## output:
 ## - extracted CASA image file in staging area
-## JOB L untar_images.sub
-## VARS L suffix="image" src_name="IC10" root_file_name="IC10_A+B+C+D.comb_spw.wt"
-## PARENT L CHILD M
+JOB L untar_images.sub
+VARS L suffix="image" src_name="IC1613" root_file_name="IC1613_A+B+C+D.comb_spw.wt"
+PARENT L CHILD M
 
 ## COMBINE IMAGES
 ## finally, combine the 2D images into 3-dimensional data cube (dims: sky position, sky position, frequency/velocity)
@@ -201,8 +201,8 @@ VARS A src_name="IC1613"
 ## - delta_nu: spectral width of channels in kHz
 ## output:
 ## - final data cube
-## JOB M combine_images.sub
-## VARS M suffix = "image" src_name="IC10" output_name="IC10_ABCD" delta_nu="1953.71094083"
+JOB M combine_images.sub
+VARS M suffix = "image" src_name="IC1613" output_name="IC1613_ABCD" delta_nu="1953.71094083"
 #PARENT M CHILD N
 
 ## TODO: ADD FEATHERING

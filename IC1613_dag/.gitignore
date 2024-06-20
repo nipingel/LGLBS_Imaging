@@ -4,3 +4,10 @@ docker_stderror
 log_files
 ## ignore casa summary files containing last task input
 *.last
+<<<<<<< HEAD
+=======
+## ignore output from CHTC
+*.out
+*.err
+*.log
+>>>>>>> ic1613_imaging

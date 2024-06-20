@@ -1,0 +1,110 @@
+"""
+5/04/2023
+Image LGLBS source around user provided phase center
+User inputs:
+-v --vis_path - <required> path of ms file
+-r --ra - <required> ra phase center in form e.g.: 00h40m13.8 
+-d --dec - <required> dec phase center in form e.g.: +40d50m04.73
+-p --output_name - <required> name of output file
+__author__="Nickolas Pingel"
+__version__="1.0"
+__email__="nmpingel@wisc.edu"
+__status__="Production"
+"""
+# imports
+import argparse
+
+## parse user inputs
+parser = argparse.ArgumentParser()
+parser.add_argument('-v', '--vis_path', help = '<required> name of measurement set', required = True)
+parser.add_argument('-r', '--ra', help = '<required> ra phase center in form e.g.: 00h40m13.8', required = True)
+parser.add_argument('-d', '--dec', help = '<required> ra phase center in form e.g.: +40d50m04.73', required = True)
+parser.add_argument('-o', '--output_name', help = '<required> name of output file', required = True)
+args, unknown = parser.parse_known_args()
+
+vis_path = args.vis_path
+ra_phase_center = args.ra
+dec_phase_center = args.dec
+output_name = args.output_name
+def main():
+	## run ms transform to smooth and extract relevant channel range
+	ms_transform_params = {
+		'vis': vis_path,
+		'outputvis': vis_path.replace('.split_spw', '.split_spw.mstransform'), 
+		'datacolumn':'data',
+		'regridms': True,
+		'mode': 'velocity',
+		'restfreq':'1420.406MHz',
+		'nchan':20,
+		'start':'-280.0km/s', 
+		'width':'5.0km/s'
+	}
+	mstransform(**ms_transform_params)
+
+	#casalog.filter('DEBUG2')   
+	## define tclean variables below
+	## image output properties
+	im_size = 1024
+	field_id = 'IC1613_1_CTR'
+	cell_size = '3arcsec'
+	restore_beam = 'common'
+	## automasking parameters ##
+	use_mask = 'pb'
+	sidelobe_threshold = 2.5
+	noise_threshold = 3.5
+	min_beam_frac = 0.3
+	lownoisethreshold = 1.5
+	negativethreshold = 0.0
+	grow_iters=75
+	dogrowprune=False
+	verbose = True
+	## deconvolution parameters
+	deconvolver_mode = 'multiscale'
+	ms_scales = [0, 8, 16, 32, 64, 128, 256]
+	tot_niter = 0
+	min_threshold = '1.9mJy'
+	restart_parameter = False
+	## tclean dictionary
+	tclean_params={
+		'vis':vis_path.replace('.split_spw', '.split_spw.mstransform'),
+		'imagename':output_name,
+		'phasecenter':'J2000 %s %s' % (ra_phase_center, dec_phase_center),
+		'restfreq':'1.42040571183GHz',
+		'selectdata': True,
+		'field': field_id, 
+		'datacolumn': 'data',
+		'specmode':'cube',
+		'imsize':im_size,
+		'cell':cell_size,
+		'restoringbeam': restore_beam, 
+		'pblimit':0.1, 
+		'weighting':'briggs', 
+		'robust':0.5, 
+		'gridder':'mosaic', 
+		'pbcor':True, 
+		'niter':tot_niter, 
+		'deconvolver':deconvolver_mode, 
+		'scales':ms_scales, 
+		'smallscalebias':0.4, 
+		'cyclefactor':0.8, 
+		'minpsffraction':0.05, 
+		'maxpsffraction':0.8, 
+		'threshold':min_threshold, 
+		'usemask':use_mask, 
+		'pbmask':0.2, 
+		'sidelobethreshold':sidelobe_threshold, 
+		'noisethreshold':noise_threshold, 
+		'minbeamfrac':min_beam_frac, 
+		'lownoisethreshold':lownoisethreshold, 
+		'negativethreshold':0.0, 
+		'growiterations':grow_iters, 
+		'dogrowprune':False, 
+		'verbose':True, 
+		'restart':restart_parameter
+		}
+
+	## run tclean
+	tclean(**tclean_params)
+if __name__=='__main__':
+	main()
+	exit()
