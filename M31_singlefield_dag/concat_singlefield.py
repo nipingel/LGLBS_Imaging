@@ -41,6 +41,7 @@ def main():
 	ms_list_field47 = make_list(path, '_47.transformed.contsub')
 	output_vis_field14 = '%s/M31_field14.ms' % path
 	output_vis_field47 = '%s/M31_field47.ms' % path
+	## run task
 	run_concat(ms_list_field14, output_vis_field14)
 	run_concat(ms_list_field47, output_vis_field47)
 if __name__=='__main__':

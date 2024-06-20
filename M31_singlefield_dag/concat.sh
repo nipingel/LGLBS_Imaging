@@ -11,4 +11,4 @@ src_name=$1
 full_path=/projects/vla-processing/measurement_sets/${src_name}/single-field-imaging
 
 ## make call to casa
-casa --nologfile -c concat.py -p ${full_path}
+casa --nologfile -c concat_singlefield.py -p ${full_path}
