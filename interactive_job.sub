@@ -11,6 +11,12 @@ Requirements=(Target.HasCHTCStaging == true)
 +HasCHTCStaging=true
 transfer_input_files = /home/nmpingel/software/uvcombine.tar, /home/nmpingel/software/analysis_scripts.tar, /home/nmpingel/software/phangs_imaging_scripts.tar, /home/nmpingel/LGLBS/LGLBS_Imaging/N6822_dag/feather_cubes.py
 request_cpus = 1
+<<<<<<< HEAD
 request_memory = 10GB
 request_disk = 1GB
+=======
+request_memory = 40GB
+request_disk = 300GB
+
+>>>>>>> ic1613_imaging
 queue
