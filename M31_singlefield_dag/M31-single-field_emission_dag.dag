@@ -113,14 +113,14 @@ PARENT H CHILD I
 ## - file_name: root name of files
 ## output:
 ## - extracted CASA image file in staging area
-## JOB I untar_images.sub
-## VARS I suffix="image" src_name="IC10" root_file_name="IC10_A+B+C+D.comb_spw.wt"
-## PARENT I CHILD J
+JOB I untar_images.sub
+VARS I suffix="image.pbcor" src_name="M31" root_file_name_1="M31_field14.ms" root_file_name_2="M31_field47.ms"
+PARENT I CHILD J
 
 ## COMBINE IMAGES
 ## finally, combine the 2D images into 3-dimensional data cube (dims: sky position, sky position, frequency/velocity)
 ## executable:
-## - combine_images.sh (runs combine_image.py)
+## - fitsconcat.sh (runs combine_image.py)
 ## inputs:
 ## - suffix: combine all files with *.suffix
 ## - output_name: name of output data cube (in FITS format)
@@ -128,8 +128,8 @@ PARENT H CHILD I
 ## - delta_nu: spectral width of channels in kHz
 ## output:
 ## - final data cube
-## JOB J combine_images.sub
-## VARS J suffix = "image" src_name="IC10" output_name="IC10_ABCD" delta_nu="1953.71094083"
+JOB J fitsconcat.sub
+VARS J suffix = "image.pbcor" src_name="M31" delta_nu="1953.71094083"
 #PARENT M CHILD N
 
 ## UVCOMBINE
