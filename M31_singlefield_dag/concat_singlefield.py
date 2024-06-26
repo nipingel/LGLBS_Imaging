@@ -37,8 +37,8 @@ def run_concat(ms_list, output_vis):
 
 def main():
 	## get list of input measurement sets
-	ms_list_field14 = make_list(path, '_14.transformed.contsub')
-	ms_list_field47 = make_list(path, '_47.transformed.contsub')
+	ms_list_field14 = make_list(path, '*_14.transformed.contsub')
+	ms_list_field47 = make_list(path, '*_47.transformed.contsub')
 	output_vis_field14 = '%s/M31_field14.ms' % path
 	output_vis_field47 = '%s/M31_field47.ms' % path
 	## run task
