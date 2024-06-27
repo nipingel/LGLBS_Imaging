@@ -31,9 +31,9 @@
 ## - src_name: source name
 ## output:
 ## - tarball of measurement sets that have been transformed to the user provided reference frame and spectral channel width
-JOB C ms_transform.sub
-VARS C ref_frame="LSRK" chan_width="1953.71094083786" src_name="M31"
-PARENT C CHILD D
+## JOB C ms_transform.sub
+## VARS C ref_frame="LSRK" chan_width="1953.71094083786" src_name="M31"
+## PARENT C CHILD D
 
 ## CONTSUB
 ## run continuum subtraction for all measurement sets from all VLA configurations
@@ -47,7 +47,7 @@ PARENT C CHILD D
 ## output:
 ## - contsubed measurement sets with '.contsub' suffix appended
 JOB D uvcontsub.sub
-VARS D src_name="IC10" v_sys="-296" v_width="700"
+VARS D src_name="M31" v_sys="-296" v_width="700"
 PARENT D CHILD E
 
 ## CONCAT

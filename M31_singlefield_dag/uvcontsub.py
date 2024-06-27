@@ -65,7 +65,8 @@ def construct_spw_str(vsys, vwidth, ms_path):
 	mask_axis[inds] = True
 	vel_inds = MW_indices(freq_axis)
 	mask_axis[vel_inds] = True
-
+	## invert mask axis 
+	mask_axis = ~mask_axis
 	regions = (label(mask_axis))[0]
 	max_reg = np.max(regions)
 	for ii in range(1, max_reg+1):
@@ -94,10 +95,10 @@ def main():
 	fitspwStr += chan_str
 	uvcontsub_params = {
 		'vis': msName,
-		'fitspw': fitspwStr,
-		'excludechans': True,
+		'outputvis':'%s.contsub' % msName,
+		'fitspec': fitspwStr,
 		'fitorder': fitorder,
-		'want_cont': False}
+		'writemodel': False}
 	uvcontsub(**uvcontsub_params)
 if __name__=='__main__':
 	main()
