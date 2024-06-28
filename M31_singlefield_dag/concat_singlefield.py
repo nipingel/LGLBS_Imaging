@@ -17,9 +17,7 @@ parser.add_argument('-p', '--path', help = '<required> path to measurement sets'
 args, unknown = parser.parse_known_args()
 
 ## parse measurement set list & output
-output_name = args.output
 path = args.path
-ext = args.extension
 
 ## make list of measurement sets
 def make_list(path, ext):

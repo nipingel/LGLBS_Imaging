@@ -46,9 +46,9 @@
 ## - src_name: source name
 ## output:
 ## - contsubed measurement sets with '.contsub' suffix appended
-JOB D uvcontsub.sub
-VARS D src_name="M31" v_sys="-296" v_width="700"
-PARENT D CHILD E
+## JOB D uvcontsub.sub
+## VARS D src_name="M31" v_sys="-296" v_width="700"
+## PARENT D CHILD E
 
 ## CONCAT
 ## concatenate (combine) measurement sets from all VLA configurations in staging area
