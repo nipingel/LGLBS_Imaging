@@ -31,7 +31,7 @@ def run_concat(ms_list, output_vis):
 		'concatvis':output_vis,
 		'freqtol':'0.4kHz',
 		'dirtol': '0.1deg'}
-	concat(**params)
+	concat(**concat_params)
 
 def main():
 	## get list of input measurement sets
