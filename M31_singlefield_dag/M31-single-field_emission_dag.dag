@@ -50,6 +50,20 @@
 ## VARS D src_name="M31" v_sys="-296" v_width="700"
 ## PARENT D CHILD E
 
+## SPLIT FOR CONCAT (run in individual jobs separate from DAG)
+## split out channels from measurement sets with more than minumum number of total channels
+## to ensure all measurement sets have same number of channels for concat step (runs in staging area)
+## executable:
+## - split_channels_concat.sh (runs split_channels.py)
+## arguments:
+## - ms_name - full path to measurement set (input text file)
+## - start_chan - starting channel to split (input text file)
+## - end_chan - ending channel to split (input text file)
+## output:
+## - split out measurement sets with equal number of channels so concat step will combine into a single spw
+## JOB D split_channels_concat.sub
+## PARENT D CHILD E
+
 ## CONCAT
 ## concatenate (combine) measurement sets from all VLA configurations in staging area
 ## executable:
