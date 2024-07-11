@@ -23,5 +23,4 @@ tar -xvf /projects/vla-processing/measurement_sets/${src_name}/single-field-imag
 casa --nologfile -c uvcontsub.py -n ${ms_name} -o 1 -v ${v_sys} -w ${v_width}
 
 ## move back to staging. DO NOT tar since files will be set up for concatenation in staging area next
-#mv $untar_name".contsub" /projects/vla-processing/measurement_sets/${src_name}
 mv ${ms_name}".contsub" /projects/vla-processing/measurement_sets/${src_name}/single-field-imaging

@@ -46,8 +46,8 @@
 ## - src_name: source name
 ## output:
 ## - contsubed measurement sets with '.contsub' suffix appended
-## JOB D uvcontsub.sub
-## VARS D src_name="M31" v_sys="-296" v_width="700"
+JOB D uvcontsub.sub
+VARS D src_name="M31" v_sys="-296" v_width="700"
 ## PARENT D CHILD E
 
 ## SPLIT FOR CONCAT (run in individual jobs separate from DAG)
@@ -73,10 +73,10 @@
 ## - extension: file extension to use for concatenation
 ## - src_name: source name
 ## output:
-## - concatenated measurement set in staging area
-JOB E concat.sub
-VARS E src_name="M31" 
-PARENT E CHILD F
+## ## - concatenated measurement set in staging area
+## JOB E concat.sub
+## VARS E src_name="M31" 
+## PARENT E CHILD F
 
 ## STATWT
 ## re-weight visibilities based on root mean square noise in emission-free regions. Use systemic velocity and velocity width to mask channels with expected emission. 
@@ -88,9 +88,9 @@ PARENT E CHILD F
 ## - src_name: source name
 ## output:
 ## - re-weighted concatenated measurement sets with '.wt' appended to name
-JOB F statwt.sub
-VARS F v_sys="-296" v_width="700" src_name="M31"
-PARENT F CHILD G
+## JOB F statwt.sub
+## VARS F v_sys="-296" v_width="700" src_name="M31"
+## PARENT F CHILD G
 
 ## SPLIT FOR IMAGING
 ## split out channels from concatenated measurement set for imaging
