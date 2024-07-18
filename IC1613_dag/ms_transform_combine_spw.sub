@@ -33,4 +33,4 @@ request_memory = 10GB
 request_disk = 10GB
 #
 # Tell HTCondor to run 1 instances of our job:
-queue 1
+queue input_name from concated-ms-list.txt

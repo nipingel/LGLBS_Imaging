@@ -78,6 +78,18 @@ JOB E concat.sub
 VARS E src_name="M31" 
 PARENT E CHILD F
 
+## COMBINE_SPW
+## run mstransform again to combine all spectral windows in concatenated measurement set
+## executable:
+## -  ms_transform_combine_spw.sh (runs c  ms_transform_combine_spw.py)
+## arguments:
+## - src_name: source name
+## output:
+## - concantenated measurement set with a single spectral window
+JOB F ms_transform_combine_spw.sub
+VARS F src_name="M31"
+PARENT F CHILD H
+
 ## STATWT
 ## re-weight visibilities based on root mean square noise in emission-free regions. Use systemic velocity and velocity width to mask channels with expected emission. 
 ## executable:
@@ -88,8 +100,8 @@ PARENT E CHILD F
 ## - src_name: source name
 ## output:
 ## - re-weighted concatenated measurement sets with '.wt' appended to name
-JOB F statwt.sub
-VARS F v_sys="-296" v_width="700" src_name="M31"
+JOB H statwt.sub
+VARS H v_sys="-296" v_width="700" src_name="M31"
 ## PARENT F CHILD G
 
 ## SPLIT FOR IMAGING
