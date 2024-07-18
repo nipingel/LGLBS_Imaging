@@ -9,8 +9,8 @@ HOME=$PWD
 ## assign variables
 chan_num=$1
 src_name=$2
-ms_name_1="M31_field14.ms_chan"${chan_num}
-ms_name_2="M31_field47.ms_chan"${chan_num}
+ms_name_1="M31_field14.comb_spw.wt_chan"${chan_num}
+ms_name_2="M31_field47.comb_spw.wt_chan"${chan_num}
 ra_phase_center_1="00h41m29.752s"
 dec_phase_center_1="41d26m40.64200"
 ra_phase_center_2="00h48m42.535000s"
