@@ -74,9 +74,9 @@
 ## - src_name: source name
 ## output:
 ## ## - concatenated measurement set in staging area
-JOB E concat.sub
-VARS E src_name="M31" 
-PARENT E CHILD F
+## JOB E concat.sub
+## VARS E src_name="M31" 
+## PARENT E CHILD F
 
 ## COMBINE_SPW
 ## run mstransform again to combine all spectral windows in concatenated measurement set
@@ -86,9 +86,9 @@ PARENT E CHILD F
 ## - src_name: source name
 ## output:
 ## - concantenated measurement set with a single spectral window
-JOB F ms_transform_combine_spw.sub
-VARS F src_name="M31"
-PARENT F CHILD H
+## JOB F ms_transform_combine_spw.sub
+## VARS F src_name="M31"
+## PARENT F CHILD G
 
 ## STATWT
 ## re-weight visibilities based on root mean square noise in emission-free regions. Use systemic velocity and velocity width to mask channels with expected emission. 
@@ -100,9 +100,9 @@ PARENT F CHILD H
 ## - src_name: source name
 ## output:
 ## - re-weighted concatenated measurement sets with '.wt' appended to name
-JOB H statwt.sub
-VARS H v_sys="-296" v_width="700" src_name="M31"
-## PARENT F CHILD G
+## JOB G statwt.sub
+## VARS G v_sys="-296" v_width="700" src_name="M31"
+## PARENT G CHILD H
 
 ## SPLIT FOR IMAGING
 ## split out channels from concatenated measurement set for imaging
@@ -113,9 +113,9 @@ VARS H v_sys="-296" v_width="700" src_name="M31"
 ## - start_chan: starting channel to split
 ## output:
 ### - tarballs of individual channels
-## JOB G split_channels.sub
-## VARS G src_name="M31" start_chan="1200"
-## PARENT G CHILD H
+JOB H split_channels.sub
+VARS H src_name="M31" start_chan="1200"
+PARENT H CHILD I
 
 ## IMAGING
 ## run tclean to imagine single channels
@@ -125,8 +125,8 @@ VARS H v_sys="-296" v_width="700" src_name="M31"
 ## - ms_name: concatenated measurement set (without channel number ID, to be appended in execution script)
 ## output:
 ## - tarball containing tclean output for single spectral channels
-## JOB H image_channel.sub
-## VARS H src_name="M31"
+JOB I image_channel.sub
+VARS I src_name="M31"
 ## PARENT H CHILD I
 
 ## UNTAR FOR COMBINATION

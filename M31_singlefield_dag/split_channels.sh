@@ -7,8 +7,8 @@
 HOME=$PWD
 
 ## assign variables
-ms_name_1="M31_field14.ms"
-ms_name_2="M31_field47.ms"
+ms_name_1="M31_field14.comb_spw.wt"
+ms_name_2="M31_field47.comb_spw.wt"
 source_name=$1
 start_chan=$2
 end_chan=$3
