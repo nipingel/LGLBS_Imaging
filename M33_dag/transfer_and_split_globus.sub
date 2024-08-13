@@ -1,0 +1,24 @@
+#!/usr/bin/env condor_submit
+
+# transfer_and_split.sub
+# submit transfer jobs from LGLBS share to /projects staging area
+
+universe = docker
+docker_image = nipingel/casa:latest
+executable = transfer_and_split_globus.sh
+
+arguments  = $(fname) 
+output     = ms-transfer-$(Process).out
+error      = ms-transfer-$(Process).err
+log        = ms-transfer-$(Process).log
+
+# want /projects staging area, and want to run at CS near Ceph cluster
+Requirements = (Target.HasCHTCStaging == true)
++HasCHTCStaging = true
+
+# could transfer these, but for now store them under /projects/vla-processing
+transfer_input_files = transfer_and_split_globus.sh
+request_cpus   = 1
+request_memory = 10GB
+request_disk   = 10GB
+queue fname from transfer-list-m33.txt
