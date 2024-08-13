@@ -20,7 +20,7 @@ executable = feather_cubes.sh
 
 ## set variables
 src_name=WLM
-sdcube=WLM_GBT_Jy_lsrk.fits
+sdcube=WLM_GBT_Jy_lsrk.regrid.fits
 interfcube=wlmctr_A+B+C+D_HI_0p4kms.fits
 outpath=/projects/vla-processing/images/WLM
 galaxy=wlm
@@ -41,7 +41,7 @@ Requirements=(Target.HasCHTCStaging == true)
 transfer_input_files = feather_cubes.sh, feather_cubes.py, /home/nmpingel/software/uvcombine.tar 
 request_cpus = 1
 request_memory = 150GB
-request_disk = 10GB
+request_disk = 150GB
 #
 # Tell HTCondor to run 1 instances of our job:
 queue 1

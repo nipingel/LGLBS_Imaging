@@ -131,7 +131,7 @@ def main():
     feathered_cube = feather_simple_cube(vla_cube.to(u.K),
                                     gbt_cube.to(u.K),
                                     allow_lo_reproj=False,
-                                    allow_spectral_resample=False,
+                                    allow_spectral_resample=True,
                                     lowresscalefactor=sdfactor, 
                                     use_save_to_tmp_dir=True,
                                     use_dask=True)
