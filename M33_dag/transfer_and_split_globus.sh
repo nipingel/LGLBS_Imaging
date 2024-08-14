@@ -15,7 +15,7 @@ dest_ep="33e45bdb-75ee-4ec0-b9a5-0f944565c2f6"
 
 
 ## start transfer
-task_id=$(globus transfer ${source_ep}:${fname} ${dest_ep}:${fname} --jmespath 'task_id' --format=UNIX)
+task_id=$(globus transfer ${source_ep}:/M33/${fname} ${dest_ep}:/measurement_sets/M33/${fname} --jmespath 'task_id' --format=UNIX)
 
 echo "Waiting on 'globus transfer' task '$task_id'"
 globus task wait ${task_id} --polling-interval 120
