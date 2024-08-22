@@ -19,6 +19,11 @@ log = run_feather.log
 ## imaging ()
 executable = feather_cubes.py
 
+sdcube=N6822_GBT_Jy.eq.nostokes.fits
+interfcube=NGC6822_A+B+C+D_HI_0p4kms_-50to-40.twochans.fits
+outpath=/projects/vla-processing/images/NGC6822
+galaxy=ngc6822
+
 arguments = $(src_name) $(sdcube) $(interfcube) $(outpath) $(galaxy)
 output = run_feather.out
 error = run_feather.err
@@ -33,7 +38,7 @@ Requirements=(Target.HasCHTCStaging == true) && (OpSysMajorVer =?= 8)
 #  each job will need on the computer where it runs.
 transfer_input_files = combine_images.sh, combine_images.py
 request_cpus = 1
-request_memory = 100GB
+request_memory = 1GB
 request_disk = 10GB
 #
 # Tell HTCondor to run 1 instances of our job:
