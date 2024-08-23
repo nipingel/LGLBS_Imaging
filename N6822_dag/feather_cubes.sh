@@ -14,11 +14,8 @@ galaxy=$5
 source /miniconda3/etc/profile.d/conda.sh
 conda activate astro_env
 
-tar -xvf uvcombine.tar --directory .
-
 ## change working directory to staging area
 mv feather_cubes.py /projects/vla-processing/images/${src_name}
-mv uvcombine /projects/vla-processing/images/${src_name}
 cd /projects/vla-processing/images/${src_name}
 
 python feather_cubes.py --sdcube ${sdcube} --interfcube ${interfcube} --outpath ${outpath} --galaxy ${galaxy}

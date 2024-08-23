@@ -114,10 +114,10 @@ def spectral_resample(lowres, highres):
 	return lowres_specinterp    
 
 ## function to perform spatial reprojection
-def reproject_single_dish(lowres, highres):
+def reproject_single_dish(sdcube_name, lowres, highres):
 	# Do a per-channel version to avoid the problem
-	sd_filename = Path(lowres).name
-	reproj_filename = output_path / f"{sd_filename[:-5]}_highresmatch.fits"
+	sd_filename = Path(sdcube_name).name
+	reproj_filename = output_path + f"/{sd_filename[:-5]}_highresmatch.fits"
 	print(f"Copying {interf_cubename} to {reproj_filename}")
 	os.system(f"cp {interf_cubename} {reproj_filename}")
 	print("Per channel reprojection")
@@ -136,7 +136,7 @@ def reproject_single_dish(lowres, highres):
 ## function to write out feathered cube
 def write_feathered_cube(output_path, comb_cube_name, comb_cube):
 	comb_cubename_only = Path(comb_cube_name).name
-	this_feathered_filename = output_path / f"{comb_cubename_only[:-5]}_feathered.fits"
+	this_feathered_filename = output_path + f"/{comb_cubename_only[:-5]}_feathered.fits"
 	comb_cube.write(this_feathered_filename, overwrite=True)
 	# Append the scfactor used into the header.
 	with fits.open(this_feathered_filename, mode="update") as hdulist:
@@ -153,13 +153,15 @@ def main():
 	lowres_cube = spectral_resample(lowres_cube, highres_cube)
 
 	# Grid the single dish data to the interferometer spatial grid
-	lowres_reproject = reproject_single_dish(lowres_cube, highres_cube)
+	lowres_reproject = reproject_single_dish(sd_cubename, lowres_cube, highres_cube)
 
 	# Feather with the SD scale factor applied
 	feathered_cube = feather_simple_cube(highres_cube.to(u.K),
 		lowres_reproject.to(u.K),
 		use_dask = True,
-		allow_lo_reproj=False,
+		use_memmap = True,
+		allow_lo_reproj = False,
+		use_save_to_tmp_dir = True,
 		allow_spectral_resample=False,
 		lowresscalefactor=sdfactor)
 	## write feathered cube
