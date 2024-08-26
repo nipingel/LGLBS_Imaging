@@ -119,15 +119,15 @@ def reproject_single_dish(sdcube_name, lowres, highres):
 	sd_filename = Path(sdcube_name).name
 	reproj_filename = output_path + f"/{sd_filename[:-5]}_highresmatch.fits"
 	print(f"Copying {interf_cubename} to {reproj_filename}")
-	os.system(f"cp {interf_cubename} {reproj_filename}")
+	#os.system(f"cp {interf_cubename} {reproj_filename}")
 	print("Per channel reprojection")
-	with warnings.catch_warnings():
-		warnings.filterwarnings("ignore", message="WCS1 is missing card")
-		for this_chan in tqdm(range(highres.shape[0])):
-			reproj_chan = lowres[this_chan].reproject(highres[this_chan].header)
-			with fits.open(reproj_filename, mode="update") as hdulist:
-				hdulist[0].data[this_chan] = reproj_chan
-				hdulist.flush()
+	#with warnings.catch_warnings():
+	#	warnings.filterwarnings("ignore", message="WCS1 is missing card")
+	#	for this_chan in tqdm(range(highres.shape[0])):
+	#		reproj_chan = lowres[this_chan].reproject(highres[this_chan].header)
+	#		with fits.open(reproj_filename, mode="update") as hdulist:
+	#			hdulist[0].data[this_chan] = reproj_chan
+	#			hdulist.flush()
 	# Allow reading in the whole cube.
 	specinterp_reproj = SpectralCube.read(reproj_filename, use_dask = True)
 	specinterp_reproj.allow_huge_operations = True
@@ -162,7 +162,7 @@ def main():
 		use_memmap = True,
 		allow_lo_reproj = False,
 		use_save_to_tmp_dir = True,
-		allow_spectral_resample=False,
+		allow_spectral_resample=True,
 		lowresscalefactor=sdfactor)
 	## write feathered cube
 	write_feathered_cube(output_path, interf_cubename, feathered_cube)
