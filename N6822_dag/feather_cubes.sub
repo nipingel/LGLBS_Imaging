@@ -17,7 +17,13 @@ log = run_feather.log
 #  and increasing for the relevant number of jobs.
 
 ## imaging ()
-executable = feather_cubes.py
+executable = feather_cubes.sh
+
+src_name=NGC6822
+sdcube=N6822_GBT_Jy.eq.nostokes.fits
+interfcube=NGC6822_A+B+C+D_HI_0p4kms.imcontsub.fits
+outpath=/projects/vla-processing/images/NGC6822
+galaxy=ngc6822
 
 arguments = $(src_name) $(sdcube) $(interfcube) $(outpath) $(galaxy)
 output = run_feather.out
@@ -31,10 +37,10 @@ Requirements=(Target.HasCHTCStaging == true) && (OpSysMajorVer =?= 8)
 
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
-transfer_input_files = combine_images.sh, combine_images.py
-request_cpus = 1
-request_memory = 100GB
-request_disk = 10GB
+transfer_input_files = feather_cubes.sh, feather_cubes.py
+request_cpus = 2
+request_memory = 20GB
+request_disk = 50GB
 #
 # Tell HTCondor to run 1 instances of our job:
 queue 1

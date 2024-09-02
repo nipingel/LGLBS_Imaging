@@ -27,9 +27,9 @@
 ## - rest_freq: rest frequency of spectral line
 ## output:
 ## - tarball of measurement sets that have had spectral window split out with '_spw' appended to file name
-JOB B split_spw.sub
-VARS B src_name="M33" v_sys="-180" v_width="500" rest_freq="1.420406"
-PARENT B CHILD C
+## JOB B split_spw.sub
+## VARS B src_name="M33" v_sys="-180" v_width="500" rest_freq="1.420406"
+## PARENT B CHILD C
 
 ## MSTRANSFORM
 ## place all split-out measurement sets on same spectral axis & reference frame
