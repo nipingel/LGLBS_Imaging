@@ -1,16 +1,15 @@
 """
-05/03/2023
+09/02/2024
 Perform continuum subtraction by fitting low order polynomial over a range of required input list of 
-channels, polynomial fit order, and full path of ms file name. 
+channels, polynomial fit order, and full path of ms file name. Updated to comply with latest uvcontsub task
+updates
 User inputs:
 -o --order -order of fitting polynomial
 -v -vsys - systemic velocity of source (assumed LSRK)
 -w -vwidth - velocity width of source
 -n --msPath - path of measurement set
 __author__="Nickolas Pingel"
-__version__="1.0"
-__email__="Nickolas.Pingel@anu.edu.au"
-__status__="Production"
+__email__="nmpingel@wisc.edu"
 """
 # imports
 import argparse
@@ -65,7 +64,8 @@ def construct_spw_str(vsys, vwidth, ms_path):
 	mask_axis[inds] = True
 	vel_inds = MW_indices(freq_axis)
 	mask_axis[vel_inds] = True
-
+	## invert mask axis 
+	mask_axis = ~mask_axis
 	regions = (label(mask_axis))[0]
 	max_reg = np.max(regions)
 	for ii in range(1, max_reg+1):
@@ -94,10 +94,10 @@ def main():
 	fitspwStr += chan_str
 	uvcontsub_params = {
 		'vis': msName,
-		'fitspw': fitspwStr,
-		'excludechans': True,
+		'outputvis':'%s.contsub' % msName,
+		'fitspec': fitspwStr,
 		'fitorder': fitorder,
-		'want_cont': False}
+		'writemodel': False}
 	uvcontsub(**uvcontsub_params)
 if __name__=='__main__':
 	main()
