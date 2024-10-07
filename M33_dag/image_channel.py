@@ -19,6 +19,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-v', '--vis_path', help = '<required> name of measurement set', required = True)
 parser.add_argument('-r', '--ra', help = '<required> ra phase center in form e.g.: 00h40m13.8', required = True)
 parser.add_argument('-d', '--dec', help = '<required> ra phase center in form e.g.: +40d50m04.73', required = True)
+parser.add_argument('-c', '--channel_num', help='<required> channel to image')
 parser.add_argument('-o', '--output_name', help = '<required> name of output file', required = True)
 args, unknown = parser.parse_known_args()
 
@@ -26,13 +27,14 @@ vis_path = args.vis_path
 ra_phase_center = args.ra
 dec_phase_center = args.dec
 output_name = args.output_name
+channel_num = args.channel_num
 
 def main():
 	#casalog.filter('DEBUG2')   
 	## define tclean variables below
 	## image output properties
-	im_size = 5200
-	field_id = 'IC10_1_CTR'
+	im_size = 25000
+	field_id = 'M33*'
 	cell_size = '0.75arcsec'
 	restore_beam = 'common'
 	## automasking parameters ##
@@ -59,6 +61,7 @@ def main():
 		'restfreq':'1.42040571183GHz',
 		'selectdata': True,
 		'field': field_id,
+		'spw': '0:%d' % channel_num,
 		'datacolumn': 'data',
 		'specmode':'mfs',
 		'imsize':im_size,
