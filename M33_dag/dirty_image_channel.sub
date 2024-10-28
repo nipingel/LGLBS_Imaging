@@ -16,15 +16,20 @@ docker_image = nipingel/casa:latest
 #  and increasing for the relevant number of jobs.
 
 ## imaging executable
-executable = image_channel.sh
+executable = dirty_image_channel.sh
+
+ms_name=M33_A+B+C+D.ms.wt_chan1700
+src_name=M33 
+ra_phase_center=01h33m50s 
+dec_phase_center=30d29m37
 
 ## determine channel to image
-sc = $(Process)+1700
+sc = $(Process)+1701
 chan = $INT(sc,%d)
 arguments = $(chan) $(ms_name) $(src_name) $(ra_phase_center) $(dec_phase_center)
-log = $(src_name)_image_chan$(chan).log
-output = $(src_name)_image_chan$(chan).out
-error = $(src_name)_image_chan$(chan).err
+log = $(src_name)_dirty_image_chan$(chan).log
+output = $(src_name)_dirty_image_chan$(chan).out
+error = $(src_name)_dirty_image_chan$(chan).err
 
 # Specify that HTCondor should transfer files to and from the
 #  computer where each job runs. The last of these lines *would* be
@@ -34,11 +39,11 @@ Requirements=(Target.HasCHTCStaging == true) && (OpSysMajorVer =?= 8)
 
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
-transfer_input_files = image_channel.py, image_channel.sh
-request_cpus = 4
+transfer_input_files = dirty_image_channel.py, dirty_image_channel.sh
+request_cpus = 1
 #request_memory = 150GB
 request_memory=15GB
 request_disk = 25GB
 
 # Tell HTCondor to run 475 instances of our job:
-queue 25
+queue 1

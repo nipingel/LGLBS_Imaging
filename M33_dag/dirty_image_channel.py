@@ -33,7 +33,7 @@ def main():
 	#casalog.filter('DEBUG2')   
 	## define tclean variables below
 	## image output properties
-	im_size = 8500
+	im_size = 15000
 	field_id = 'M33*'
 	cell_size = '0.75arcsec'
 	restore_beam = 'common'
@@ -50,7 +50,7 @@ def main():
 	## deconvolution parameters
 	deconvolver_mode = 'multiscale'
 	ms_scales = [0, 8, 16, 32, 64, 128, 256]
-	tot_niter = 100000 
+	tot_niter = 0 
 	min_threshold = '1.9mJy'
 	restart_parameter = False
 	## tclean dictionary
@@ -89,7 +89,7 @@ def main():
 		'negativethreshold':0.0, 
 		'growiterations':grow_iters, 
 		'dogrowprune':False, 
-		'verbose':True, 
+		'verbose':True,
 		'restart':restart_parameter
 		}
 

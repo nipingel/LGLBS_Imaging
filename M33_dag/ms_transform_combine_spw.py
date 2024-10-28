@@ -31,6 +31,7 @@ def main():
 		'vis': full_input_name,
 		'outputvis': output_vis,
 		'datacolumn': 'data',
+        'freqtol': '0.5MHz',
 		'combinespws': True
 	}
 	mstransform(**mstransform_params)

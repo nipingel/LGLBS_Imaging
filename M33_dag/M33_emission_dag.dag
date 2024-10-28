@@ -71,9 +71,9 @@
 ## - output: output name for generated csv file
 ## output:
 ## - a csv file that has three columns: name of measurement set, starting channel to split, ending channel to split for concat
-JOB E generate_split_file.sub
-VARS E src_name="M33" extension="contsub" output_name="split_concat_list"
-PARENT E CHILD F
+## JOB E generate_split_file.sub
+## VARS E src_name="M33" extension="contsub" output_name="split_concat_list"
+## PARENT E CHILD F
 
 ## SPLIT FOR CONCAT
 ## split out channels from measurement sets with more than minumum number of total channels
@@ -86,8 +86,8 @@ PARENT E CHILD F
 ## - end_chan - ending channel to split (input text file)
 ## output:
 ## - split out measurement sets with equal number of channels so concat step will combine into a single spw
-JOB F split_channels_concat.sub
-PARENT F CHILD G
+## JOB F split_channels_concat.sub
+## PARENT F CHILD G
 
 ## CONCAT
 ## concatenate (combine) measurement sets from all VLA configurations in staging area
@@ -99,9 +99,9 @@ PARENT F CHILD G
 ## - src_name: source name
 ## output:
 ## - concatenated measurement set in staging area
-JOB G concat.sub
-VARS G src_name="M33" extension="split_concat" outfile_name="M33_A+B+C+D.ms"
-PARENT G CHILD H
+## JOB G concat.sub
+## VARS G src_name="M33" extension="split_concat" outfile_name="M33_A+B+C+D.ms"
+## PARENT G CHILD H
 
 ## COMBINE_SPW
 ## run mstransform again to combine all spectral windows in concatenated measurement set
