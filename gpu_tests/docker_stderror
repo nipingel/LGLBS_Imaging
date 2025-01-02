@@ -1,0 +1,75 @@
+Unable to find image 'pjaganna/libra:ampere80' locally
+ampere80: Pulling from pjaganna/libra
+60dba2b6ee41: Pulling fs layer
+494cd772bcb4: Pulling fs layer
+b80502dd0f3f: Pulling fs layer
+ceb88ea5d517: Pulling fs layer
+0a362e02163d: Pulling fs layer
+7f39ce8c826b: Pulling fs layer
+e38246e6fa31: Pulling fs layer
+acecbbfb2eb7: Pulling fs layer
+833b5991d84b: Pulling fs layer
+c0d1274d3db7: Pulling fs layer
+7cdaffa07936: Pulling fs layer
+c3cb82615ddb: Pulling fs layer
+9b45cbaf7f06: Pulling fs layer
+1db242a0b52a: Pulling fs layer
+a3e72b138ebf: Pulling fs layer
+ceb88ea5d517: Waiting
+0a362e02163d: Waiting
+7f39ce8c826b: Waiting
+e38246e6fa31: Waiting
+acecbbfb2eb7: Waiting
+833b5991d84b: Waiting
+c0d1274d3db7: Waiting
+7cdaffa07936: Waiting
+c3cb82615ddb: Waiting
+9b45cbaf7f06: Waiting
+1db242a0b52a: Waiting
+a3e72b138ebf: Waiting
+494cd772bcb4: Verifying Checksum
+494cd772bcb4: Download complete
+b80502dd0f3f: Verifying Checksum
+b80502dd0f3f: Download complete
+0a362e02163d: Verifying Checksum
+0a362e02163d: Download complete
+7f39ce8c826b: Verifying Checksum
+7f39ce8c826b: Download complete
+60dba2b6ee41: Verifying Checksum
+60dba2b6ee41: Download complete
+acecbbfb2eb7: Verifying Checksum
+acecbbfb2eb7: Download complete
+833b5991d84b: Verifying Checksum
+833b5991d84b: Download complete
+ceb88ea5d517: Verifying Checksum
+ceb88ea5d517: Download complete
+7cdaffa07936: Download complete
+60dba2b6ee41: Pull complete
+494cd772bcb4: Pull complete
+b80502dd0f3f: Pull complete
+e38246e6fa31: Verifying Checksum
+e38246e6fa31: Download complete
+ceb88ea5d517: Pull complete
+0a362e02163d: Pull complete
+7f39ce8c826b: Pull complete
+c0d1274d3db7: Verifying Checksum
+c0d1274d3db7: Download complete
+1db242a0b52a: Verifying Checksum
+1db242a0b52a: Download complete
+a3e72b138ebf: Verifying Checksum
+a3e72b138ebf: Download complete
+e38246e6fa31: Pull complete
+acecbbfb2eb7: Pull complete
+833b5991d84b: Pull complete
+c3cb82615ddb: Verifying Checksum
+c3cb82615ddb: Download complete
+9b45cbaf7f06: Verifying Checksum
+9b45cbaf7f06: Download complete
+c0d1274d3db7: Pull complete
+7cdaffa07936: Pull complete
+c3cb82615ddb: Pull complete
+9b45cbaf7f06: Pull complete
+1db242a0b52a: Pull complete
+a3e72b138ebf: Pull complete
+Digest: sha256:65ebdd2934b9cf014d194c930390fb4cc52b9ef753cc16a045041b1a8f985846
+Status: Downloaded newer image for pjaganna/libra:ampere80
