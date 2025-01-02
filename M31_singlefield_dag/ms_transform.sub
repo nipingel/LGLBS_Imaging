@@ -1,5 +1,5 @@
-# split_channels.sub
-# script to submit job to split channels from staged & calibrated LGLBS measurement set
+# ms_transform.sub
+# script to submit job to adjust channel width and spectral frame from LGLBS measurement sets
 #
 # Specify the HTCondor Universe (vanilla is the default and is used
 #  for almost all jobs) and your desired name of the HTCondor log file,
@@ -14,19 +14,14 @@ docker_image = nipingel/casa:latest
 #  output (or "screen output").
 #  $(Process) will be a integer number for each job, starting with "0"
 #  and increasing for the relevant number of jobs.
-executable = split_channels.sh
+executable = ms_transform.sh
 
-## set up start and end channels
-sc = $(Process)*5 + $(start_chan)
-ec = $(sc) + 5
-start_chan = $INT(sc,%d)
-end_chan = $INT(ec,%d)
+## set inputs
+arguments = $(ms_name) $(chan_width) $(ref_frame) $(src_name)
+output = transform-ms-$(Process).out
+error = transform-ms-$(Process).err
+log = transform-ms-$(Process).log
 
-arguments = $(src_name) $(start_chan) $(end_chan) 
-output = channel_split_$(start_chan)_to_$(end_chan).out
-error = channel_split_$(start_chan)_to_$(end_chan).err
-log = channel_split_$(start_chan)_to_$(end_chan).log
-#
 # Specify that HTCondor should transfer files to and from the
 #  computer where each job runs. The last of these lines *would* be
 #  used if there were any other files needed for the executable to use.
@@ -34,10 +29,10 @@ Requirements=(Target.HasCHTCStaging == true) && (OpSysMajorVer =?= 8)
 +HasCHTCStaging=true
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
-transfer_input_files = split_channels.py, split_channels.sh
+transfer_input_files = ms_transform.py, ms_transform.sh
 request_cpus = 1
 request_memory = 10GB
-request_disk = 10GB
+request_disk = 300GB
 #
-# Tell HTCondor to run number of instances of our job:
-queue 460
+# Tell HTCondor to run 1 instances of our job:
+queue ms_name from ms-transform-list.txt

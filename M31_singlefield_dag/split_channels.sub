@@ -16,9 +16,11 @@ docker_image = nipingel/casa:latest
 #  and increasing for the relevant number of jobs.
 executable = split_channels.sh
 
+src_name=M31
+starting_chan=1200
 ## set up start and end channels
-sc = $(Process)*5 + $(start_chan)
-ec = $(sc) + 5
+sc = $(Process)*5+$(starting_chan)
+ec = $(sc)+5
 start_chan = $INT(sc,%d)
 end_chan = $INT(ec,%d)
 
@@ -32,6 +34,7 @@ log = channel_split_$(start_chan)_to_$(end_chan).log
 #  used if there were any other files needed for the executable to use.
 Requirements=(Target.HasCHTCStaging == true) && (OpSysMajorVer =?= 8)
 +HasCHTCStaging=true
+
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
 transfer_input_files = split_channels.py, split_channels.sh

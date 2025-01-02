@@ -7,20 +7,20 @@
 HOME=$PWD
 
 ## assign variables
-ms_name_1="M31_field14.ms"
-ms_name_2="M31_field47.ms"
+ms_name_1="M31_field14.comb_spw.wt"
+ms_name_2="M31_field47.comb_spw.wt"
 source_name=$1
 start_chan=$2
 end_chan=$3
-full_path_1=/projects/vla-processing/measurement_sets/${source_name}/single_field_imaging/${ms_name_1}
-full_path_2=/projects/vla-processing/measurement_sets/${source_name}/single_field_imaging/${ms_name_2}
+full_path_1=/projects/vla-processing/measurement_sets/${source_name}/single-field-imaging/${ms_name_1}
+full_path_2=/projects/vla-processing/measurement_sets/${source_name}/single-field-imaging/${ms_name_2}
 
 # make casa call to imaging script
 casa --nologfile -c split_channels.py -p ${full_path_1} -s ${start_chan} -e ${end_chan} --indv_channel
 casa --nologfile -c split_channels.py -p ${full_path_2} -s ${start_chan} -e ${end_chan} --indv_channel
 
 ## tar measurement sets into files for each splitted-out channel
-cd /projects/vla-processing/measurement_sets/${source_name}/single_field_imaging
+cd /projects/vla-processing/measurement_sets/${source_name}/single-field-imaging
 
 ## arithmetic for loop
 last_chan=$((${end_chan}-1))

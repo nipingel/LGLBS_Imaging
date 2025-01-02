@@ -17,9 +17,7 @@ parser.add_argument('-p', '--path', help = '<required> path to measurement sets'
 args, unknown = parser.parse_known_args()
 
 ## parse measurement set list & output
-output_name = args.output
 path = args.path
-ext = args.extension
 
 ## make list of measurement sets
 def make_list(path, ext):
@@ -33,14 +31,15 @@ def run_concat(ms_list, output_vis):
 		'concatvis':output_vis,
 		'freqtol':'0.4kHz',
 		'dirtol': '0.1deg'}
-	concat(**params)
+	concat(**concat_params)
 
 def main():
 	## get list of input measurement sets
-	ms_list_field14 = make_list(path, '_14.transformed.contsub')
-	ms_list_field47 = make_list(path, '_47.transformed.contsub')
+	ms_list_field14 = make_list(path, '*_14.transformed.contsub')
+	ms_list_field47 = make_list(path, '*_47.transformed.contsub')
 	output_vis_field14 = '%s/M31_field14.ms' % path
 	output_vis_field47 = '%s/M31_field47.ms' % path
+	## run task
 	run_concat(ms_list_field14, output_vis_field14)
 	run_concat(ms_list_field47, output_vis_field47)
 if __name__=='__main__':
