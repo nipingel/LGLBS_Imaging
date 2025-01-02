@@ -31,4 +31,4 @@ request_memory = 10GB
 request_disk = 300GB
 #
 # Tell HTCondor to run 1 instances of our job:
-queue ms_name from ms-transform-list_m33_remaining.txt
+queue ms_name from ms-transform-list_m33.txt

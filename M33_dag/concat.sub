@@ -31,7 +31,7 @@ Requirements=(Target.HasCHTCStaging == true) && (OpSysMajorVer =?= 8)
 #  each job will need on the computer where it runs.
 transfer_input_files = concat.sh, concat.py
 request_cpus = 1
-request_memory = 10GB
+request_memory = 20GB
 request_disk = 10GB
 #
 # Tell HTCondor to run 1 instances of our job:

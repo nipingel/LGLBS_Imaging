@@ -36,7 +36,6 @@ Requirements=(Target.HasCHTCStaging == true) && (OpSysMajorVer =?= 8)
 #  each job will need on the computer where it runs.
 transfer_input_files = image_channel.py, image_channel.sh
 request_cpus = 4
-#request_memory = 150GB
 request_memory=15GB
 request_disk = 25GB
 

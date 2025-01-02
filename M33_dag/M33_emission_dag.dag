@@ -9,8 +9,7 @@
 ## - src_name: source name
 ## output:
 ## - tarball measurement set
-#JOB A transfer.sub
-#VARS A src_name="WLM"
+#JOB A transfer_measurement_sets.sub
 #PARENT A CHILD B
 
 ## SPLIT_SPW
@@ -27,9 +26,9 @@
 ## - rest_freq: rest frequency of spectral line
 ## output:
 ## - tarball of measurement sets that have had spectral window split out with '_spw' appended to file name
-## JOB B split_spw.sub
-## VARS B src_name="M33" v_sys="-180" v_width="500" rest_freq="1.420406"
-## PARENT B CHILD C
+JOB B split_spw.sub
+VARS B src_name="M33" v_sys="-180" v_width="500" rest_freq="1.420406"
+PARENT B CHILD C
 
 ## MSTRANSFORM
 ## place all split-out measurement sets on same spectral axis & reference frame
@@ -42,9 +41,9 @@
 ## - src_name: source name
 ## output:
 ## - tarball of measurement sets that have been transformed to the user provided reference frame and spectral channel width
-## JOB C ms_transform.sub
-## VARS C ref_frame="LSRK" chan_width="1953.71094083786" src_name="M33"
-## PARENT C CHILD D
+JOB C ms_transform.sub
+VARS C ref_frame="LSRK" chan_width="1953.71094083786" src_name="M33"
+PARENT C CHILD D
 
 ## CONTSUB
 ## run continuum subtraction for all measurement sets from all VLA configurations
@@ -57,9 +56,9 @@
 ## - src_name: source name
 ## output:
 ## - contsubed measurement sets with '.contsub' suffix appended
-## JOB D uvcontsub.sub
-## VARS D src_name="M33" v_sys="-180" v_width="500"
-## PARENT D CHILD E
+JOB D uvcontsub.sub
+VARS D src_name="M33" v_sys="-180" v_width="500"
+PARENT D CHILD F
 
 ## GENERATE INPUT FOR SPLIT CONCAT STEP
 ## call generate_spit_file.py to generate input for SPLIT CONCAT step
@@ -86,8 +85,8 @@
 ## - end_chan - ending channel to split (input text file)
 ## output:
 ## - split out measurement sets with equal number of channels so concat step will combine into a single spw
-## JOB F split_channels_concat.sub
-## PARENT F CHILD G
+JOB F split_channels_concat.sub
+PARENT F CHILD G
 
 ## CONCAT
 ## concatenate (combine) measurement sets from all VLA configurations in staging area
@@ -100,8 +99,8 @@
 ## output:
 ## - concatenated measurement set in staging area
 JOB G concat.sub
-VARS G src_name="M33" extension="split_concat.wt" outfile_name="M33_A+B+C+D.statwt.ms"
-## PARENT G CHILD H
+VARS G src_name="M33" extension="split_concat" outfile_name="M33_A+B+C+D.ms"
+PARENT G CHILD H
 
 ## COMBINE_SPW
 ## run mstransform again to combine all spectral windows in concatenated measurement set
@@ -157,9 +156,9 @@ VARS G src_name="M33" extension="split_concat.wt" outfile_name="M33_A+B+C+D.stat
 ## - src_name: source name
 ## output:
 ## - tarball containing tclean output for single spectral channels
-## JOB K image_channel.sub
-## VARS K ms_name="M33_A+B+C+D.ms.wt" src_name="M33" ra_phase_center="01h33m50s" dec_phase_center="30d29m37"
-##PARENT K CHILD L
+JOB H image_channel.sub
+VARS H ms_name="M33_A+B+C+D.ms" src_name="M33" ra_phase_center="01h33m50s" dec_phase_center="30d29m37"
+## PARENT K CHILD 
 
 ## RESTART IMAGING
 ## run tclean to imagine single channels

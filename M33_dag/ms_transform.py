@@ -35,7 +35,6 @@ ref_frame =  args.frame
 ## get transformed visibility name
 output_vis = args.output_vis
 
-
 def main():
 	mstransform_params = {
 		'vis': ms_path,

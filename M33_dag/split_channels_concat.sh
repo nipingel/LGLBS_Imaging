@@ -9,6 +9,8 @@ HOME=$PWD
 
 ## assign variables
 full_path=$1
+start_chan=$2
+end_chan=$3 
 
 # make casa call to imaging script
-casa --nologfile -c split_channels.py -p ${full_path} -s $2 -e $3 --split_concat
+casa --nologfile -c split_channels.py -p ${full_path} -s ${start_chan} -e ${end_chan} --split_concat

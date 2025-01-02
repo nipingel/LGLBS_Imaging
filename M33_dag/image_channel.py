@@ -34,7 +34,7 @@ def main():
 	## define tclean variables below
 	## image output properties
 	im_size = 8500
-	field_id = 'M33*'
+	field_id = 'M33*; NGC604'
 	cell_size = '0.75arcsec'
 	restore_beam = 'common'
 	## automasking parameters ##
