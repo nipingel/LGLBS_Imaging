@@ -1,4 +1,4 @@
-# image_channel.sub
+# combine_images.sub
 # script to base submission of LGLBS imaging jobs
 #
 # Specify the HTCondor Universe (vanilla is the default and is used
@@ -8,6 +8,7 @@
 #  queue number assigned to this set of jobs at the time of submission.
 universe = docker
 docker_image = nipingel/casa:latest
+log = run_feather.log
 #
 # Specify your executable (single binary or a script that runs several
 #  commands), arguments, and a files for HTCondor to store standard
@@ -15,17 +16,17 @@ docker_image = nipingel/casa:latest
 #  $(Process) will be a integer number for each job, starting with "0"
 #  and increasing for the relevant number of jobs.
 
-## imaging executable
-executable = image_channel.sh
+## imaging ()
+executable = feather_cubes.sh
 
-## determine channel to image
-sc = $(Process)+2877
-chan = $INT(sc,%d)
 src_name=M31
-arguments = $(chan) $(src_name)
-log = $(src_name)_image_chan$(chan).log
-output = $(src_name)_image_chan$(chan).out
-error = $(src_name)_image_chan$(chan).err
+sdcube=M31_GBT.FITS
+outpath=/projects/vla-processing/images/M31/single-field-imaging
+galaxy=m31
+
+arguments = $(src_name) $(sdcube) $(field_name) $(interfcube) $(outpath) $(galaxy)
+output = run_feather.out
+error = run_feather.err
 
 # Specify that HTCondor should transfer files to and from the
 #  computer where each job runs. The last of these lines *would* be
@@ -35,11 +36,10 @@ Requirements=(Target.HasCHTCStaging == true) && (OpSysMajorVer =?= 8)
 
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
-transfer_input_files = image_channel.py, image_channel.sh
-request_cpus = 1
-request_memory = 15GB
-request_disk = 5GB
+transfer_input_files = feather_cubes.sh, feather_cubes.py
+request_cpus = 2
+request_memory = 50GB
+request_disk = 25GB
 #
-# Tell HTCondor to run 475 instances of our job:
-queue 133
-## queue chan from remaining-channels.txt
+# Tell HTCondor to run 1 instances of our job:
+queue field_name,interfcube from cube-name-list.txt

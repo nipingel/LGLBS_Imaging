@@ -1,0 +1,80 @@
+000 (3156009.000.000) 2024-11-21 11:39:01 Job submitted from host: <128.105.68.113:9618?addrs=128.105.68.113-9618+[2607-f388-2200-100-eaeb-d3ff-fea7-d05e]-9618&alias=ap2002.chtc.wisc.edu&noUDP&sock=schedd_3421018_60df>
+...
+000 (3156009.001.000) 2024-11-21 11:39:01 Job submitted from host: <128.105.68.113:9618?addrs=128.105.68.113-9618+[2607-f388-2200-100-eaeb-d3ff-fea7-d05e]-9618&alias=ap2002.chtc.wisc.edu&noUDP&sock=schedd_3421018_60df>
+...
+040 (3156009.000.000) 2024-11-21 13:43:45 Started transferring input files
+	Transferring to host: <128.105.68.106:9618?addrs=128.105.68.106-9618+[2607-f388-2200-100-42a6-b7ff-fe82-f6c0]-9618&alias=voyles2000.chtc.wisc.edu&noUDP&sock=backfill5_10_176200_96f6_359985>
+...
+040 (3156009.000.000) 2024-11-21 13:43:45 Finished transferring input files
+...
+001 (3156009.000.000) 2024-11-21 13:43:46 Job executing on host: <128.105.68.106:9618?addrs=128.105.68.106-9618+[2607-f388-2200-100-42a6-b7ff-fe82-f6c0]-9618&alias=voyles2000.chtc.wisc.edu&noUDP&sock=startd_1670699_2133>
+	SlotName: backfill5_10@voyles2000.chtc.wisc.edu
+	AvailableGPUs = {  }
+	CondorScratchDir = "/var/lib/condor/execute/slot5/dir_648694"
+	Cpus = 2
+	Disk = 26216945
+	GPUs = 0
+	Memory = 51200
+...
+040 (3156009.000.000) 2024-11-21 13:43:50 Started transferring output files
+...
+040 (3156009.000.000) 2024-11-21 13:43:50 Finished transferring output files
+...
+005 (3156009.000.000) 2024-11-21 13:43:50 Job terminated.
+	(1) Normal termination (return value 1)
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	247  -  Run Bytes Sent By Job
+	6960  -  Run Bytes Received By Job
+	247  -  Total Bytes Sent By Job
+	6960  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :        0        2         2 
+	   Disk (KB)            :       29 26214400  26216945 
+	   GPUs                 :                           0 
+	   Memory (MB)          :             51200     51200 
+	   TimeExecute (s)      :        4                    
+	   TimeSlotBusy (s)     :        5                    
+
+	Job terminated of its own accord at 2024-11-21T19:43:50Z with exit-code 1.
+...
+040 (3156009.001.000) 2024-11-21 13:43:51 Started transferring input files
+	Transferring to host: <128.105.68.106:9618?addrs=128.105.68.106-9618+[2607-f388-2200-100-42a6-b7ff-fe82-f6c0]-9618&alias=voyles2000.chtc.wisc.edu&noUDP&sock=backfill5_10_176200_96f6_359986>
+...
+040 (3156009.001.000) 2024-11-21 13:43:51 Finished transferring input files
+...
+001 (3156009.001.000) 2024-11-21 13:43:52 Job executing on host: <128.105.68.106:9618?addrs=128.105.68.106-9618+[2607-f388-2200-100-42a6-b7ff-fe82-f6c0]-9618&alias=voyles2000.chtc.wisc.edu&noUDP&sock=startd_1670699_2133>
+	SlotName: backfill5_10@voyles2000.chtc.wisc.edu
+	AvailableGPUs = {  }
+	CondorScratchDir = "/var/lib/condor/execute/slot5/dir_651411"
+	Cpus = 2
+	Disk = 26216945
+	GPUs = 0
+	Memory = 51200
+...
+040 (3156009.001.000) 2024-11-21 13:43:56 Started transferring output files
+...
+040 (3156009.001.000) 2024-11-21 13:43:56 Finished transferring output files
+...
+005 (3156009.001.000) 2024-11-21 13:43:56 Job terminated.
+	(1) Normal termination (return value 1)
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	247  -  Run Bytes Sent By Job
+	6960  -  Run Bytes Received By Job
+	247  -  Total Bytes Sent By Job
+	6960  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :        0        2         2 
+	   Disk (KB)            :       29 26214400  26216945 
+	   GPUs                 :                           0 
+	   Memory (MB)          :             51200     51200 
+	   TimeExecute (s)      :        4                    
+	   TimeSlotBusy (s)     :        6                    
+
+	Job terminated of its own accord at 2024-11-21T19:43:56Z with exit-code 1.
+...

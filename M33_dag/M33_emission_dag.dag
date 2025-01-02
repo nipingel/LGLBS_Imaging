@@ -99,8 +99,8 @@
 ## - src_name: source name
 ## output:
 ## - concatenated measurement set in staging area
-## JOB G concat.sub
-## VARS G src_name="M33" extension="split_concat" outfile_name="M33_A+B+C+D.ms"
+JOB G concat.sub
+VARS G src_name="M33" extension="split_concat.wt" outfile_name="M33_A+B+C+D.statwt.ms"
 ## PARENT G CHILD H
 
 ## COMBINE_SPW
@@ -127,9 +127,9 @@
 ## - src_name: source name
 ## output:
 ## - re-weighted concatenated measurement sets with '.wt' appended to name
-##JOB I statwt.sub
-##VARS I ms_name="NGC6822_A+B+C+D.comb_spw" v_sys="-44" v_width="210" src_name="NGC6822"
-##PARENT I CHILD J
+## JOB I statwt_full_concat.sub
+## VARS I ms_name="M33_A+B+C+D.ms" v_sys="-180" v_width="500" src_name="M33"
+## PARENT I CHILD J
 
 ## SPLIT FOR IMAGING
 ## split out channels from concatenated measurement set for imaging
@@ -157,8 +157,8 @@
 ## - src_name: source name
 ## output:
 ## - tarball containing tclean output for single spectral channels
-JOB K image_channel.sub
-VARS K ms_name="M33_A+B+C+D.ms.wt" src_name="M33" ra_phase_center="01h33m50s" dec_phase_center="30d29m37"
+## JOB K image_channel.sub
+## VARS K ms_name="M33_A+B+C+D.ms.wt" src_name="M33" ra_phase_center="01h33m50s" dec_phase_center="30d29m37"
 ##PARENT K CHILD L
 
 ## RESTART IMAGING

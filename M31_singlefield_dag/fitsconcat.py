@@ -73,7 +73,6 @@ def fill_cube_with_images(imlist, path, outname):
 	for ii in range(0, max_chan):
 		print(f"Processing channel {ii}/{max_chan}", end='\r')
 		with fits.open(imlist[ii], memmap=True) as hdu:
-			print(hdu[0].data.shape)
 			outdata[ii, :, :] = hdu[0].data[0, 0, :, :]
 	## update fits file
 	fits.writeto('%s/%s' % (path, outname), outdata, header = first_im_hdu[0].header, overwrite = True)
@@ -82,8 +81,9 @@ def fill_cube_with_images(imlist, path, outname):
 def main():
 	## parse user arguments (path to FITS files)
 	fits_file_path, f_outname, f_ext = parse_user_arguments()
-	cube_outname = '%s-%s.fits' % (f_outname, f_ext)
-	image_list = sorted(glob.glob('%s/%s*.%s' % (fits_file_path, f_outname, f_ext)))
+	cube_outname = '%s.fits' % (f_outname)
+	print('%s/*.%s' % (fits_file_path, f_ext))
+	image_list = sorted(glob.glob('%s/*.%s' % (fits_file_path, f_ext)))
 
 	## make empty FITS cube
 	make_empty_image(image_list, fits_file_path, cube_outname )

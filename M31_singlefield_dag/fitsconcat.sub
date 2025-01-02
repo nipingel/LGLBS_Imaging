@@ -8,7 +8,7 @@
 #  queue number assigned to this set of jobs at the time of submission.
 universe = docker
 docker_image = nipingel/casa:latest
-log = collate_images.log
+log = collate_images_$(Process).log
 #
 # Specify your executable (single binary or a script that runs several
 #  commands), arguments, and a files for HTCondor to store standard
@@ -22,7 +22,7 @@ executable = fitsconcat.sh
 ## argument: split-out channel for imaging
 ## set up start and end channels
 
-arguments = $(suffix) $(src_name) $(output_name) $(delta_nu)
+arguments = $(suffix) $(src_name) $(output_name) $(field_name) 
 output = collate_images_$(Process).out
 error = collate_images_$(Process).err
 
@@ -40,4 +40,4 @@ request_memory = 30GB
 request_disk = 10GB
 #
 # Tell HTCondor to run 1 instances of our job:
-queue output_name from cube-name-list.txt
+queue field_name,output_name from cube-name-list.txt
