@@ -1,10 +1,8 @@
 # split_spw.sub
 # script to submit job to split a a spectral window from LGLBS measurement sets
-#
-# Specify the HTCondor Universe 
-universe = docker
-docker_image = nipingel/casa:latest
-#
+# Provide HTCondor with the name of your .sif file and universe information
+container_image = file:///staging/nmpingel/container_images/casa_container.sif
+
 # Specify your executable (single binary or a script that runs several
 #  commands), arguments, and a files for HTCondor to store standard
 #  output (or "screen output").
