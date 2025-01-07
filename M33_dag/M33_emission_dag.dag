@@ -41,9 +41,9 @@
 ## - src_name: source name
 ## output:
 ## - tarball of measurement sets that have been transformed to the user provided reference frame and spectral channel width
-JOB C ms_transform.sub
-VARS C ref_frame="LSRK" chan_width="1953.71094083786" src_name="M33"
-PARENT C CHILD D
+## JOB C ms_transform.sub
+## VARS C ref_frame="LSRK" chan_width="1953.71094083786" src_name="M33"
+## PARENT C CHILD D
 
 ## CONTSUB
 ## run continuum subtraction for all measurement sets from all VLA configurations
@@ -56,9 +56,9 @@ PARENT C CHILD D
 ## - src_name: source name
 ## output:
 ## - contsubed measurement sets with '.contsub' suffix appended
-JOB D uvcontsub.sub
-VARS D src_name="M33" v_sys="-180" v_width="500"
-PARENT D CHILD F
+## JOB D uvcontsub.sub
+## VARS D src_name="M33" v_sys="-180" v_width="500"
+## PARENT D CHILD F
 
 ## GENERATE INPUT FOR SPLIT CONCAT STEP
 ## call generate_spit_file.py to generate input for SPLIT CONCAT step
@@ -85,8 +85,8 @@ PARENT D CHILD F
 ## - end_chan - ending channel to split (input text file)
 ## output:
 ## - split out measurement sets with equal number of channels so concat step will combine into a single spw
-JOB F split_channels_concat.sub
-PARENT F CHILD G
+## JOB F split_channels_concat.sub
+## PARENT F CHILD G
 
 ## CONCAT
 ## concatenate (combine) measurement sets from all VLA configurations in staging area
