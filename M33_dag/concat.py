@@ -33,7 +33,7 @@ def main():
 	concat_params = {
 		'vis': ms_list,
 		'concatvis':output_vis,
-		'freqtol':'0.4kHz',
+		'freqtol':'0.6MHz',
 		'dirtol': '0.1deg'}
 	concat(**concat_params)
 if __name__=='__main__':
