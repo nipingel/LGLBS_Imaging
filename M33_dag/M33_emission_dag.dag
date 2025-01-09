@@ -98,9 +98,9 @@
 ## - src_name: source name
 ## output:
 ## - concatenated measurement set in staging area
-JOB G concat.sub
-VARS G src_name="M33" extension="split_concat" outfile_name="M33_A+B+C+D.ms"
-PARENT G CHILD H
+## JOB G concat.sub
+## VARS G src_name="M33" extension="split_concat" outfile_name="M33_A+B+C+D.ms"
+## PARENT G CHILD H
 
 ## COMBINE_SPW
 ## run mstransform again to combine all spectral windows in concatenated measurement set
