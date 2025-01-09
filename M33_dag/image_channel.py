@@ -89,7 +89,8 @@ def main():
 		'negativethreshold':0.0, 
 		'growiterations':grow_iters, 
 		'dogrowprune':False, 
-		'verbose':True, 
+		'verbose':True,
+        'parallel':True,
 		'restart':restart_parameter
 		}
 
