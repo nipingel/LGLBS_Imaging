@@ -24,7 +24,7 @@ if [ "$1" -lt "100" ] && [ "$1" -gt "9" ]; then
 fi
 
 # make mpicasa call to imaging script
-mpicasa -n 4 casa --logfile ${output_name}".log" -c image_channel.py -v ${ms_path} -n ${chan_num} -o ${output_name} -r ${ra_phase_center} -d${dec_phase_center}
+mpicasa -n 6 casa --logfile ${output_name}".log" -c image_channel.py -v ${ms_path} -n ${chan_num} -o ${output_name} -r ${ra_phase_center} -d${dec_phase_center}
 
 ## tar result
 tar -cvf ${output_name}".tar" ${output_name}*
