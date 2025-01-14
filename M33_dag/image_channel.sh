@@ -13,7 +13,7 @@ src_name=$3
 ra_phase_center=$4
 dec_phase_center=$5
 ms_path=/projects/vla-processing/measurement_sets/${src_name}/${ms_name}
-output_name=${ms_name}"_robust1.0_multiprocess_chan"${chan_num}
+output_name=${ms_name}"_robust1.0_chan"${chan_num}
 
 ## check if 0 needs to be appended in name (channel range from 0 to 99) for alphanumeric ordering
 if [ "$1" -lt "10" ]; then

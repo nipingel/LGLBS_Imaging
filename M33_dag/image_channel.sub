@@ -38,7 +38,7 @@ Requirements=(Target.HasCHTCStaging == true)
 transfer_input_files = image_channel.py, image_channel.sh
 request_cpus = 6
 request_memory=50GB
-request_disk = 20GB
+request_disk = 50GB
 
 # Tell HTCondor to run 475 instances of our job:
-queue 25
+queue 12
