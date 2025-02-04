@@ -16,6 +16,7 @@ import argparse
 ## parse user inputs
 parser = argparse.ArgumentParser()
 parser.add_argument('-p', '--path', help = '<required> path to measurement set', required = True)
+parser.add_argument('-o', '--outputvis', help = '<required> output measurement set', required = True)
 parser.add_argument('-s', '--start_chan', help='<required> starting channel for splitting', required = True, type = int)
 parser.add_argument('-e', '--end_chan', help='<required> ending channel for splitting', required = True, type = int)
 parser.add_argument('--split_concat', action='store_true')
@@ -26,6 +27,7 @@ args, unknown = parser.parse_known_args()
 
 ## get path to measurement set
 ms_path = args.path
+output_vis = args.outputvis
 
 ## get starting and ending channels
 start_chan = args.start_chan
@@ -47,8 +49,7 @@ def main():
 		## create list of file names
 		output_vis_list = []
 		for i in range(start_chan, end_chan):
-			output_vis_list.append('%s_chan%d' % (ms_path, i))
-
+			output_vis_list.append('%s_chan%d' % (output_vis, i))
 		cnt = 0
 		for i in range(start_chan, end_chan):
 			split_params = {
@@ -57,14 +58,8 @@ def main():
 			'spw': '0:%d' % i,
 			'datacolumn': 'data'
 			}
-
-			## set split parameters and run
-			vis_name = ms_path
-			output_vis = output_vis_list[cnt]
-			spw_str='0:%d' % i
-			datacolumn_name = 'data'
-			cnt+=1
 			split(**split_params)
+			cnt+=1
 if __name__=='__main__':
 	main()
 	exit()
