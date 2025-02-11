@@ -8,6 +8,7 @@ HOME=$PWD
 
 ## assign variables
 chan_num=$1
+end_chan=$((chan_num+1))
 ms_name=$2
 src_name=$3
 ra_phase_center=$4
@@ -24,10 +25,10 @@ if [ "$1" -lt "100" ] && [ "$1" -gt "9" ]; then
 fi
 
 ## extract single channel from parent MS
-casa --nologfile -c split_channels.py -p ${ms_path} -o ${ms_name} -s $3 -e $4 --indv_channel
+casa --nologfile -c split_channels.py -p ${ms_path} -o ${ms_name} -s ${chan_num} -e ${end_chan} --indv_channel
 
 # make mpicasa call to imaging script
-mpicasa -n 6 casa --logfile ${output_name}".log" -c image_channel.py -v ${ms_name}"_chan"{$chan_num} -n ${chan_num} -o ${output_name} -r ${ra_phase_center} -d${dec_phase_center}
+mpicasa -n 6 casa --logfile ${output_name}".log" -c image_channel.py -v ${ms_name}"_chan"${chan_num} -o ${output_name} -r ${ra_phase_center} -d${dec_phase_center}
 
 ## tar result
 tar -cvf ${output_name}".tar" ${output_name}*

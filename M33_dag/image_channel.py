@@ -19,7 +19,6 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-v', '--vis_path', help = '<required> name of measurement set', required = True)
 parser.add_argument('-r', '--ra', help = '<required> ra phase center in form e.g.: 00h40m13.8', required = True)
 parser.add_argument('-d', '--dec', help = '<required> ra phase center in form e.g.: +40d50m04.73', required = True)
-parser.add_argument('-n', '--channel_num', help='<required> channel to image', required = True, type=int)
 parser.add_argument('-o', '--output_name', help = '<required> name of output file', required = True)
 args, unknown = parser.parse_known_args()
 
@@ -27,7 +26,6 @@ vis_path = args.vis_path
 ra_phase_center = args.ra
 dec_phase_center = args.dec
 output_name = args.output_name
-channel_num = args.channel_num
 
 def main():
 	#casalog.filter('DEBUG2')   
@@ -61,7 +59,7 @@ def main():
 		'restfreq':'1.42040571183GHz',
 		'selectdata': True,
 		'field': field_id,
-		'spw': '0:%d' % channel_num,
+		'spw': '0:0',
 		'datacolumn': 'data',
 		'specmode':'mfs',
 		'imsize':im_size,

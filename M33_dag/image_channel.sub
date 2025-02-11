@@ -22,6 +22,9 @@ executable = image_channel.sh
 sc = $(Process)+130
 chan = $INT(sc,%d)
 arguments = $(chan) $(ms_name) $(src_name) $(ra_phase_center) $(dec_phase_center)
+
+should_transfer_files=YES
+when_to_transfer_output = ON_EXIT_OR_EVICT
 log = $(src_name)_image_chan$(chan).log
 output = $(src_name)_image_chan$(chan).out
 error = $(src_name)_image_chan$(chan).err
@@ -35,10 +38,10 @@ Requirements=(Target.HasCHTCStaging == true)
 
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
-transfer_input_files = image_channel.py, image_channel.sh
+transfer_input_files = image_channel.py, image_channel.sh, split_channels.py
 request_cpus = 6
 request_memory=50GB
-request_disk = 50GB
+request_disk=35GB
 
-# Tell HTCondor to run 475 instances of our job:
+# Tell HTCondor to run one instances of job per channel
 queue 1270
