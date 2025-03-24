@@ -156,8 +156,8 @@
 ## - src_name: source name
 ## output:
 ## - tarball containing tclean output for single spectral channels
-JOB H image_channel.sub
-VARS H ms_name="M33_A+B+C+D.ms" src_name="M33" ra_phase_center="01h33m50s" dec_phase_center="30d29m37"
+## JOB H image_channel.sub
+## VARS H ms_name="M33_A+B+C+D.ms" src_name="M33" ra_phase_center="01h33m50s" dec_phase_center="30d29m37"
 ## PARENT K CHILD 
 
 ## RESTART IMAGING
@@ -185,14 +185,14 @@ VARS H ms_name="M33_A+B+C+D.ms" src_name="M33" ra_phase_center="01h33m50s" dec_p
 ## - file_name: root name of files
 ## output:
 ## - extracted CASA image file in staging area
-##JOB L untar_images.sub
-##VARS L suffix="image" src_name="NGC6822" root_file_name="NGC6822_A+B+C+D.comb_spw.wt"
-##PARENT L CHILD M
+## JOB L untar_images.sub
+## VARS L suffix="image" src_name="M33" root_file_name="M33_A+B+C+D.ms"
+## PARENT L CHILD M
 
 ## COMBINE IMAGES
 ## finally, combine the 2D images into 3-dimensional data cube (dims: sky position, sky position, frequency/velocity)
 ## executable:
-## - combine_images.sh (runs combine_image.py)
+## - fitsconcat.sh (runs fitsconcat.py)
 ## inputs:
 ## - suffix: combine all files with *.suffix
 ## - output_name: name of output data cube (in FITS format)
@@ -200,8 +200,8 @@ VARS H ms_name="M33_A+B+C+D.ms" src_name="M33" ra_phase_center="01h33m50s" dec_p
 ## - delta_nu: spectral width of channels in kHz
 ## output:
 ## - final data cube
-## JOB M combine_images.sub
-## VARS M suffix = "image" src_name="NGC6822" output_name="NGC6822_ABCD" delta_nu="1953.71094083"
+JOB M fitsconcat.sub
+VARS M suffix="fits" src_name="M33" output_name="M33_ABCD"
 #PARENT M CHILD N
 
 ## UVCOMBINE
