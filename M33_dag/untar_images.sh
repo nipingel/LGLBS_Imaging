@@ -21,12 +21,16 @@ if [ "${chan}" -lt "1000" ] && [ "${chan}" -gt "99" ]; then
 fi
 
 ## untar in node directory
-#tar -xvf /projects/vla-processing/images/${src_name}/${root_file_name}_robust1.0_chan${chan}.tar --directory .
+tar -xvf /projects/vla-processing/images/${src_name}/${root_file_name}_robust1.0_chan${chan}.tar --directory .
+
+## extract sub-region
+casa --nologfile --log2term --nogui -c imsub_image.py -n ${root_file_name}_robust1.0_chan${chan}.${file_suffix} -r M33_subregion.reg
+
+## export to FITS
+casa --nologfile --log2term --nogui -c export_fits -n ${root_file_name}_robust1.0_chan${chan}.${file_suffix}.imsub 
 
 ## move untarred file back to staging area
-#mv ${root_file_name}_robust1.0_chan${chan}.${file_suffix} /projects/vla-processing/images/${src_name}/${output_name}
+mv ${root_file_name}_robust1.0_chan${chan}.${file_suffix}.imsub.fits /projects/vla-processing/images/${src_name}/${output_name}.${file_suffix}.fits
 
 ## clean up 
-#rm -rf ${root_file_name}*
-
-casa --nologfile --log2term --nogui -c export_fits.py -n /projects/vla-processing/images/${src_name}/${output_name} -e ${file_suffix}
+rm -rf ${root_file_name}*
