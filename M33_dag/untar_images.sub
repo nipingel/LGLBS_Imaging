@@ -35,7 +35,7 @@ Requirements=(Target.HasCHTCStaging == true)
 
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
-transfer_input_files = untar_images.sh, export_fits.py
+transfer_input_files = untar_images.sh, export_fits.py, imsub_image.py, M33_subregion.reg
 request_cpus = 1
 request_memory = 1GB
 request_disk = 20GB
