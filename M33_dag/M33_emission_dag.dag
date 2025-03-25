@@ -185,9 +185,9 @@
 ## - file_name: root name of files
 ## output:
 ## - extracted CASA image file in staging area
-JOB L untar_images.sub
-VARS L suffix="image" src_name="M33" root_file_name="M33_A+B+C+D.ms"
-PARENT L CHILD M
+## JOB L untar_images.sub
+## VARS L suffix="image" src_name="M33" root_file_name="M33_A+B+C+D.ms"
+## PARENT L CHILD M
 
 ## COMBINE IMAGES
 ## finally, combine the 2D images into 3-dimensional data cube (dims: sky position, sky position, frequency/velocity)

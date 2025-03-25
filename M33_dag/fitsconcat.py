@@ -73,7 +73,7 @@ def fill_cube_with_images(imlist, path, outname):
 	for ii in range(0, max_chan):
 		print(f"Processing channel {ii}/{max_chan}", end='\r')
 		with fits.open(imlist[ii], memmap=True) as hdu:
-			outdata[ii, :, :] = hdu[0].data[0, 0, :, :]
+			outdata[ii, :, :] = hdu[0].data
 	## update fits file
 	fits.writeto('%s/%s' % (path, outname), outdata, header = first_im_hdu[0].header, overwrite = True)
 	outhdu.close()
@@ -86,7 +86,9 @@ def main():
 	image_list = sorted(glob.glob('%s/*.%s' % (fits_file_path, f_ext)))
 
 	## make empty FITS cube
-	make_empty_image(image_list, fits_file_path, cube_outname )
+    ## TODO: np.memmap to generate the zero'd array before writing to
+    ## fits file
+	## make_empty_image(image_list, fits_file_path, cube_outname )
 
 	## fill FITS cube
 	fill_cube_with_images(image_list, fits_file_path, cube_outname)
