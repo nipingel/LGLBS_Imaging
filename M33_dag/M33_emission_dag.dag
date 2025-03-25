@@ -200,8 +200,8 @@
 ## - delta_nu: spectral width of channels in kHz
 ## output:
 ## - final data cube
-JOB M fitsconcat.sub
-VARS M suffix="fits" src_name="M33" output_name="M33_ABCD"
+## JOB M fitsconcat.sub
+## VARS M suffix="image.fits" src_name="M33" output_name="M33_ABCD"
 #PARENT M CHILD N
 
 ## UVCOMBINE
@@ -214,5 +214,5 @@ VARS M suffix="fits" src_name="M33" output_name="M33_ABCD"
 ## - interfcube: name of highres cube
 ## - outpath: output path/filename
 ## - galaxy: name of galaxy
-## JOB N feather_cubes.sub
-## VARS N src_name="NGC6822" sdcube="N6822_GBT_Jy.eq.nostokes.fits" interfcube=" NGC6822_A+B+C+D_HI_0p4kms.fits" outpath="/projects/vla-processing/images/NGC6822" galaxy="ngc6822"
+JOB N feather_cubes.sub
+VARS N src_name="M33" sdcube="m33_gbt_lsr.fits" interfcube="M33_A+B+C+D_HI_0p4kms.fits" outpath="/projects/vla-processing/images/M33" galaxy="m33"
