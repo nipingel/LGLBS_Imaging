@@ -80,9 +80,9 @@ if sdfactor is None:
 ## function to read/return cubes and beam parameters
 def read_cubes(interf_name, sdname):
     ## read in cubes
-    vla_cube = SpectralCube.read(interf_name, use_dask = True)
+    vla_cube = SpectralCube.read(interf_name, use_dask = True, save_to_tmp_dir=True)
     vla_cube.allow_huge_operations = True
-    gbt_cube = SpectralCube.read(sdname, use_dask = True)
+    gbt_cube = SpectralCube.read(sdname, use_dask = True, save_to_tmp_dir=True)
     gbt_cube.allow_huge_operations = True
 
     # Use the proper beam model size, not the one in the header!
@@ -120,15 +120,16 @@ def reproject_single_dish(sdcube_name, lowres, highres):
     sd_filename = Path(sdcube_name).name
     reproj_filename = output_path + f"/{sd_filename[:-5]}_highresmatch.fits"
     print(f"Copying {interf_cubename} to {reproj_filename}")
-    os.system(f"cp {interf_cubename} {reproj_filename}")
+    #os.system(f"cp {interf_cubename} {reproj_filename}")
     print("Per channel reprojection")
-    with warnings.catch_warnings():
-       warnings.filterwarnings("ignore", message="WCS1 is missing card")
-       for this_chan in tqdm(range(highres.shape[0])):
-           reproj_chan = lowres[this_chan].reproject(highres[this_chan].header)
-           with fits.open(reproj_filename, mode="update") as hdulist:
-               hdulist[0].data[this_chan] = reproj_chan
-               hdulist.flush()
+    #with warnings.catch_warnings():
+    #   warnings.filterwarnings("ignore", message="WCS1 is missing card")
+    #   for this_chan in tqdm(range(highres.shape[0])):
+    #       reproj_chan = lowres[this_chan].reproject(highres[this_chan].header)
+    #       with fits.open(reproj_filename, mode="update", memmap=True) as hdulist:
+    #           hdulist[0].data[this_chan] = reproj_chan
+    #           hdulist.flush()
+    #           del hdulist[0].data
     # Allow reading in the whole cube.
     ## re-write beam info to header and explicitly attach
     with fits.open(reproj_filename, mode = 'update', memmap=True) as hdulist:
@@ -137,7 +138,7 @@ def reproject_single_dish(sdcube_name, lowres, highres):
         hdulist[0].header['BPA'] = 0.0 ## deg
         hdulist.flush()     
 
-    specinterp_reproj = SpectralCube.read(reproj_filename, use_dask = True)
+    specinterp_reproj = SpectralCube.read(reproj_filename, use_dask = True, save_to_tmp_dir=True)
     specinterp_reproj.allow_huge_operations = True
     ## attach beam
     gbt_beam = Beam(546*u.arcsec)
@@ -169,7 +170,7 @@ def main():
     lowres_cube, highres_cube = read_cubes(interf_cubename, sd_cubename)
 
     # If needed, spectrally smooth the GBT cube
-    lowres_cube = spectral_resample(lowres_cube, highres_cube)
+    #lowres_cube = spectral_resample(lowres_cube, highres_cube)
 
     # Grid the single dish data to the interferometer spatial grid
     lowres_reproject = reproject_single_dish(sd_cubename, lowres_cube, highres_cube)

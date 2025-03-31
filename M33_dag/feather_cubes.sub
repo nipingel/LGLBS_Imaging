@@ -29,6 +29,7 @@ log = run_feather_$(src_name).log
 #  used if there were any other files needed for the executable to use.
 Requirements=(Target.HasCHTCStaging == true) 
 +HasCHTCStaging=true
++LongJob=true
 
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
