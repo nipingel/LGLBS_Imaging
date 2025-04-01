@@ -204,6 +204,19 @@
 ## VARS M suffix="image.fits" src_name="M33" output_name="M33_ABCD"
 #PARENT M CHILD N
 
+## UVCOMBINE (single)
+## feather images in Fourier space with uvcombine python package
+## executable:
+## - feather_cubes.sh
+## inputs:
+## - src_name: source name for directory path
+## - sdcube: name of lowres cube
+## - interfcube: name of highres cube
+## - outpath: output path/filename
+## - galaxy: name of galaxy
+## JOB N feather_cubes.sub
+## VARS N src_name="M33" sdcube="m33_gbt_vlsr.fits" interfcube="M33_A+B+C+D_HI_0p4kms.fits" outpath="/projects/vla-processing/images/M33" galaxy="m33"
+
 ## UVCOMBINE
 ## feather images in Fourier space with uvcombine python package
 ## executable:
@@ -214,5 +227,5 @@
 ## - interfcube: name of highres cube
 ## - outpath: output path/filename
 ## - galaxy: name of galaxy
-JOB N feather_cubes.sub
-VARS N src_name="M33" sdcube="m33_gbt_vlsr.fits" interfcube="M33_A+B+C+D_HI_0p4kms.fits" outpath="/projects/vla-processing/images/M33" galaxy="m33"
+JOB N feather_cube_distributed.sub
+VARS N src_name="M33" sdcube="m33_gbt_vlsr_highresmatch.fits" feathercube="M33_A+B+C+D_HI_0p4kms.fits" outpath="/projects/vla-processing/images/M33" galaxy="m33"
