@@ -6,7 +6,7 @@
 ## define variables
 src_name=$1
 sdcube=$2
-feathercube=$3
+interfcube=$3
 outpath=$4
 galaxy=$5
 start_chan=$6
@@ -23,4 +23,4 @@ mv feather_cubes_distributed.py /projects/vla-processing/images/${src_name}
 cd /projects/vla-processing/images/${src_name}
 
 echo $PATH
-python feather_cubes_distributed.py --sdcube ${sdcube} --feathercube ${feathercube} --outpath ${outpath} --galaxy ${galaxy} --start_chan ${start_chan} --end_chan ${end_chan} 
+python feather_cubes_distributed.py --sdcube ${sdcube} --interfcube ${interfcube} --outpath ${outpath} --galaxy ${galaxy} --beginning_chan ${start_chan} --last_chan ${end_chan} 

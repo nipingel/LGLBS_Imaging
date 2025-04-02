@@ -40,7 +40,7 @@ parser.add_argument('-s', '--sdcube',
                     help='<required> name of single dish cube',
                     required = True,
                     type=str)
-parser.add_argument('-i', '--feathercube',
+parser.add_argument('-i', '--interfcube',
                     help = '<required> name of interferometer cube',
                     required = True,
                     type=str)
@@ -69,7 +69,7 @@ parser.add_argument('-l', '--last_channel',
 args, unknown = parser.parse_known_args()
 ## parse measurement set list & output
 sd_cubename = args.sdcube
-feaher_cubename = args.feathercube
+interf_cubename = args.interfcube
 output_path = args.outpath
 start_chan = args.beginning_channel
 end_chan = args.last_channel
@@ -93,9 +93,9 @@ if sdfactor is None:
                       "name must be provided with -g or --galaxy.")
 
 ## function to read/return cubes and beam parameters
-def read_cubes(feather_name, sdname):
+def read_cubes(interf_name, sdname):
     ## read in cubes
-    vla_cube = SpectralCube.read(feather_name, use_dask = True, save_to_tmp_dir=True)
+    vla_cube = SpectralCube.read(interf_name, use_dask = True, save_to_tmp_dir=True)
     vla_cube.allow_huge_operations = True
     gbt_cube = SpectralCube.read(sdname, use_dask = True, save_to_tmp_dir=True)
     gbt_cube.allow_huge_operations = True
@@ -115,7 +115,6 @@ def read_cubes(feather_name, sdname):
 
 ## function to feather on a per-channel basis
 def feather_per_channel(highres_cube, lowres_cube, start_chan, end_chan):
-    highres_filename = Path(highres_cuben).name
     this_feathered_filename = output_path + f"/{interf_cubename[:-5]}_feathered.fits"
     print("per channel combination")
     with warnings.catch_warnings():
@@ -133,10 +132,10 @@ def feather_per_channel(highres_cube, lowres_cube, start_chan, end_chan):
 def main():
 
     ## get cubes
-    lowres_cube, highres_cube = read_cubes(feather_cubename, sd_cubename)
+    lowres_cube, highres_cube = read_cubes(interf_cubename, sd_cubename)
 
     # Feather with the SD scale factor applied (per channel)
-    feather_per_channel(highres_cube, lowres_cube)
+    feather_per_channel(highres_cube, lowres_cube, start_chan, end_chan)
 
 if __name__=='__main__':
     main()
