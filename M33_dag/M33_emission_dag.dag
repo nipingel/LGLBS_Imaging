@@ -229,3 +229,14 @@
 ## - galaxy: name of galaxy
 JOB N feather_cubes_distributed.sub
 VARS N src_name="M33" sdcube="m33_gbt_vlsr_highresmatch.fits" interfcube="M33_A+B+C+D_HI_0p4kms.fits" outpath="/projects/vla-processing/images/M33" galaxy="m33"
+
+## SMOOTH CUBE
+## smooth cube to user provided target resolution in km/s
+## executable:
+## - smooth_cube.sh
+## inputs:
+## - src_name: source name for directory path
+## - cube: name of input cube
+## - target_resolution: target resolution in km/s
+## JOB M smooth_cube.sub
+## VARS M src_name="M33" cube="M33_A+B+C+D_HI_0p4kms.fits" target_resolution="2.0"

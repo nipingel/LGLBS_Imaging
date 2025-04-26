@@ -79,7 +79,7 @@ scale_factors = {'wlm': 1.14,
                  'ic10': 0.96,
                  'ngc6822': 0.92,
                  'ic1613': None,
-                 'm33': 1.0,  # Koch+18
+                 'm33': 1.1,  # Koch+18
                  'm31': None}
 galaxy = args.galaxy
 if galaxy is not None:
@@ -101,7 +101,7 @@ def read_cubes(interf_name, sdname):
     gbt_cube.allow_huge_operations = True
 
     # Use the proper beam model size, not the one in the header!
-    gbt_beam_model = Beam(area=3.69e5 *u.arcsec**2)
+    gbt_beam_model = Beam(area=1.1331*(9.8*60)**2 *u.arcsec**2)
     gbt_beam_model.major.to(u.arcmin)
     gbt_cube = gbt_cube.with_beam(gbt_beam_model, raise_error_jybm=False)
     gbt_cube = gbt_cube.with_spectral_unit(u.km / u.s, velocity_convention='radio')
