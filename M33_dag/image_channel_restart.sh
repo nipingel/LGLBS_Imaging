@@ -21,11 +21,11 @@ dec_phase_center=$5
 #	output_name=${ms_name}"_robust1.0_chan0"${chan_num}
 #fi
 
-cp image_channel_restart.py /projects/vla-processing/images/${src_name}/restart_test
-cd /projects/vla-processing/images/${src_name}/restart_test
-
+cp image_channel_restart.py /projects/vla-processing/images/${src_name}/restart_test/single_scale_restart_images
+cd /projects/vla-processing/images/${src_name}/restart_test/single_scale_restart_images
+output_name=M33_A+B+C+D.wt_chan830.ms_clean_robust1.0_chan830
 # make mpicasa call to imaging script
-mpicasa -n 6 casa --logfile ${output_name}".log" -c image_channel_restart.py -v M33_A+B+C+D_chan830.ms -o M33_A+B+C+D.ms_robust1.0_chan830 -r ${ra_phase_center} -d${dec_phase_center}
+mpicasa -n 6 casa --logfile ${output_name}".log" -c image_channel_restart.py -v M33_A+B+C+D.wt_chan830_flagged.ms -o M33_A+B+C+D.wt_chan830.ms_clean_robust1.0_chan830 -r ${ra_phase_center} -d${dec_phase_center}
 
 ## tar result
 #tar -cvf ${output_name}".tar" ${output_name}*

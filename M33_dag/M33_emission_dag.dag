@@ -126,8 +126,8 @@
 ## - src_name: source name
 ## output:
 ## - re-weighted concatenated measurement sets with '.wt' appended to name
-## JOB I statwt_full_concat.sub
-## VARS I ms_name="M33_A+B+C+D.ms" v_sys="-180" v_width="500" src_name="M33"
+JOB I statwt_full_concat.sub
+VARS I ms_name="M33_A+B+C+D.ms" v_sys="-180" v_width="500" src_name="M33"
 ## PARENT I CHILD J
 
 ## SPLIT FOR IMAGING
@@ -227,8 +227,8 @@
 ## - interfcube: name of highres cube
 ## - outpath: output path/filename
 ## - galaxy: name of galaxy
-JOB N feather_cubes_distributed.sub
-VARS N src_name="M33" sdcube="m33_gbt_vlsr_highresmatch.fits" interfcube="M33_A+B+C+D_HI_0p4kms.fits" outpath="/projects/vla-processing/images/M33" galaxy="m33"
+## JOB N feather_cubes_distributed.sub
+## VARS N src_name="M33" sdcube="m33_gbt_vlsr_highresmatch.fits" interfcube="M33_A+B+C+D_HI_0p4kms.fits" outpath="/projects/vla-processing/images/M33" galaxy="m33"
 
 ## SMOOTH CUBE
 ## smooth cube to user provided target resolution in km/s

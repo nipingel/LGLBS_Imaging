@@ -46,7 +46,7 @@ def main():
 	dogrowprune=False
 	verbose = True
 	## deconvolution parameters
-	deconvolver_mode = 'multiscale'
+	deconvolver_mode = 'hogbom'
 	ms_scales = [0, 8, 16, 32]
 	tot_niter = 100000 
 	min_threshold = '0.3mJy'
@@ -72,14 +72,12 @@ def main():
 		'pbcor':True, 
 		'niter':tot_niter, 
 		'deconvolver':deconvolver_mode, 
-		'scales':ms_scales, 
-		'smallscalebias':0.4, 
 		'cyclefactor':0.8, 
 		'minpsffraction':0.05, 
 		'maxpsffraction':0.8, 
 		'threshold':min_threshold, 
 		'usemask':'user',
-        'mask':'M33_A+B+C+D.ms_robust1.0_chan830_cl_mask',
+        'mask':'M33_A+B+C+D.wt_chan830.ms_clean_robust1.0_chan830_cl_mask',
 		'pbmask':0.2, 
 		'sidelobethreshold':sidelobe_threshold, 
 		'noisethreshold':noise_threshold, 

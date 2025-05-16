@@ -19,7 +19,6 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-v', '--vis_path', help = '<required> name of measurement set', required = True)
 parser.add_argument('-r', '--ra', help = '<required> ra phase center in form e.g.: 00h40m13.8', required = True)
 parser.add_argument('-d', '--dec', help = '<required> ra phase center in form e.g.: +40d50m04.73', required = True)
-parser.add_argument('-n', '--channel_num', help='<required> channel to image', required = True, type=int)
 parser.add_argument('-o', '--output_name', help = '<required> name of output file', required = True)
 args, unknown = parser.parse_known_args()
 
@@ -27,7 +26,6 @@ vis_path = args.vis_path
 ra_phase_center = args.ra
 dec_phase_center = args.dec
 output_name = args.output_name
-channel_num = args.channel_num
 
 def main():
 	#casalog.filter('DEBUG2')   
@@ -38,7 +36,7 @@ def main():
 	cell_size = '0.75arcsec'
 	restore_beam = 'common'
 	## automasking parameters ##
-	use_mask = 'pb'
+	use_mask = 'auto-multithresh'
 	sidelobe_threshold = 2.5
 	noise_threshold = 3.5
 	min_beam_frac = 0.3
@@ -50,8 +48,8 @@ def main():
 	## deconvolution parameters
 	deconvolver_mode = 'multiscale'
 	ms_scales = [0, 8, 16, 32, 64, 128, 256]
-	tot_niter = 0 
-	min_threshold = '1.9mJy'
+	tot_niter = 100000 
+	min_threshold = '0.8mJy'
 	restart_parameter = False
 	## tclean dictionary
 	tclean_params={
@@ -61,7 +59,6 @@ def main():
 		'restfreq':'1.42040571183GHz',
 		'selectdata': True,
 		'field': field_id,
-		'spw': '0:%d' % channel_num,
 		'datacolumn': 'data',
 		'specmode':'mfs',
 		'imsize':im_size,
@@ -88,8 +85,9 @@ def main():
 		'lownoisethreshold':lownoisethreshold, 
 		'negativethreshold':0.0, 
 		'growiterations':grow_iters, 
-		'dogrowprune':False, 
+		'dogrowprune':True, 
 		'verbose':True,
+        'parallel':True,
 		'restart':restart_parameter
 		}
 
