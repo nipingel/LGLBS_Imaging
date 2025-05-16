@@ -1,0 +1,31 @@
+# image_channel_config_pair.sub
+# script to base submission of LGLBS imaging jobs
+
+# Provide HTCondor with the name of your .sif file and universe information
+container_image = file:///staging/nmpingel/container_images/casa_container.sif
+
+## imaging executable
+executable = image_channel.sh
+
+## determine channel to image
+arguments = $(ms_name) $(src_name) $(config_pair) $(ra_phase_center) $(dec_phase_center)
+
+should_transfer_files=YES
+when_to_transfer_output = ON_EXIT_OR_EVICT
+log = $(src_name)_image_channel_config_pair_$(config_pair).log
+output = $(src_name)_image_channel_config_pair_$(config_pair).out
+error = $(src_name)_image_channel_config_pair_$(config_pair).err
+
+## requirements
+Requirements=(Target.HasCHTCStaging == true)
++HasCHTCStaging=true
+
+# Tell HTCondor what amount of compute resources
+#  each job will need on the computer where it runs.
+transfer_input_files = image_channel_config_pair.py, image_channel_config_pair.sh
+request_cpus = 6
+request_memory=50GB
+request_disk=35GB
+
+# Tell HTCondor to run one instances of job per channel
+queue config_pair from config_pairs.txt
