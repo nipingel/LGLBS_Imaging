@@ -139,31 +139,31 @@ a_c = ['16B-236.sb32623829.eb32998154.57703.975014375.speclines.ms.split_spw.tra
 '20A-346.sb41802231.eb41826215.59728.74415950231.speclines.ms.split_spw.transformed.contsub.split_concat',
 '20A-346.sb41802231.eb41826975.59729.72851939815.speclines.ms.split_spw.transformed.contsub.split_concat',
 '20A-346.sb41837787.eb41848326.59740.425907916666.speclines.ms.split_spw.transformed.contsub.split_concat',
-'14B-088.sb29701604.eb29882607.56952.08797296297.speclines.ms.split_spw.transformed.contsub.split_concat'
-'14B-088.sb29812125.eb29987192.56975.23496244213.speclines.ms.split_spw.transformed.contsub.split_concat'
-'14B-088.sb29812125.eb29989143.56976.243081759254.speclines.ms.split_spw.transformed.contsub.split_concat'
-'14B-088.sb29812125.eb29989844.56977.223306493055.speclines.ms.split_spw.transformed.contsub.split_concat'
-'14B-088.sb29812125.eb29989958.56978.238293993054.speclines.ms.split_spw.transformed.contsub.split_concat'
-'14B-088.sb29812125.eb30008723.56986.204377581016.speclines.ms.split_spw.transformed.contsub.split_concat'
-'14B-088.sb29971045.eb29984617.56972.01955872685.speclines.ms.split_spw.transformed.contsub.split_concat'
-'14B-088.sb29971045.eb29989123.56976.023950208335.speclines.ms.split_spw.transformed.contsub.split_concat'
-'14B-088.sb29971045.eb29989840.56977.024377800924.speclines.ms.split_spw.transformed.contsub.split_concat'
-'14B-088.sb29971045.eb29989883.56978.02014521991.speclines.ms.split_spw.transformed.contsub.split_concat'
-'14B-088.sb29971045.eb30006086.56983.001531076385.speclines.ms.split_spw.transformed.contsub.split_concat'
-'14B-088.sb30023144.eb30070731.57002.919034293984.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795562.eb42935223.59867.084671122684.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795562.eb42935487.59868.09524202546.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795562.eb42936463.59869.076643831024.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795562.eb42939270.59870.072167604165.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795562.eb42942928.59871.0804840625.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795562.eb42948841.59875.07467717593.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795562.eb42948957.59876.05329664352.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795562.eb42950207.59877.08662526621.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795760.eb42889065.59860.39318865741.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795760.eb42892682.59861.36371240741.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795760.eb42942934.59871.34854791667.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795760.eb42959648.59880.29915842593.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795760.eb42963975.59881.32356903935.speclines.ms.split_spw.transformed.contsub.split_concat'
+'14B-088.sb29701604.eb29882607.56952.08797296297.speclines.ms.split_spw.transformed.contsub.split_concat',
+'14B-088.sb29812125.eb29987192.56975.23496244213.speclines.ms.split_spw.transformed.contsub.split_concat',
+'14B-088.sb29812125.eb29989143.56976.243081759254.speclines.ms.split_spw.transformed.contsub.split_concat',
+'14B-088.sb29812125.eb29989844.56977.223306493055.speclines.ms.split_spw.transformed.contsub.split_concat',
+'14B-088.sb29812125.eb29989958.56978.238293993054.speclines.ms.split_spw.transformed.contsub.split_concat',
+'14B-088.sb29812125.eb30008723.56986.204377581016.speclines.ms.split_spw.transformed.contsub.split_concat',
+'14B-088.sb29971045.eb29984617.56972.01955872685.speclines.ms.split_spw.transformed.contsub.split_concat',
+'14B-088.sb29971045.eb29989123.56976.023950208335.speclines.ms.split_spw.transformed.contsub.split_concat',
+'14B-088.sb29971045.eb29989840.56977.024377800924.speclines.ms.split_spw.transformed.contsub.split_concat',
+'14B-088.sb29971045.eb29989883.56978.02014521991.speclines.ms.split_spw.transformed.contsub.split_concat',
+'14B-088.sb29971045.eb30006086.56983.001531076385.speclines.ms.split_spw.transformed.contsub.split_concat',
+'14B-088.sb30023144.eb30070731.57002.919034293984.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795562.eb42935223.59867.084671122684.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795562.eb42935487.59868.09524202546.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795562.eb42936463.59869.076643831024.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795562.eb42939270.59870.072167604165.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795562.eb42942928.59871.0804840625.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795562.eb42948841.59875.07467717593.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795562.eb42948957.59876.05329664352.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795562.eb42950207.59877.08662526621.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795760.eb42889065.59860.39318865741.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795760.eb42892682.59861.36371240741.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795760.eb42942934.59871.34854791667.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795760.eb42959648.59880.29915842593.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795760.eb42963975.59881.32356903935.speclines.ms.split_spw.transformed.contsub.split_concat',
 '20A-346.sb43000224.eb43012103.59905.26576574074.speclines.ms.split_spw.transformed.contsub.split_concat']
 
 a_d = ['16B-236.sb32623829.eb32998154.57703.975014375.speclines.ms.split_spw.transformed.contsub.split_concat',
@@ -209,109 +209,109 @@ a_d = ['16B-236.sb32623829.eb32998154.57703.975014375.speclines.ms.split_spw.tra
 '20A-346.sb41802231.eb41826215.59728.74415950231.speclines.ms.split_spw.transformed.contsub.split_concat',
 '20A-346.sb41802231.eb41826975.59729.72851939815.speclines.ms.split_spw.transformed.contsub.split_concat',
 '20A-346.sb41837787.eb41848326.59740.425907916666.speclines.ms.split_spw.transformed.contsub.split_concat',
-'20A-346.sb42432794.eb42523325.59804.22769546296.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42432794.eb42524535.59806.240932291665.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42432794.eb42529192.59808.23489403936.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42432794.eb42529928.59809.228274340276.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42432794.eb42532179.59810.2708574537.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42432794.eb42534811.59812.23396511574.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42432794.eb42536910.59814.2467287037.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42433001.eb42469041.59790.54711428241.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42433001.eb42482004.59798.52568141204.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42433001.eb42523329.59804.518509918984.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42433001.eb42532183.59810.53990929398.speclines.ms.split.']
+'20A-346.sb42432794.eb42523325.59804.22769546296.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42432794.eb42524535.59806.240932291665.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42432794.eb42529192.59808.23489403936.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42432794.eb42529928.59809.228274340276.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42432794.eb42532179.59810.2708574537.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42432794.eb42534811.59812.23396511574.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42432794.eb42536910.59814.2467287037.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42433001.eb42469041.59790.54711428241.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42433001.eb42482004.59798.52568141204.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42433001.eb42523329.59804.518509918984.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42433001.eb42532183.59810.53990929398.speclines.ms.split_spw.transformed.contsub.split_concat']
 
-b_c = ['17B-162.sb34051874.eb34497862.58019.12101613426.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34051874.eb34512512.58022.09389369213.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34051874.eb34603795.58043.05213521991.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34051874.eb34620290.58048.0411411574.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34051874.eb34635762.58054.009438877314.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34051874.eb34701346.58076.96044393518.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34051874.eb34742796.58082.91476392361.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34051874.eb34756401.58088.93220465278.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34293636.eb34601252.58042.33489737268.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34293636.eb34603801.58043.328202476856.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34293636.eb34618017.58045.33243515046.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34293636.eb34620280.58047.35365534722.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34293636.eb34620658.58048.32964618056.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34293636.eb34630839.58052.310646990736.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34293636.eb34635780.58055.299382048615.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34293636.eb34635792.58056.29234890046.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34293636.eb34642622.58057.30859833333.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb40945452.eb40973299.59536.98425851852.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb40945452.eb40974923.59539.0066933912.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb40945452.eb40981994.59541.9721515625.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb40945452.eb41018110.59553.96876721065.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb40945452.eb41028448.59555.91786901621.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb40945452.eb41051709.59565.89333129629.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb40945452.eb41052313.59566.928502546296.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb40945586.eb40991931.59550.23195141203.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb40945586.eb41038444.59564.20483394676.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb40945586.eb41048569.59565.165229895836.speclines.ms.split_spw.transformed.contsub.split_concat'
-'14B-088.sb29701604.eb29882607.56952.08797296297.speclines.ms.split_spw.transformed.contsub.split_concat'
-'14B-088.sb29812125.eb29987192.56975.23496244213.speclines.ms.split_spw.transformed.contsub.split_concat'
-'14B-088.sb29812125.eb29989143.56976.243081759254.speclines.ms.split_spw.transformed.contsub.split_concat'
-'14B-088.sb29812125.eb29989844.56977.223306493055.speclines.ms.split_spw.transformed.contsub.split_concat'
-'14B-088.sb29812125.eb29989958.56978.238293993054.speclines.ms.split_spw.transformed.contsub.split_concat'
-'14B-088.sb29812125.eb30008723.56986.204377581016.speclines.ms.split_spw.transformed.contsub.split_concat'
-'14B-088.sb29971045.eb29984617.56972.01955872685.speclines.ms.split_spw.transformed.contsub.split_concat'
-'14B-088.sb29971045.eb29989123.56976.023950208335.speclines.ms.split_spw.transformed.contsub.split_concat'
-'14B-088.sb29971045.eb29989840.56977.024377800924.speclines.ms.split_spw.transformed.contsub.split_concat'
-'14B-088.sb29971045.eb29989883.56978.02014521991.speclines.ms.split_spw.transformed.contsub.split_concat'
-'14B-088.sb29971045.eb30006086.56983.001531076385.speclines.ms.split_spw.transformed.contsub.split_concat'
-'14B-088.sb30023144.eb30070731.57002.919034293984.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795562.eb42935223.59867.084671122684.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795562.eb42935487.59868.09524202546.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795562.eb42936463.59869.076643831024.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795562.eb42939270.59870.072167604165.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795562.eb42942928.59871.0804840625.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795562.eb42948841.59875.07467717593.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795562.eb42948957.59876.05329664352.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795562.eb42950207.59877.08662526621.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795760.eb42889065.59860.39318865741.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795760.eb42892682.59861.36371240741.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795760.eb42942934.59871.34854791667.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795760.eb42959648.59880.29915842593.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42795760.eb42963975.59881.32356903935.speclines.ms.split_spw.transformed.contsub.split_concat'
+b_c = ['17B-162.sb34051874.eb34497862.58019.12101613426.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34051874.eb34512512.58022.09389369213.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34051874.eb34603795.58043.05213521991.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34051874.eb34620290.58048.0411411574.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34051874.eb34635762.58054.009438877314.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34051874.eb34701346.58076.96044393518.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34051874.eb34742796.58082.91476392361.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34051874.eb34756401.58088.93220465278.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34293636.eb34601252.58042.33489737268.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34293636.eb34603801.58043.328202476856.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34293636.eb34618017.58045.33243515046.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34293636.eb34620280.58047.35365534722.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34293636.eb34620658.58048.32964618056.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34293636.eb34630839.58052.310646990736.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34293636.eb34635780.58055.299382048615.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34293636.eb34635792.58056.29234890046.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34293636.eb34642622.58057.30859833333.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb40945452.eb40973299.59536.98425851852.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb40945452.eb40974923.59539.0066933912.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb40945452.eb40981994.59541.9721515625.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb40945452.eb41018110.59553.96876721065.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb40945452.eb41028448.59555.91786901621.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb40945452.eb41051709.59565.89333129629.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb40945452.eb41052313.59566.928502546296.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb40945586.eb40991931.59550.23195141203.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb40945586.eb41038444.59564.20483394676.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb40945586.eb41048569.59565.165229895836.speclines.ms.split_spw.transformed.contsub.split_concat',
+'14B-088.sb29701604.eb29882607.56952.08797296297.speclines.ms.split_spw.transformed.contsub.split_concat',
+'14B-088.sb29812125.eb29987192.56975.23496244213.speclines.ms.split_spw.transformed.contsub.split_concat',
+'14B-088.sb29812125.eb29989143.56976.243081759254.speclines.ms.split_spw.transformed.contsub.split_concat',
+'14B-088.sb29812125.eb29989844.56977.223306493055.speclines.ms.split_spw.transformed.contsub.split_concat',
+'14B-088.sb29812125.eb29989958.56978.238293993054.speclines.ms.split_spw.transformed.contsub.split_concat',
+'14B-088.sb29812125.eb30008723.56986.204377581016.speclines.ms.split_spw.transformed.contsub.split_concat',
+'14B-088.sb29971045.eb29984617.56972.01955872685.speclines.ms.split_spw.transformed.contsub.split_concat',
+'14B-088.sb29971045.eb29989123.56976.023950208335.speclines.ms.split_spw.transformed.contsub.split_concat',
+'14B-088.sb29971045.eb29989840.56977.024377800924.speclines.ms.split_spw.transformed.contsub.split_concat',
+'14B-088.sb29971045.eb29989883.56978.02014521991.speclines.ms.split_spw.transformed.contsub.split_concat',
+'14B-088.sb29971045.eb30006086.56983.001531076385.speclines.ms.split_spw.transformed.contsub.split_concat',
+'14B-088.sb30023144.eb30070731.57002.919034293984.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795562.eb42935223.59867.084671122684.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795562.eb42935487.59868.09524202546.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795562.eb42936463.59869.076643831024.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795562.eb42939270.59870.072167604165.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795562.eb42942928.59871.0804840625.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795562.eb42948841.59875.07467717593.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795562.eb42948957.59876.05329664352.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795562.eb42950207.59877.08662526621.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795760.eb42889065.59860.39318865741.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795760.eb42892682.59861.36371240741.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795760.eb42942934.59871.34854791667.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795760.eb42959648.59880.29915842593.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42795760.eb42963975.59881.32356903935.speclines.ms.split_spw.transformed.contsub.split_concat',
 '20A-346.sb43000224.eb43012103.59905.26576574074.speclines.ms.split_spw.transformed.contsub.split_concat']
 
-b_d = ['17B-162.sb34051874.eb34497862.58019.12101613426.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34051874.eb34512512.58022.09389369213.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34051874.eb34603795.58043.05213521991.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34051874.eb34620290.58048.0411411574.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34051874.eb34635762.58054.009438877314.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34051874.eb34701346.58076.96044393518.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34051874.eb34742796.58082.91476392361.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34051874.eb34756401.58088.93220465278.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34293636.eb34601252.58042.33489737268.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34293636.eb34603801.58043.328202476856.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34293636.eb34618017.58045.33243515046.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34293636.eb34620280.58047.35365534722.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34293636.eb34620658.58048.32964618056.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34293636.eb34630839.58052.310646990736.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34293636.eb34635780.58055.299382048615.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34293636.eb34635792.58056.29234890046.speclines.ms.split_spw.transformed.contsub.split_concat'
-'17B-162.sb34293636.eb34642622.58057.30859833333.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb40945452.eb40973299.59536.98425851852.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb40945452.eb40974923.59539.0066933912.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb40945452.eb40981994.59541.9721515625.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb40945452.eb41018110.59553.96876721065.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb40945452.eb41028448.59555.91786901621.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb40945452.eb41051709.59565.89333129629.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb40945452.eb41052313.59566.928502546296.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb40945586.eb40991931.59550.23195141203.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb40945586.eb41038444.59564.20483394676.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb40945586.eb41048569.59565.165229895836.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42432794.eb42523325.59804.22769546296.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42432794.eb42524535.59806.240932291665.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42432794.eb42529192.59808.23489403936.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42432794.eb42529928.59809.228274340276.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42432794.eb42532179.59810.2708574537.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42432794.eb42534811.59812.23396511574.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42432794.eb42536910.59814.2467287037.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42433001.eb42469041.59790.54711428241.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42433001.eb42482004.59798.52568141204.speclines.ms.split_spw.transformed.contsub.split_concat'
-'20A-346.sb42433001.eb42523329.59804.518509918984.speclines.ms.split_spw.transformed.contsub.split_concat'
+b_d = ['17B-162.sb34051874.eb34497862.58019.12101613426.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34051874.eb34512512.58022.09389369213.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34051874.eb34603795.58043.05213521991.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34051874.eb34620290.58048.0411411574.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34051874.eb34635762.58054.009438877314.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34051874.eb34701346.58076.96044393518.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34051874.eb34742796.58082.91476392361.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34051874.eb34756401.58088.93220465278.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34293636.eb34601252.58042.33489737268.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34293636.eb34603801.58043.328202476856.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34293636.eb34618017.58045.33243515046.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34293636.eb34620280.58047.35365534722.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34293636.eb34620658.58048.32964618056.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34293636.eb34630839.58052.310646990736.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34293636.eb34635780.58055.299382048615.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34293636.eb34635792.58056.29234890046.speclines.ms.split_spw.transformed.contsub.split_concat',
+'17B-162.sb34293636.eb34642622.58057.30859833333.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb40945452.eb40973299.59536.98425851852.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb40945452.eb40974923.59539.0066933912.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb40945452.eb40981994.59541.9721515625.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb40945452.eb41018110.59553.96876721065.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb40945452.eb41028448.59555.91786901621.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb40945452.eb41051709.59565.89333129629.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb40945452.eb41052313.59566.928502546296.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb40945586.eb40991931.59550.23195141203.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb40945586.eb41038444.59564.20483394676.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb40945586.eb41048569.59565.165229895836.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42432794.eb42523325.59804.22769546296.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42432794.eb42524535.59806.240932291665.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42432794.eb42529192.59808.23489403936.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42432794.eb42529928.59809.228274340276.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42432794.eb42532179.59810.2708574537.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42432794.eb42534811.59812.23396511574.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42432794.eb42536910.59814.2467287037.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42433001.eb42469041.59790.54711428241.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42433001.eb42482004.59798.52568141204.speclines.ms.split_spw.transformed.contsub.split_concat',
+'20A-346.sb42433001.eb42523329.59804.518509918984.speclines.ms.split_spw.transformed.contsub.split_concat',
 '20A-346.sb42433001.eb42532183.59810.53990929398.speclines.ms.split_spw.transformed.contsub.split_concat']
 
 c_d = ['14B-088.sb29701604.eb29882607.56952.08797296297.speclines.ms.split_spw.transformed.contsub.split_concat',
@@ -354,36 +354,37 @@ c_d = ['14B-088.sb29701604.eb29882607.56952.08797296297.speclines.ms.split_spw.t
 
 ## functiont to return a list of input measurement sets based on config_pair string
 def get_ms_list(config_pair):
-	if config_pair == 'A+B':
-		## add to path to beginning of ms names in list
-		ms_list = [path + element for element in a_b]
-		return ms_list
-	elif config_pair == 'A+C':
-		ms_list = [path + element for element in a_c]
-		return ms_list 
-	elif config_pair == 'A+D':
-		ms_list = [path + element for element in a_d]
-		return ms_list
-	elif config_pair == 'B+C':
-		ms_list = [path + element for element in b_c]
-		return ms_list
-	elif config_pair == 'B+D':
-		ms_list = [path + element for element in b_d]
-		return ms_list: 
-	else:
-		ms_list = [path + element for element in c_d]
-		return ms_list: 
+    if config_pair == 'A+B':
+        ## add to path to beginning of ms names in list
+        ms_list = [path + element for element in a_b]
+        return ms_list
+    elif config_pair == 'A+C':
+        ms_list = [path + element for element in a_c]
+        return ms_list 
+    elif config_pair == 'A+D':
+        ms_list = [path + element for element in a_d]
+        return ms_list
+    elif config_pair == 'B+C':
+        ms_list = [path + element for element in b_c]
+        return ms_list
+    elif config_pair == 'B+D':
+        ms_list = [path + element for element in b_d]
+        return ms_list 
+    else:
+        ms_list = [path + element for element in c_d]
+        return ms_list 
 
 def main():
-	## get list of input measurement sets
-	ms_list = get_ms_list(config_pair)
-	output_vis = '%s/%s' % (path, output_name)
-	concat_params = {
-		'vis': ms_list,
-		'concatvis':output_vis,
-		'freqtol':'0.6MHz',
-		'dirtol': '0.1deg'}
-	concat(**concat_params)
+    ## get list of input measurement sets
+    ms_list = get_ms_list(config_pair)
+    output_vis = '%s/%s' % (path, output_name)
+    concat_params = {
+        'vis': ms_list,
+        'concatvis':output_vis,
+        'copypointing':False,
+        'freqtol':'0.6MHz',
+        'dirtol': '0.1deg'}
+    concat(**concat_params)
 if __name__=='__main__':
-	main()
-	exit()
+    main()
+    exit()
