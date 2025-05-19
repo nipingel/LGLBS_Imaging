@@ -36,7 +36,7 @@ def main():
 	cell_size = '0.75arcsec'
 	restore_beam = 'common'
 	## automasking parameters ##
-	use_mask = 'auto-multithresh'
+	use_mask = 'pb'
 	sidelobe_threshold = 2.5
 	noise_threshold = 3.5
 	min_beam_frac = 0.3
@@ -48,7 +48,7 @@ def main():
 	## deconvolution parameters
 	deconvolver_mode = 'multiscale'
 	ms_scales = [0, 8, 16, 32, 64, 128, 256]
-	tot_niter = 100000 
+	tot_niter = 0 
 	min_threshold = '0.8mJy'
 	restart_parameter = False
 	## tclean dictionary

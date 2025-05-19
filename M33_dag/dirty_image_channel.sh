@@ -7,28 +7,19 @@
 HOME=$PWD
 
 ## assign variables
-chan_num=$1
-ms_name=$2
-src_name=$3
-ra_phase_center=$4
-dec_phase_center=$5
-ms_path=/projects/vla-processing/measurement_sets/${src_name}/weight_test/${ms_name}
-output_name=${ms_name}"_clean_automask_robust1.0_chan"${chan_num}
-
-## check if 0 needs to be appended in name (channel range from 0 to 99) for alphanumeric ordering
-if [ "$1" -lt "10" ]; then
-       output_name=${ms_name}"_clean_automask_robust1.0_noweight_chan00"${chan_num}
-fi
-if [ "$1" -lt "100" ] && [ "$1" -gt "9" ]; then
-	output_name=${ms_name}"_clean_automask_robust1.0_noweight_chan0"${chan_num}
-fi
+ms_name=$1
+src_name=$2
+ra_phase_center=$3
+dec_phase_center=$4
+ms_path=/projects/vla-processing/measurement_sets/${src_name}/config_pair_test/${ms_name}
+output_name=${ms_name}"_dirty_chan830"
 
 # make casa call to imaging script
 mpicasa -n 6 casa --logfile ${output_name}".log" -c dirty_image_channel.py -v ${ms_path} -o ${output_name} -r ${ra_phase_center} -d${dec_phase_center}
 
 ## tar result
 tar -cvf ${output_name}".tar" ${output_name}*
-mv ${output_name}".tar" /projects/vla-processing/images/${src_name}/weight_test/${output_name}".tar"
+mv ${output_name}".tar" /projects/vla-processing/images/${src_name}/config_pair_test/${output_name}".tar"
 
 ## clean up 
 # rm -rf ${output_name}*
