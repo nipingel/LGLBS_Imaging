@@ -1,0 +1,6 @@
+M33_A+B.wt_flagged_chan830.ms
+M33_A+C.wt_flagged_chan830.ms
+M33_A+D.wt_flagged_chan830.ms
+M33_B+C.wt_flagged_chan830.ms
+M33_B+D.wt_flagged_chan830.ms
+M33_C+D.wt_flagged_chan830.ms
