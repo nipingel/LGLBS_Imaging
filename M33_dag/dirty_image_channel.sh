@@ -12,7 +12,7 @@ src_name=$2
 ra_phase_center=$3
 dec_phase_center=$4
 ms_path=/projects/vla-processing/measurement_sets/${src_name}/config_pair_test/${ms_name}
-output_name=${ms_name}"_clean"
+output_name=${ms_name}"_dirty"
 
 # make casa call to imaging script
 mpicasa -n 6 casa --logfile ${output_name}".log" -c dirty_image_channel.py -v ${ms_path} -o ${output_name} -r ${ra_phase_center} -d${dec_phase_center}

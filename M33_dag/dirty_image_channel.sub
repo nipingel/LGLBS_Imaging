@@ -20,8 +20,8 @@ executable = dirty_image_channel.sh
 src_name=M33 
 ra_phase_center=01h33m50s 
 dec_phase_center=30d29m37
-#ms_name=M33_A+B+C+D.wt_flagged_chan830.ms
-ms_name=M33_A+D.wt_flagged_chan830.ms
+#ms_name=M33_A+B+C+D.wt_flagged_chan830.m
+ms_name=M33_A+C.wt_flagged_chan830.ms
 
 arguments = $(ms_name) $(src_name) $(ra_phase_center) $(dec_phase_center)
 log = $(ms_name)_dirty_image.log

@@ -15,16 +15,16 @@ container_image = file:///staging/nmpingel/container_images/casa_container.sif
 #  and increasing for the relevant number of jobs.
 
 ## imaging executable
-executable = dirty_image_channel.sh
+executable = image_channel_config_pair.sh
 
 src_name=M33 
 ra_phase_center=01h33m50s 
 dec_phase_center=30d29m37
 
 arguments = $(ms_name) $(src_name) $(ra_phase_center) $(dec_phase_center)
-log = $(ms_name)_dirty_image.log
-output = $(ms_name)_dirty_image.out
-error = $(ms_name)_dirty_image.err
+log = $(ms_name)_clean_image.log
+output = $(ms_name)_clean_image.out
+error = $(ms_name)_clean_image.err
 
 # Specify that HTCondor should transfer files to and from the
 #  computer where each job runs. The last of these lines *would* be
@@ -34,7 +34,7 @@ Requirements=(Target.HasCHTCStaging == true)
 
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
-transfer_input_files = dirty_image_channel.py, dirty_image_channel.sh
+transfer_input_files = image_channel_config_pair.py, image_channel_config_pair.sh
 request_cpus = 6
 request_memory=50GB
 request_disk = 35GB
