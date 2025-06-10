@@ -126,8 +126,8 @@
 ## - src_name: source name
 ## output:
 ## - re-weighted concatenated measurement sets with '.wt' appended to name
-JOB I statwt_full_concat.sub
-VARS I ms_name="M33_A+B+C+D.ms" v_sys="-180" v_width="500" src_name="M33"
+## JOB I statwt_full_concat.sub
+## VARS I ms_name="M33_A+B+C+D.ms" v_sys="-180" v_width="500" src_name="M33"
 ## PARENT I CHILD J
 
 ## SPLIT FOR IMAGING
@@ -141,9 +141,9 @@ VARS I ms_name="M33_A+B+C+D.ms" v_sys="-180" v_width="500" src_name="M33"
 ## - end_chan: ending channel to split
 ## output:
 ## - tarballs of individual channels
-#JOB J split_channels.sub
-##VARS J input_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822"
-##PARENT J CHILD K
+## JOB J split_channels.sub
+## VARS J input_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822"
+## PARENT J CHILD K
 
 ## IMAGING
 ## run tclean to imagine single channels
@@ -156,8 +156,8 @@ VARS I ms_name="M33_A+B+C+D.ms" v_sys="-180" v_width="500" src_name="M33"
 ## - src_name: source name
 ## output:
 ## - tarball containing tclean output for single spectral channels
-## JOB H image_channel.sub
-## VARS H ms_name="M33_A+B+C+D.ms" src_name="M33" ra_phase_center="01h33m50s" dec_phase_center="30d29m37"
+JOB H image_channel.sub
+VARS H ms_name="M33_A+B+C+D.ms.wt" src_name="M33" ra_phase_center="01h33m50s" dec_phase_center="30d39m00s"
 ## PARENT K CHILD 
 
 ## RESTART IMAGING
@@ -171,9 +171,9 @@ VARS I ms_name="M33_A+B+C+D.ms" v_sys="-180" v_width="500" src_name="M33"
 ## - src_name: source name
 ## output:
 ## - tarball containing tclean output for single spectral channels
-##JOB K restart_image_channel.sub
-##VARS K ms_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822" ra_phase_center="19h44m57.74s" dec_phase_center="-14d48m12.4"
-##PARENT K CHILD L
+## JOB K restart_image_channel.sub
+## VARS K ms_name="NGC6822_A+B+C+D.comb_spw.wt" src_name="NGC6822" ra_phase_center="19h44m57.74s" dec_phase_center="-14d48m12.4"
+## PARENT K CHILD L
 
 ## UNTAR FOR COMBINATION
 ## untar and move back desired output images to staging area for combination

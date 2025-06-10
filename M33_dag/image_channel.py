@@ -17,7 +17,7 @@ import argparse
 ## parse user inputs
 parser = argparse.ArgumentParser()
 parser.add_argument('-v', '--vis_path', help = '<required> name of measurement set', required = True)
-parser.add_argument('-r', '--ra', help = '<required> ra phase center in form e.g.: 00h40m13.8', required = True)
+parser.addf_argument('-r', '--ra', help = '<required> ra phase center in form e.g.: 00h40m13.8', required = True)
 parser.add_argument('-d', '--dec', help = '<required> ra phase center in form e.g.: +40d50m04.73', required = True)
 parser.add_argument('-o', '--output_name', help = '<required> name of output file', required = True)
 args, unknown = parser.parse_known_args()
@@ -36,7 +36,7 @@ def main():
     cell_size = '0.75arcsec'
     restore_beam = 'common'
     ## automasking parameters ##
-    use_mask = 'user'
+    use_mask = 'pb'
     mask = 'M33_A+B+C+D.wt_flagged_chan830.mask'
     sidelobe_threshold = 2.5
     noise_threshold = 3.5
@@ -81,7 +81,6 @@ def main():
         'maxpsffraction':0.8, 
         'threshold':min_threshold, 
         'usemask':use_mask, 
-        'mask':mask,
         'pbmask':0.2, 
         'sidelobethreshold':sidelobe_threshold, 
         'noisethreshold':noise_threshold, 
