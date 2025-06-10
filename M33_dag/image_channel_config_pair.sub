@@ -36,7 +36,7 @@ Requirements=(Target.HasCHTCStaging == true)
 #  each job will need on the computer where it runs.
 transfer_input_files = image_channel_config_pair.py, image_channel_config_pair.sh
 request_cpus = 6
-request_memory=50GB
+request_memory=100GB
 request_disk = 35GB
 
 ## queue 
