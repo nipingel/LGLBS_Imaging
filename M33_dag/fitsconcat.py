@@ -52,7 +52,19 @@ def make_empty_image(imlist, path, outname):
 	dummy_data = np.zeros(dims, dtype=np.float32)
 	hdu = fits.PrimaryHDU(data=dummy_data)
 	header = hdu.header
-	fits.writeto('%s/%s' % (path, outname), dummy_data, header = header, overwrite = True)
+
+	## create memmapped file
+	filename = '%s/%s.dat' % (path, outname)
+	memmap_data = np.memmap(filename, dtype=np.float32, mode = 'w+', shape = dims)
+	## save to disk
+	memmap_data.flush()
+	#fits.writeto('%s/%s' % (path, outname), dummy_data, header = header, overwrite = True)
+
+	## make fits file
+	hdu.writeto(outname, overwrite=True)
+	del memmap_data
+	os.remove(filename)
+	return
 
 ## fill cube with FITS images
 def fill_cube_with_images(imlist, path, outname):
