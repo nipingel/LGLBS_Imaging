@@ -156,8 +156,8 @@
 ## - src_name: source name
 ## output:
 ## - tarball containing tclean output for single spectral channels
-JOB H image_channel.sub
-VARS H ms_name="M33_A+B+C+D.ms.wt" src_name="M33" ra_phase_center="01h33m50s" dec_phase_center="30d39m00s"
+## JOB H image_channel.sub
+## VARS H ms_name="M33_A+B+C+D.ms.wt" src_name="M33" ra_phase_center="01h33m50s" dec_phase_center="30d39m00s"
 ## PARENT K CHILD 
 
 ## RESTART IMAGING
@@ -186,7 +186,7 @@ VARS H ms_name="M33_A+B+C+D.ms.wt" src_name="M33" ra_phase_center="01h33m50s" de
 ## output:
 ## - extracted CASA image file in staging area
 ## JOB L untar_images.sub
-## VARS L suffix="image" src_name="M33" root_file_name="M33_A+B+C+D.ms"
+## VARS L suffix="image.pbcor" src_name="M33" root_file_name="M33_A+B+C+D.ms.wt"
 ## PARENT L CHILD M
 
 ## COMBINE IMAGES
@@ -200,9 +200,9 @@ VARS H ms_name="M33_A+B+C+D.ms.wt" src_name="M33" ra_phase_center="01h33m50s" de
 ## - delta_nu: spectral width of channels in kHz
 ## output:
 ## - final data cube
-## JOB M fitsconcat.sub
-## VARS M suffix="image.fits" src_name="M33" output_name="M33_ABCD"
-#PARENT M CHILD N
+JOB M fitsconcat.sub
+VARS M suffix="image.pbcor.fits" src_name="M33" output_name="M33_ABCD"
+## PARENT M CHILD N
 
 ## UVCOMBINE (single)
 ## feather images in Fourier space with uvcombine python package

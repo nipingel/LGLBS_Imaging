@@ -17,7 +17,7 @@ import argparse
 ## parse user inputs
 parser = argparse.ArgumentParser()
 parser.add_argument('-v', '--vis_path', help = '<required> name of measurement set', required = True)
-parser.addf_argument('-r', '--ra', help = '<required> ra phase center in form e.g.: 00h40m13.8', required = True)
+parser.add_argument('-r', '--ra', help = '<required> ra phase center in form e.g.: 00h40m13.8', required = True)
 parser.add_argument('-d', '--dec', help = '<required> ra phase center in form e.g.: +40d50m04.73', required = True)
 parser.add_argument('-o', '--output_name', help = '<required> name of output file', required = True)
 args, unknown = parser.parse_known_args()
@@ -50,7 +50,7 @@ def main():
     deconvolver_mode = 'multiscale'
     ms_scales = [0, 8, 16, 32, 64, 128, 256] 
     tot_niter = 100000 
-    min_threshold = '1.25mJy'
+    min_threshold = '1.35mJy'
     restart_parameter = False
     ## tclean dictionary
     tclean_params={

@@ -52,7 +52,7 @@ def make_empty_image(imlist, path, outname):
 	dummy_data = np.zeros(dims, dtype=np.float32)
 	hdu = fits.PrimaryHDU(data=dummy_data)
 	header = hdu.header
-	fits.writeto('%s/%s' % (path, outname), dummy_data, header = header)
+	fits.writeto('%s/%s' % (path, outname), dummy_data, header = header, overwrite = True)
 
 ## fill cube with FITS images
 def fill_cube_with_images(imlist, path, outname):
@@ -88,7 +88,7 @@ def main():
 	## make empty FITS cube
     ## TODO: np.memmap to generate the zero'd array before writing to
     ## fits file
-	## make_empty_image(image_list, fits_file_path, cube_outname )
+	make_empty_image(image_list, fits_file_path, cube_outname)
 
 	## fill FITS cube
 	fill_cube_with_images(image_list, fits_file_path, cube_outname)

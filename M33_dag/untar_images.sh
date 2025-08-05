@@ -24,13 +24,13 @@ fi
 tar -xvf /projects/vla-processing/images/${src_name}/${root_file_name}_robust1.0_chan${chan}.tar --directory .
 
 ## extract sub-region
-casa --nologfile --log2term --nogui -c imsub_image.py -n ${root_file_name}_robust1.0_chan${chan}.${file_suffix} -r M33_subregion.reg
+## casa --nologfile --log2term --nogui -c imsub_image.py -n ${root_file_name}_robust1.0_chan${chan}.${file_suffix} -r M33_subregion.reg
 
 ## export to FITS
-casa --nologfile --log2term --nogui -c export_fits.py -n ${root_file_name}_robust1.0_chan${chan}.${file_suffix}.imsub 
+casa --nologfile --log2term --nogui -c export_fits.py -n ${root_file_name}_robust1.0_chan${chan}.${file_suffix}
 
 ## move untarred file back to staging area
-mv ${root_file_name}_robust1.0_chan${chan}.${file_suffix}.imsub.fits /projects/vla-processing/images/${src_name}/${output_name}.fits
+mv ${root_file_name}_robust1.0_chan${chan}.${file_suffix}.fits /projects/vla-processing/images/${src_name}/${output_name}.fits
 
 ## clean up 
 rm -rf ${root_file_name}*

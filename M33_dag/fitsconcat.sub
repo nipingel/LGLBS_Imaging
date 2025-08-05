@@ -35,7 +35,7 @@ Requirements=(Target.HasCHTCStaging == true)
 #  each job will need on the computer where it runs.
 transfer_input_files = fitsconcat.sh, fitsconcat.py
 request_cpus = 1
-request_memory = 50GB
+request_memory = 100GB
 request_disk = 10GB
 #
 # Tell HTCondor to run 1 instances of our job

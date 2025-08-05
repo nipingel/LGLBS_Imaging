@@ -19,7 +19,7 @@ container_image = file:///staging/nmpingel/container_images/casa_container.sif
 executable = untar_images.sh
 
 ## determine channel to untar
-sc = $(Process)+152
+sc = $(Process)+570
 chan = $INT(sc,%d)
 
 arguments = $(suffix) $(root_file_name) $(src_name) $(chan)
@@ -35,10 +35,10 @@ Requirements=(Target.HasCHTCStaging == true)
 
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
-transfer_input_files = untar_images.sh, export_fits.py, imsub_image.py, M33_subregion.reg
+transfer_input_files = untar_images.sh, export_fits.py, imsub_image.py 
 request_cpus = 1
-request_memory = 1GB
+request_memory = 3GB
 request_disk = 20GB
 
 # Tell HTCondor to run 475 instances of our job:
-queue 1211
+queue 646
