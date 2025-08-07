@@ -104,7 +104,7 @@ def read_cubes(interf_name, sdname):
     gbt_beam_model = Beam(area=1.1331*(9.8*60)**2 *u.arcsec**2)
     gbt_beam_model.major.to(u.arcmin)
     gbt_cube = gbt_cube.with_beam(gbt_beam_model, raise_error_jybm=False)
-    gbt_cube = gbt_cube.with_spectral_unit(u.km / u.s, velocity_convention='radio')
+    #gbt_cube = gbt_cube.with_spectral_unit(u.km / u.s, velocity_convention='radio')
     
     # There is an issue with the F2F optical to radio conversion that is not being
     # handled during reprojection. Just set to VRAD if that's the case.
@@ -116,11 +116,17 @@ def read_cubes(interf_name, sdname):
 ## function to feather on a per-channel basis
 def feather_per_channel(highres_cube, lowres_cube, start_chan, end_chan):
     this_feathered_filename = output_path + f"/{interf_cubename[:-5]}_feathered.fits"
-    print("per channel combination")
+    print("per channel combination and smoothing...")
     with warnings.catch_warnings():
         warnings.filterwarnings("ignore", message="WCS1 is missing card")
         for this_chan in tqdm(range(start_chan, end_chan)):
-            feathered_chan = feather_simple(highres_cube[this_chan].to(u.K),
+
+            highres_beam_ellip_model = Beam(major = 5.16 * u.arcsec, minor = 4.23 * u.arcsec, pa = -83.6696 * u.deg)
+            new_highres_beam_model = Beam(area = 1.1331*(5.5)**2 * u.arcsec**2)
+            highres_cube[this_chan].with_beam(highres_beam_model, raise_error_jybm=False)
+            highres_channel = highres_cube[this_chan].with_beam(highres_beam_model, raise_error_jybm=False)
+            smoothed_highres_channel = highres_channel.convolve_to(new_highres_beam_model)
+            feathered_chan = feather_simple(smoothed_highres_channel.to(u.K),
                 lowres_cube[this_chan].to(u.K),
                 lowresscalefactor=sdfactor)
             with fits.open(this_feathered_filename, mode="update", memmap=True) as hdulist:
