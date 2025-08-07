@@ -30,6 +30,7 @@ def parse_user_arguments():
     return args.path, args.outname, args.extension
 
 ## make empty FITS cube
+## see https://docs.astropy.org/en/stable/io/fits/appendix/faq.html#how-can-i-create-a-very-large-fits-file-from-scratch
 def make_empty_image(imlist, path, outname):
     """
     Generate an empty dummy FITS data cube. The FITS cube can exceed available
