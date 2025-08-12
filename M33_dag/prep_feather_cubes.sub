@@ -7,8 +7,8 @@ executable = prep_feather_cubes.sh
 
 arguments = $(src_name) $(sdcube) $(interfcube) $(feathercube)
 output = run_prep_feather_$(src_name).out
-error = run_feather_$(src_name).err
-log = run_feather_$(src_name).log
+error = run_prep_feather_$(src_name).err
+log = run_prep_feather_$(src_name).log
 
 # Specify that HTCondor should transfer files to and from the
 #  computer where each job runs. The last of these lines *would* be
@@ -18,9 +18,9 @@ Requirements=(Target.HasCHTCStaging == true)
 
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
-transfer_input_files = feather_cubes_distributed.sh, feather_cubes_distributed.py
+transfer_input_files = prep_feather_cubes.sh, prep_feather_cubes.py
 request_cpus = 1
-request_memory = 20GB
+request_memory = 40GB
 request_disk = 10GB
 #
 # Tell HTCondor to run 1 instances of our job:

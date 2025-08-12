@@ -214,7 +214,7 @@
 ## - interfcube: name of highres cube
 ## - feathercube: name of feather cube
 JOB N prep_feather_cubes.sub
-VARS N src_name="M33" sdcube="m33_gbt_vlsr.fits" interfcube="M33_ABCD.fits" feathercube="M33_A+B+C+D_HI_0p4kms.fits"
+VARS N src_name="M33" sdcube="m33_gbt_vlsr.fits" interfcube="M33_ABCD.fits" feathercube="M33_ABCD_feathered.fits"
 PARENT N CHILD O
 
 ## UVCOMBINE (DISTRIBUTED)
@@ -228,7 +228,7 @@ PARENT N CHILD O
 ## - outpath: output path/filename
 ## - galaxy: name of galaxy
 JOB O feather_cubes_distributed.sub
-VARS O src_name="M33" sdcube="m33_gbt_vlsr_highresmatch.fits" interfcube="M33_A+B+C+D_HI_0p4kms.fits" outpath="/projects/vla-processing/images/M33" galaxy="m33"
+VARS O src_name="M33" sdcube="m33_gbt_vlsr_highresmatch.fits" interfcube="M33_ABCD.fits" outpath="/projects/vla-processing/images/M33" galaxy="m33"
 
 ## SMOOTH CUBE
 ## smooth cube to user provided target resolution in km/s

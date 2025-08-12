@@ -20,6 +20,7 @@ import astropy.units as u
 from astropy.convolution import Gaussian1DKernel
 from spectral_cube import SpectralCube
 from radio_beam import Beam
+from pathlib import Path
 import sys
 import os
 import argparse
@@ -39,11 +40,6 @@ parser.add_argument('-f', '--feathercube',
                     type=str)
 
 ## function to parse user arguments
-args, unknown = parser.parse_known_args()
-## parse measurement set list & output
-sd_cubename = args.sdcube
-interf_cubename = args.interfcube
-output_path = args.outpath
 def parse_inputs():
     args, unknown = parser.parse_known_args()
     sd_cubename = args.sdcube
@@ -89,12 +85,12 @@ def spectral_resample(lowres, highres):
     return lowres_specinterp    
 
 ## function to perform spatial reprojection
-def reproject_single_dish(sdcube_name, lowres, highres):
+def reproject_single_dish(sdcube_name, interf_cubename, lowres, highres):
     # Do a per-channel version to avoid the problem
     sd_filename = Path(sdcube_name).name
     reproj_filename = f"{sd_filename[:-5]}_highresmatch.fits"
     print(f"Copying {interf_cubename} to {reproj_filename}")
-    os.system(f"cp {interf_cubename} {reproj_filename}")
+    ## os.system(f"cp {interf_cubename} {reproj_filename}")
     print("Per channel reprojection")
     with warnings.catch_warnings():
        warnings.filterwarnings("ignore", message="WCS1 is missing card")
@@ -136,10 +132,10 @@ def main():
     lowres_cube = spectral_resample(lowres_cube, highres_cube)
 
     # Grid the single dish data to the interferometer spatial grid
-    reproject_single_dish(sd_cubename, lowres_cube, highres_cube)
+    reproject_single_dish(sd_cubename, interf_cubename, lowres_cube, highres_cube)
 
     # make copy of vla-only cube to place feathered channels on disk in next node
-    copy_vla_only()
+    copy_vla_only(interf_cubename, feather_cubename)
 
 if __name__=='__main__':
     main()

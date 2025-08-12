@@ -18,4 +18,4 @@ mv prep_feather_cubes.py /projects/vla-processing/images/${src_name}
 cd /projects/vla-processing/images/${src_name}
 
 echo $PATH
-python prep_feather_cubes_distributed.py --sdcube ${sdcube} --interfcube ${interfcube} --feathercube ${feathercube} 
+python prep_feather_cubes.py --sdcube ${sdcube} --interfcube ${interfcube} --feathercube ${feathercube} 
