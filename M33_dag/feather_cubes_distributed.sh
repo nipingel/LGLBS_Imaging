@@ -7,10 +7,9 @@
 src_name=$1
 sdcube=$2
 interfcube=$3
-outpath=$4
-galaxy=$5
-start_chan=$6
-end_chan=$7
+galaxy=$4
+start_chan=$5
+end_chan=$6
 
 ## set up python env
 source /miniconda3/etc/profile.d/conda.sh
@@ -21,4 +20,4 @@ mv feather_cubes_distributed.py /projects/vla-processing/images/${src_name}
 cd /projects/vla-processing/images/${src_name}
 
 echo $PATH
-python feather_cubes_distributed.py --sdcube ${sdcube} --interfcube ${interfcube} --outpath ${outpath} --galaxy ${galaxy} --beginning_channel ${start_chan} --last_channel ${end_chan}
+python feather_cubes_distributed.py --sdcube ${sdcube} --interfcube ${interfcube} --galaxy ${galaxy} --beginning_channel ${start_chan} --last_channel ${end_chan}

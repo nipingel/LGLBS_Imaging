@@ -228,7 +228,7 @@ PARENT N CHILD O
 ## - outpath: output path/filename
 ## - galaxy: name of galaxy
 JOB O feather_cubes_distributed.sub
-VARS O src_name="M33" sdcube="m33_gbt_vlsr_highresmatch.fits" interfcube="M33_ABCD.fits" outpath="/projects/vla-processing/images/M33" galaxy="m33"
+VARS O src_name="M33" sdcube="m33_gbt_vlsr.fits" interfcube="M33_ABCD.fits" galaxy="m33"
 
 ## SMOOTH CUBE
 ## smooth cube to user provided target resolution in km/s

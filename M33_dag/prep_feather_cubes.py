@@ -69,7 +69,7 @@ def read_cubes(interf_name, sdname):
     return gbt_cube, vla_cube
 
 ## function to spectrally resample lowres cube
-def spectral_resample(lowres, highres):
+def spectral_resample(lowres, highres, sdname):
     fwhm_factor = np.sqrt(8*np.log(2))
     current_resolution = np.abs(np.diff(lowres.spectral_axis)[0]).to(u.km / u.s)
     target_resolution = np.abs(np.diff(highres.spectral_axis)[0]).to(u.km / u.s)
@@ -82,38 +82,8 @@ def spectral_resample(lowres, highres):
         lowres_specsmooth = lowres
     # Resample to the same spectral axis
     lowres_specinterp = lowres_specsmooth.spectral_interpolate(highres.spectral_axis)
-    return lowres_specinterp    
-
-## function to perform spatial reprojection
-def reproject_single_dish(sdcube_name, interf_cubename, lowres, highres):
-    # Do a per-channel version to avoid the problem
-    sd_filename = Path(sdcube_name).name
-    reproj_filename = f"{sd_filename[:-5]}_highresmatch.fits"
-    print(f"Copying {interf_cubename} to {reproj_filename}")
-    ## os.system(f"cp {interf_cubename} {reproj_filename}")
-    print("Per channel reprojection")
-    with warnings.catch_warnings():
-       warnings.filterwarnings("ignore", message="WCS1 is missing card")
-       for this_chan in tqdm(range(highres.shape[0])):
-           reproj_chan = lowres[this_chan].reproject(highres[this_chan].header)
-           with fits.open(reproj_filename, mode="update", memmap=True) as hdulist:
-               hdulist[0].data[this_chan] = reproj_chan
-               hdulist.flush()
-               del hdulist[0].data
-    # Allow reading in the whole cube.
-    ## re-write beam info to header and explicitly attach
-    with fits.open(reproj_filename, mode = 'update', memmap=True) as hdulist:
-        hdulist[0].header['BMAJ'] = 0.151667 ## deg
-        hdulist[0].header['BMIN'] = 0.151667 ## deg
-        hdulist[0].header['BPA'] = 0.0 ## deg
-        hdulist.flush()     
-
-    specinterp_reproj = SpectralCube.read(reproj_filename, use_dask = True, save_to_tmp_dir=True)
-    specinterp_reproj.allow_huge_operations = True
-    ## attach beam
-    gbt_beam = Beam(546*u.arcsec)
-    specinterp_reproj = specinterp_reproj.with_beam(gbt_beam, raise_error_jybm=False)
-    return
+    lowres_specinterp.write(f"{sdname[:-5]}_specinterp.fits")
+    return   
 
 ## function to copy VLA-only cube
 def copy_vla_only(interf_cubename, feather_cubename):
@@ -129,10 +99,7 @@ def main():
     lowres_cube, highres_cube = read_cubes(interf_cubename, sd_cubename)
 
     # If needed, spectrally smooth the GBT cube
-    lowres_cube = spectral_resample(lowres_cube, highres_cube)
-
-    # Grid the single dish data to the interferometer spatial grid
-    reproject_single_dish(sd_cubename, interf_cubename, lowres_cube, highres_cube)
+    #spectral_resample(lowres_cube, highres_cube, sd_cubename)
 
     # make copy of vla-only cube to place feathered channels on disk in next node
     copy_vla_only(interf_cubename, feather_cubename)

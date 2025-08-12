@@ -20,7 +20,7 @@ ec = $(sc) + 10
 start_chan = $INT(sc,%d)
 end_chan = $INT(ec,%d)
 
-arguments = $(src_name) $(sdcube) $(interfcube) $(outpath) $(galaxy) $(start_chan) $(end_chan)
+arguments = $(src_name) $(sdcube) $(interfcube) $(galaxy) $(start_chan) $(end_chan)
 output = run_feather_$(src_name)_$(Process).out
 error = run_feather_$(src_name)_$(Process).err
 log = run_feather_$(src_name)_$(Process).log
