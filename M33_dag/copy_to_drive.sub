@@ -1,0 +1,25 @@
+#!/usr/bin/env condor_submit
+
+# transfer.sub
+# submit transfer jobs from LGLBS share to /projects staging area
+
+# default vanilla universe is fine for now
+dest_dir   = lglbs:LineImaging/HI_A+B+C+D_feathered
+
+executable = copy_to_drive.sh
+
+arguments  = $(fname) $(dest_dir)
+
+output     = run-copy-$(Process).out
+error      = run-copy-$(Process).err
+log        = run-copy-$(Process).log
+
+# want /projects staging area, and want to run at CS near Ceph cluster
+Requirements=(Target.HasCHTCStaging == true) 
++HasCHTCStaging=true
+
+request_cpus   = 1
+request_memory = 1GB
+request_disk   = 1GB
+
+queue fname from drive-transfer-list.txt
