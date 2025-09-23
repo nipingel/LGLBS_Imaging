@@ -24,7 +24,7 @@ Requirements=(Target.HasCHTCStaging == true)
 
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
-transfer_input_files = ms_transform.py, ms_transform.sh
+transfer_input_files = ms_transform_smooth.py, ms_transform_smooth.sh
 request_cpus = 1
 request_memory = 50GB
 request_disk = 30GB

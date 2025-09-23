@@ -142,7 +142,7 @@
 ## - measurement set at user-provided spectral channel width
 JOB C ms_transform_smooth.sub
 VARS C chan_width="2" src_name="M33" ms_name="M33_A+B+C+D.ms.wt"
-PARENT C CHILD D
+## PARENT C CHILD D
 
 ## SPLIT FOR IMAGING
 ## split out channels from concatenated measurement set for imaging
@@ -241,8 +241,8 @@ PARENT C CHILD D
 ## - interfcube: name of highres cube
 ## - outpath: output path/filename
 ## - galaxy: name of galaxy
-JOB O feather_cubes_distributed.sub
-VARS O src_name="M33" sdcube="m33_gbt_vlsr.fits" interfcube="M33_ABCD.fits" galaxy="m33"
+## JOB O feather_cubes_distributed.sub
+## VARS O src_name="M33" sdcube="m33_gbt_vlsr.fits" interfcube="M33_ABCD.fits" galaxy="m33"
 
 ## SMOOTH CUBE
 ## smooth cube to user provided target resolution in km/s

@@ -38,6 +38,7 @@ def main():
 		'datacolumn': 'data',
 		'regridms': True, 
 		'mode': 'velocity',
+        'restfreq':"1.420405751768GHz",
 		'width': channel_width,
 	}
 	mstransform(**mstransform_params)
