@@ -48,9 +48,10 @@ def main():
     verbose = True
     ## deconvolution parameters
     deconvolver_mode = 'multiscale'
-    ms_scales = [0, 8, 16, 32, 64, 128, 256] 
+    ms_scales = [0, 8, 16, 32, 64, 128, 256]
     tot_niter = 100000 
-    min_threshold = '1.35mJy'
+    #min_threshold = '1.35mJy'
+    min_threshold = '0.6mJy'
     restart_parameter = False
     ## tclean dictionary
     tclean_params={
