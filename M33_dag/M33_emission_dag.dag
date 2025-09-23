@@ -130,6 +130,20 @@
 ## VARS I ms_name="M33_A+B+C+D.ms" v_sys="-180" v_width="500" src_name="M33"
 ## PARENT I CHILD J
 
+## MSTRANFORM 
+## smooth channels to a user-provided spectral resolution
+## executable:
+## - ms_transform_smooth.sh (runs ms_transform_smooth.py)
+## inputs:
+## - ms_name: casa file name
+## - chan_width: width of channel in kms/s
+## - src_name: 
+## output:
+## - measurement set at user-provided spectral channel width
+JOB C ms_transform_smooth.sub
+VARS C chan_width="2" src_name="M33" ms_name="M33_A+B+C+D.ms.wt"
+PARENT C CHILD D
+
 ## SPLIT FOR IMAGING
 ## split out channels from concatenated measurement set for imaging
 ## executable:
