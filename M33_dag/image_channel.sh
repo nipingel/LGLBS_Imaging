@@ -32,7 +32,7 @@ mpicasa -n 6 casa --logfile ${output_name}".log" -c image_channel.py -v ${ms_nam
 
 ## tar result
 tar -cvf ${output_name}".tar" ${output_name}*
-mv ${output_name}".tar" /projects/vla-processing/images/${src_name}/2kms_channels
+mv ${output_name}".tar" /projects/vla-processing/images/${src_name}/4.1kms_channels
 
 ## clean up 
 rm -rf ${output_name}*

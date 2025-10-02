@@ -51,7 +51,7 @@ def main():
     ms_scales = [0, 8, 16, 32, 64, 128, 256]
     tot_niter = 100000 
     #min_threshold = '1.35mJy'
-    min_threshold = '0.6mJy'
+    min_threshold = '0.425mJy'
     restart_parameter = False
     ## tclean dictionary
     tclean_params={

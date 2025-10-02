@@ -10,6 +10,11 @@ container_image = file:///staging/nmpingel/container_images/casa_container.sif
 #  and increasing for the relevant number of jobs.
 executable = ms_transform_smooth.sh
 
+## arguments from DAG
+ms_name = M33_A+B+C+D.ms.wt
+src_name = M33
+chan_width = 4.1
+
 ## set inputs
 arguments = $(ms_name) $(chan_width) $(src_name)
 output = transform-ms-$(Process).out
