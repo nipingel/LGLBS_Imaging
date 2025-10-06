@@ -32,7 +32,7 @@ def MW_indices(freq_arr):
 	nu_0 = 1.42040575e9
 	c=299792458.0
 	vel_axis= c*(1-freq_arr/nu_0)
-	inds = ((vel_axis >= -200.0*1e3) * (vel_axis <= 200*1e3))
+	inds = ((vel_axis >= -50.0*1e3) * (vel_axis <= 50*1e3))
 	return inds
 
 ## function to convert provided vsys and vwidth to high and low frequency ranges
@@ -88,10 +88,23 @@ fitorder = args.order
 vsys = args.vsys*1e3 ## km/s
 vwidth = args.vwidth*1e3 ## km/s
 
+## function to modify channel string to remove 5% of edge channels
+def remove_edge_channels(chan_str):
+	max_channel = float(chan_str.split('~')[-1])
+	min_channel = float(chan_str.split('~')[0].split(':')[1])
+	num_edge_channels = max_channel*0.05
+	new_max_channel = str(int(max_channel - num_edge_channel))
+	new_min_channel = str(int(min_channel + num_edge_channel))
+	new_chan_str = chan_str.replace("0:0", "0:"+new_min_channel)
+	new_chan_str = new_chan_str.replace(f"~{int(max_channel)}", f"~{int(new_max_channel)}")
+	return new_chan_str
+
 def main():
 	fitspwStr = '0:'
 	chan_str = construct_spw_str(vsys, vwidth, msName)
 	fitspwStr += chan_str
+	## modify to throw away edge channels in case they are not already masked
+	fitspwStr = remove_edge_channels(fitspwStr)
 	uvcontsub_params = {
 		'vis': msName,
 		'outputvis':'%s.contsub' % msName,

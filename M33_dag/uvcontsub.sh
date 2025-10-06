@@ -21,7 +21,7 @@ untar_name=(${ms_name//.tar/ })
 tar -xvf /projects/vla-processing/measurement_sets/${src_name}/${ms_name} --directory .
 
 # make casa call to uvcontsub script
-casa --nologfile -c uvcontsub.py -n ${untar_name} -o 1 -v ${v_sys} -w ${v_width}
+casa --nologfile -c uvcontsub.py -n ${untar_name} -o 0 -v ${v_sys} -w ${v_width}
 
 ## move back to staging. DO NOT tar since files will be set up for concatenation in staging area next
 mv $untar_name".contsub" /projects/vla-processing/measurement_sets/${src_name}
