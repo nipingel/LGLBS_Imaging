@@ -11,7 +11,7 @@ container_image = file:///staging/nmpingel/container_images/casa_container.sif
 executable = ms_transform.sh
 
 ## set inputs
-arguments = $(ms_name) $(chan_width) $(ref_frame) $(src_name)
+arguments = $(ms_name) $(chan_width) $(ref_frame) $(src_name) $(restfreq)
 output = transform-ms-$(Process).out
 error = transform-ms-$(Process).err
 log = transform-ms-$(Process).log
@@ -26,7 +26,7 @@ Requirements=(Target.HasCHTCStaging == true)
 transfer_input_files = ms_transform.py, ms_transform.sh
 request_cpus = 1
 request_memory = 10GB
-request_disk = 300GB
+request_disk = 150GB
 #
 # Tell HTCondor to run 1 instances of our job:
 queue ms_name from ms-transform-list_m33.txt

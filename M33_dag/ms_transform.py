@@ -6,6 +6,7 @@ User inputs:
 -w --channel_width - <required> channel width in kHz
 -f --frame - <required> output spectral reference frame
 -o --output_vis - <required> name of transformed visibility
+-r --restfreq - <required> rest frequency in MHz
 __author__="Nickolas Pingel"
 __version__="1.0"
 __email__="nmpingel@wisc.edu"
@@ -20,6 +21,7 @@ parser.add_argument('-p', '--path', help = '<required> path to measurement set',
 parser.add_argument('-w', '--channel_width', help='<required> channel width in kHz', required = True)
 parser.add_argument('-f', '--frame', help='<required> output spectral reference frame', required = True)
 parser.add_argument('-o', '--output_vis', help='<required> name of transformed visibility', required = True)
+parser.add_argument('-r', '--restfreq', help='<required> rest frequency in MHz', required = True)
 args, unknown = parser.parse_known_args()
 
 ## get path to measurement set
@@ -35,6 +37,10 @@ ref_frame =  args.frame
 ## get transformed visibility name
 output_vis = args.output_vis
 
+## get rest frequency
+restfreq = args.restfreq
+restfreq += 'MHz'
+
 def main():
 	mstransform_params = {
 		'vis': ms_path,
@@ -43,7 +49,8 @@ def main():
 		'regridms': True, 
 		'mode': 'frequency',
 		'width': channel_width,
-		'outframe': ref_frame
+		'outframe': ref_frame,
+		'restfreq': restfreq
 	}
 	mstransform(**mstransform_params)
 if __name__=='__main__':

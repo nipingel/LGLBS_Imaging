@@ -57,7 +57,7 @@
 ## output:
 ## - tarball of measurement sets that have been transformed to the user provided reference frame and spectral channel width
 JOB D ms_transform.sub
-VARS D ref_frame="LSRK" chan_width="1953.71094083786" src_name="M33"
+VARS D ref_frame="LSRK" chan_width="1953.71094083786" src_name="M33" restfreq=""
 PARENT D CHILD E
 
 ## GENERATE INPUT FOR SPLIT CONCAT STEP
