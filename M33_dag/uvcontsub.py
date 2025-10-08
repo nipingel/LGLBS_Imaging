@@ -92,7 +92,7 @@ vwidth = args.vwidth*1e3 ## km/s
 def remove_edge_channels(chan_str):
 	max_channel = float(chan_str.split('~')[-1])
 	min_channel = float(chan_str.split('~')[0].split(':')[1])
-	num_edge_channels = max_channel*0.05
+	num_edge_channel = max_channel*0.05
 	new_max_channel = str(int(max_channel - num_edge_channel))
 	new_min_channel = str(int(min_channel + num_edge_channel))
 	new_chan_str = chan_str.replace("0:0", "0:"+new_min_channel)
