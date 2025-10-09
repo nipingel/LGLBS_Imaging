@@ -56,9 +56,9 @@
 ## - src_name: source name
 ## output:
 ## - tarball of measurement sets that have been transformed to the user provided reference frame and spectral channel width
-JOB D ms_transform.sub
-VARS D ref_frame="LSRK" chan_width="1953.71094083786" src_name="M33" restfreq="1420.405751768"
-PARENT D CHILD E
+## JOB D ms_transform.sub
+## VARS D ref_frame="LSRK" chan_width="1953.71094083786" src_name="M33" restfreq="1420.405751768"
+## PARENT D CHILD E
 
 ## GENERATE INPUT FOR SPLIT CONCAT STEP
 ## call generate_spit_file.py to generate input for SPLIT CONCAT step
@@ -70,8 +70,8 @@ PARENT D CHILD E
 ## - output: output name for generated csv file
 ## output:
 ## - a csv file that has three columns: name of measurement set, starting channel to split, ending channel to split for concat
-JOB E generate_split_file.sub
-VARS E src_name="M33" extension="transformed" output_name="split_concat_list"
+## JOB E generate_split_file.sub
+## VARS E src_name="M33" extension="transformed" output_name="split_concat_list"
 ## PARENT E CHILD F
 
 ## SPLIT FOR CONCAT
@@ -85,8 +85,8 @@ VARS E src_name="M33" extension="transformed" output_name="split_concat_list"
 ## - end_chan - ending channel to split (input text file)
 ## output:
 ## - split out measurement sets with equal number of channels so concat step will combine into a single spw
-## JOB F split_channels_concat.sub
-## PARENT F CHILD G
+JOB F split_channels_concat.sub
+PARENT F CHILD G
 
 ## CONCAT
 ## concatenate (combine) measurement sets from all VLA configurations in staging area
@@ -98,8 +98,8 @@ VARS E src_name="M33" extension="transformed" output_name="split_concat_list"
 ## - src_name: source name
 ## output:
 ## - concatenated measurement set in staging area
-## JOB G concat.sub
-## VARS G src_name="M33" extension="split_concat" outfile_name="M33_A+B+C+D.ms"
+JOB G concat.sub
+VARS G src_name="M33" extension="split_concat" outfile_name="M33_A+B+C+D.ms"
 ## PARENT G CHILD H
 
 ## COMBINE_SPW
