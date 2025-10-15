@@ -16,7 +16,7 @@ import argparse
 ## parse user inputs
 parser = argparse.ArgumentParser()
 parser.add_argument('-p', '--path', help = '<required> path to measurement set', required = True)
-parser.add_argument('-o', '--outputvis', help = '<required> output measurement set', required = True)
+parser.add_argument('-o', '--outputvis', help = '<required> output measurement set', required = False)
 parser.add_argument('-s', '--start_chan', help='<required> starting channel for splitting', required = True, type = int)
 parser.add_argument('-e', '--end_chan', help='<required> ending channel for splitting', required = True, type = int)
 parser.add_argument('--split_concat', action='store_true')
