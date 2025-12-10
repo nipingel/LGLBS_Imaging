@@ -65,7 +65,7 @@ def make_empty_image(imlist, path, outname):
     header["NAXIS3"] = dims[0]
     header.tofile('%s/%s' % (path, outname))
 
-    with open("large.fits", "rb+") as fobj:
+    with open('%s/%s' % (path, outname), "rb+") as fobj:
         # Seek past the length of the header, plus the length of the
         # Data we want to write.
         # 4 is the number of bytes per value, i.e. abs(header['BITPIX'])/8

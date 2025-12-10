@@ -99,7 +99,7 @@ def main():
     lowres_cube, highres_cube = read_cubes(interf_cubename, sd_cubename)
 
     # If needed, spectrally smooth the GBT cube
-    #spectral_resample(lowres_cube, highres_cube, sd_cubename)
+    spectral_resample(lowres_cube, highres_cube, sd_cubename)
 
     # make copy of vla-only cube to place feathered channels on disk in next node
     copy_vla_only(interf_cubename, feather_cubename)

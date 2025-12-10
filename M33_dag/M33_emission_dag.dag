@@ -126,8 +126,8 @@
 ## - src_name: source name
 ## output:
 ## - re-weighted concatenated measurement sets with '.wt' appended to name
-JOB I statwt_full_concat.sub
-VARS I ms_name="M33_A+B+C+D.ms" v_sys="-180" v_width="350" src_name="M33"
+## JOB I statwt_full_concat.sub
+## VARS I ms_name="M33_A+B+C+D.ms" v_sys="-180" v_width="350" src_name="M33"
 ## PARENT I CHILD J
 
 ## MSTRANFORM 
@@ -140,9 +140,9 @@ VARS I ms_name="M33_A+B+C+D.ms" v_sys="-180" v_width="350" src_name="M33"
 ## - src_name: 
 ## output:
 ## - measurement set at user-provided spectral channel width
-## JOB C ms_transform_smooth.sub
-## VARS C chan_width="2" src_name="M33" ms_name="M33_A+B+C+D.ms.wt"
-## PARENT C CHILD D
+## JOB K ms_transform_smooth.sub
+## VARS K chan_width="2.0" src_name="M33" ms_name="M33_A+B+C+D.ms.wt"
+## PARENT K CHILD L
 
 ## SPLIT FOR IMAGING
 ## split out channels from concatenated measurement set for imaging
@@ -170,8 +170,8 @@ VARS I ms_name="M33_A+B+C+D.ms" v_sys="-180" v_width="350" src_name="M33"
 ## - src_name: source name
 ## output:
 ## - tarball containing tclean output for single spectral channels
-## JOB H image_channel.sub
-## VARS H ms_name="M33_A+B+C+D.ms.wt.2kms.smoothed" src_name="M33" ra_phase_center="01h33m50s" dec_phase_center="30d39m00s"
+JOB L image_channel.sub
+VARS L ms_name="M33_A+B+C+D.ms.wt" src_name="M33" ra_phase_center="01h33m50s" dec_phase_center="30d39m00s"
 ## PARENT K CHILD 
 
 ## RESTART IMAGING

@@ -19,21 +19,21 @@ container_image = file:///staging/nmpingel/container_images/casa_container.sif
 executable = image_channel.sh
 
 ## determine channel to image
-sc=$(Process)
-chan=$INT(sc,%d)
+#sc=$(Process)+480
+#chan=$INT(sc,%d)
 
-ms_name=M33_A+B+C+D.ms.wt.4.1kms.smoothed
+ms_name=M33_A+B+C+D.ms.wt
 src_name=M33
 ra_phase_center=01h33m50s
 dec_phase_center=30d39m00s
-
+chan=999
 arguments = $(chan) $(ms_name) $(src_name) $(ra_phase_center) $(dec_phase_center)
 
 should_transfer_files=YES
 when_to_transfer_output = ON_EXIT_OR_EVICT
-log = $(src_name)_image_course_chan$(chan).log
-output = $(src_name)_image_course_chan$(chan).out
-error = $(src_name)_image_course_chan$(chan).err
+log = $(src_name)_image_single_chan$(chan).log
+output = $(src_name)_image_single_chan$(chan).out
+error = $(src_name)_image_single_chan$(chan).err
 
 # Specify that HTCondor should transfer files to and from the
 #  computer where each job runs. The last of these lines *would* be
@@ -46,8 +46,10 @@ Requirements=(Target.HasCHTCStaging == true)
 #  each job will need on the computer where it runs.
 transfer_input_files = image_channel.py, image_channel.sh, split_channels.py
 request_cpus = 6
-request_memory=50GB
+request_memory=45GB
 request_disk=35GB
 
 # Tell HTCondor to run one instances of job per channel
-queue 150
+queue 1
+#queue 900
+#queue chan from remaining-channels.txt

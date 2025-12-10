@@ -13,7 +13,7 @@ executable = ms_transform_smooth.sh
 ## arguments from DAG
 ms_name = M33_A+B+C+D.ms.wt
 src_name = M33
-chan_width = 4.1
+chan_width = 4.0
 
 ## set inputs
 arguments = $(ms_name) $(chan_width) $(src_name)
@@ -31,7 +31,7 @@ Requirements=(Target.HasCHTCStaging == true)
 #  each job will need on the computer where it runs.
 transfer_input_files = ms_transform_smooth.py, ms_transform_smooth.sh
 request_cpus = 1
-request_memory = 50GB
+request_memory = 100GB
 request_disk = 30GB
 #
 # Tell HTCondor to run 1 instances of our job:
