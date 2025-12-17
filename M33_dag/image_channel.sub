@@ -26,7 +26,6 @@ ms_name=M33_A+B+C+D.ms.wt
 src_name=M33
 ra_phase_center=01h33m50s
 dec_phase_center=30d39m00s
-chan=999
 arguments = $(chan) $(ms_name) $(src_name) $(ra_phase_center) $(dec_phase_center)
 
 should_transfer_files=YES
@@ -50,6 +49,4 @@ request_memory=45GB
 request_disk=35GB
 
 # Tell HTCondor to run one instances of job per channel
-queue 1
-#queue 900
-#queue chan from remaining-channels.txt
+queue chan from remaining-channels.txt

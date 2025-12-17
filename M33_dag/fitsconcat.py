@@ -110,7 +110,7 @@ def main():
     image_list = sorted(glob.glob('%s/*.%s' % (fits_file_path, f_ext)))
 
     ## make empty FITS cube
-    # make_empty_image(image_list, fits_file_path, cube_outname)
+    make_empty_image(image_list, fits_file_path, cube_outname)
 
     ## fill FITS cube
     fill_cube_with_images(image_list, fits_file_path, cube_outname)

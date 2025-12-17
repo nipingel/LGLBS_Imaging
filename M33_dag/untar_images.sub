@@ -20,7 +20,7 @@ executable = untar_images.sh
 
 ## determine channel to untar
 sc = $(Process)+480
-chan = $INT(sc,%d)
+#chan = $INT(sc,%d)
 
 suffix=image.pbcor
 src_name=M33
@@ -45,4 +45,5 @@ request_memory = 3GB
 request_disk = 10GB
 
 # Tell HTCondor to run 475 instances of our job:
-queue 900
+#queue 900
+queue chan from remaining-channels.txt
