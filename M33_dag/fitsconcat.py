@@ -19,6 +19,12 @@ import numpy as np
 from spectral_cube import SpectralCube
 from astropy.wcs import WCS
 from astropy.io import fits
+from astropy.convolution import convolve_fft
+from astropy.wcs.utils import proj_plane_pixel_scales
+import astropy.units as u
+from radio_beam import Beam
+from radio_beam.utils import deconvolve
+
 
 ## parse user arguments
 def parse_user_arguments():
@@ -78,8 +84,33 @@ def make_empty_image(imlist, path, outname):
         fobj.write(b"\0") ## writes zeros
     return
 
+## add spectral axis to header of dummy cube
+def get_target_bmaj(imlist):
+    bmaj_list = []
+    for l in imlist:
+        hdu = fits.open(l)
+        bmaj_list.append(hdu[0].header['BMAJ']*3600)
+    target_bmaj = round(np.max(bmaj_list)*(1+0.05), 1) * u.arcsec ## make final beam 5% larger than largest beam size across images
+    target_beam = Beam(major = target_bmaj, minor = target_bmin, pa = 0 * u.deg)
+    return target_beam
+
+## smooth image to desired final common resolution
+def smooth_image(hdu, target_beam):
+    ## compute kernel beam
+    orig_beam = Beam.from_fits_header(hdu[0].header)
+    kernel_beam = target_beam.deconvolve(orig_beam)
+    
+    ## get pix scales for convolution
+    wcs = WCS(hdu[0].header)
+    proj_plane_pixel_scales(wcs)[0]
+    pixscale = (pixscale_deg * u.deg).to(u.arcsec)
+    kernel = kernel_beam.as_kernel(pixscale)
+    smoothed_image = convolve_fft(hdu[0].data[0, :, :], kernel, 
+        normalize_kernel=True, allow_huge=True, nan_treatment='interpolate')
+    return smoothed_image
+
 ## fill cube with FITS images
-def fill_cube_with_images(imlist, path, outname):
+def fill_cube_with_images(imlist, target_beam, path, outname):
     """
     Fills the empty data cube with fits data.
 
@@ -97,9 +128,11 @@ def fill_cube_with_images(imlist, path, outname):
     for ii in range(0, max_chan):
         print(f"Processing channel {ii}/{max_chan}", end='\r')
         with fits.open(imlist[ii], memmap=True) as hdu:
-            outdata[ii, :, :] = hdu[0].data
+            sm_image = smooth_image(hdu, target_beam)
+            outdata[ii, :, :] = sm_image
     ## update fits file
-    fits.writeto('%s/%s' % (path, outname), outdata, header = first_im_hdu[0].header, overwrite = True)
+    new_header = target_beam.attach_to_header(first_im_hdu[0].header, copy = True)
+    fits.writeto('%s/%s' % (path, outname), outdata, header = new_header, overwrite = True)
     outhdu.close()
 
 def main():
@@ -108,6 +141,9 @@ def main():
     cube_outname = '%s.fits' % (f_outname)
     print('%s/*.%s' % (fits_file_path, f_ext))
     image_list = sorted(glob.glob('%s/*.%s' % (fits_file_path, f_ext)))
+
+    ## get target beam object for smoothing
+    target_beam = get_target_bmaj(image_list)
 
     ## make empty FITS cube
     make_empty_image(image_list, fits_file_path, cube_outname)

@@ -12,7 +12,6 @@ def run_export_fits(f_name):
             'imagename':'%s' % (f_name),
             'fitsimage':'%s.fits' % (f_name),
             'velocity':True,
-            'dropdeg': True,
             'dropstokes': True
             }
     exportfits(**export_fits_params)
