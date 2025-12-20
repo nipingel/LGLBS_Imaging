@@ -91,7 +91,7 @@ def get_target_bmaj(imlist):
         hdu = fits.open(l)
         bmaj_list.append(hdu[0].header['BMAJ']*3600)
     target_bmaj = round(np.max(bmaj_list)*(1+0.05), 1) * u.arcsec ## make final beam 5% larger than largest beam size across images
-    target_beam = Beam(major = target_bmaj, minor = target_bmin, pa = 0 * u.deg)
+    target_beam = Beam(major = target_bmaj, minor = target_bmaj, pa = 0 * u.deg)
     return target_beam
 
 ## smooth image to desired final common resolution
@@ -102,7 +102,7 @@ def smooth_image(hdu, target_beam):
     
     ## get pix scales for convolution
     wcs = WCS(hdu[0].header)
-    proj_plane_pixel_scales(wcs)[0]
+    pixscale_deg = proj_plane_pixel_scales(wcs)[0]
     pixscale = (pixscale_deg * u.deg).to(u.arcsec)
     kernel = kernel_beam.as_kernel(pixscale)
     smoothed_image = convolve_fft(hdu[0].data[0, :, :], kernel, 
@@ -146,9 +146,9 @@ def main():
     target_beam = get_target_bmaj(image_list)
 
     ## make empty FITS cube
-    make_empty_image(image_list, fits_file_path, cube_outname)
+    #make_empty_image(image_list, fits_file_path, cube_outname)
 
     ## fill FITS cube
-    fill_cube_with_images(image_list, fits_file_path, cube_outname)
+    fill_cube_with_images(image_list, target_beam, fits_file_path, cube_outname)
 if __name__ == '__main__':
     main()
