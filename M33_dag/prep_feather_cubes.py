@@ -83,9 +83,9 @@ def spectral_resample(lowres, highres, sdname):
     # Resample to the same spectral axis
     lowres_specinterp = lowres_specsmooth.spectral_interpolate(highres.spectral_axis)
     lowres_specinterp.write(f"{sdname[:-5]}_specinterp.fits")
-    return   
+    return
 
-## function to copy VLA-only cube
+## function to copy VLA-only cube for feather and s
 def copy_vla_only(interf_cubename, feather_cubename):
     print(f"Copying {interf_cubename} to {feather_cubename}")
     os.system(f"cp {interf_cubename} {feather_cubename}")

@@ -91,7 +91,7 @@ def read_cubes(interf_name, sdname):
     ## read in cubes
     vla_cube = SpectralCube.read(interf_name, use_dask = True, save_to_tmp_dir=True)
     vla_cube.allow_huge_operations = True
-    gbt_cube_spec_interp = SpectralCube.read(f"{sdname[:-5]}_specinterp.fits", use_dask = True, save_to_tmp_dir = True)
+    gbt_cube_spec_interp = SpectralCube.read(f"{sdname}", use_dask = True, save_to_tmp_dir = True)
     gbt_cube_spec_interp.allow_huge_operations = True
 
     # Use the proper beam model size, not the one in the header!
@@ -108,24 +108,11 @@ def read_cubes(interf_name, sdname):
 
 ## function to perform spatial reprojection
 def reproject_lowres(lowres_channel, highres_channel, this_chan):
-    reproj_filename = f"{sd_cubename[:-5]}_highresmatch.fits"
     # Do a per-channel version to avoid memory problems
     with warnings.catch_warnings():
        warnings.filterwarnings("ignore", message="WCS1 is missing card")
        reproj_chan = lowres_channel.reproject(highres_channel.header)
-       with fits.open(reproj_filename, mode="update", memmap=True) as hdulist:
-            hdulist[0].data[this_chan] = reproj_chan
-            hdulist.flush()
-            del hdulist[0].data
     return reproj_chan
-
-## function to smooth high-resolution cube to single resolution
-def smooth_highres(highres_channel):
-    highres_beam_ellip_model = Beam(major = 5.16 * u.arcsec, minor = 4.23 * u.arcsec, pa = -83.6696 * u.deg)
-    new_highres_beam_model = Beam(area = 1.1331*(5.5)**2 * u.arcsec**2)
-    highres_channel.with_beam(highres_beam_ellip_model, raise_error_jybm=False)
-    smoothed_highres_channel = highres_channel.convolve_to(new_highres_beam_model, allow_huge = True)
-    return smoothed_highres_channel
 
 ## function to feather on a per-channel basis
 def feather_per_channel(highres_cube, lowres_cube, start_chan, end_chan):
@@ -136,12 +123,10 @@ def feather_per_channel(highres_cube, lowres_cube, start_chan, end_chan):
         for this_chan in tqdm(range(start_chan, end_chan)):
             ## smooth high-resolution image
             highres_channel = highres_cube[this_chan]
-            smoothed_highres_channel = smooth_highres(highres_channel)
             
             ## reproject single dish
             lowres_channel = lowres_cube[this_chan]
-            reprojected_channel = reproject_lowres(lowres_channel, smoothed_highres_channel, this_chan)
-
+            reprojected_channel = reproject_lowres(lowres_channel, highres_channel, this_chan)
             feathered_chan = feather_simple(smoothed_highres_channel.to(u.K),
                 reprojected_channel.to(u.K),
                 lowresscalefactor=sdfactor)

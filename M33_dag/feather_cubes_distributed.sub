@@ -15,17 +15,10 @@ container_image = file:///staging/nmpingel/container_images/casa_container.sif
 executable = feather_cubes_distributed.sh
 
 ## determine channel to feather
-#sc = $(Process) * 10
-#ec = $(sc) + 10
-sc = 420
-ec = 430
+sc = $(Process) * 10
+ec = $(sc) + 10
 start_chan = $INT(sc,%d)
 end_chan = $INT(ec,%d)
-
-src_name=M33
-sdcube=m33_gbt_vlsr.fits
-interfcube=M33_ABCD.fits
-galaxy=m33
 
 arguments = $(src_name) $(sdcube) $(interfcube) $(galaxy) $(start_chan) $(end_chan)
 #output = run_feather_$(src_name)_$(Process).out
@@ -49,4 +42,4 @@ request_memory = 20GB
 request_disk = 10GB
 #
 # Tell HTCondor to run 1 instances of our job:
-queue 1
+queue 90

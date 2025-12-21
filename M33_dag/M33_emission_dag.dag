@@ -170,8 +170,8 @@
 ## - src_name: source name
 ## output:
 ## - tarball containing tclean output for single spectral channels
-JOB L image_channel.sub
-VARS L ms_name="M33_A+B+C+D.ms.wt" src_name="M33" ra_phase_center="01h33m50s" dec_phase_center="30d39m00s"
+## JOB L image_channel.sub
+## VARS L ms_name="M33_A+B+C+D.ms.wt" src_name="M33" ra_phase_center="01h33m50s" dec_phase_center="30d39m00s"
 ## PARENT K CHILD 
 
 ## RESTART IMAGING
@@ -227,9 +227,9 @@ VARS L ms_name="M33_A+B+C+D.ms.wt" src_name="M33" ra_phase_center="01h33m50s" de
 ## - sdcube: name of lowres cube
 ## - interfcube: name of highres cube
 ## - feathercube: name of feather cube
-## JOB N prep_feather_cubes.sub
-## VARS N src_name="M33" sdcube="m33_gbt_vlsr.fits" interfcube="M33_ABCD.fits" feathercube="M33_ABCD_feathered.fits"
-## PARENT N CHILD O
+JOB N prep_feather_cubes.sub
+VARS N src_name="M33" sdcube="m33_gbt_vlsr.fits" interfcube="M33_ABCD.fits" feathercube="M33_ABCD_feathered.fits"
+PARENT N CHILD O
 
 ## UVCOMBINE (DISTRIBUTED)
 ## feather images in Fourier space with uvcombine python package
@@ -241,16 +241,5 @@ VARS L ms_name="M33_A+B+C+D.ms.wt" src_name="M33" ra_phase_center="01h33m50s" de
 ## - interfcube: name of highres cube
 ## - outpath: output path/filename
 ## - galaxy: name of galaxy
-## JOB O feather_cubes_distributed.sub
-## VARS O src_name="M33" sdcube="m33_gbt_vlsr.fits" interfcube="M33_ABCD.fits" galaxy="m33"
-
-## SMOOTH CUBE
-## smooth cube to user provided target resolution in km/s
-## executable:
-## - smooth_cube.sh
-## inputs:
-## - src_name: source name for directory path
-## - cube: name of input cube
-## - target_resolution: target resolution in km/s
-## JOB M smooth_cube.sub
-## VARS M src_name="M33" cube="M33_A+B+C+D_HI_0p4kms.fits" target_resolution="2.0"
+JOB O feather_cubes_distributed.sub
+VARS O src_name="M33" sdcube="m33_gbt_vlsr_specinterp.fits" interfcube="M33_ABCD.fits" galaxy="m33"
