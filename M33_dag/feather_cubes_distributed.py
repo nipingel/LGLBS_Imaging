@@ -127,7 +127,7 @@ def feather_per_channel(highres_cube, lowres_cube, start_chan, end_chan):
             ## reproject single dish
             lowres_channel = lowres_cube[this_chan]
             reprojected_channel = reproject_lowres(lowres_channel, highres_channel, this_chan)
-            feathered_chan = feather_simple(smoothed_highres_channel.to(u.K),
+            feathered_chan = feather_simple(highres_channel.to(u.K),
                 reprojected_channel.to(u.K),
                 lowresscalefactor=sdfactor)
             with fits.open(this_feathered_filename, mode="update", memmap=True) as hdulist:

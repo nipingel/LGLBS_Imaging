@@ -227,9 +227,9 @@
 ## - sdcube: name of lowres cube
 ## - interfcube: name of highres cube
 ## - feathercube: name of feather cube
-JOB N prep_feather_cubes.sub
-VARS N src_name="M33" sdcube="m33_gbt_vlsr.fits" interfcube="M33_ABCD.fits" feathercube="M33_ABCD_feathered.fits"
-PARENT N CHILD O
+## JOB N prep_feather_cubes.sub
+## VARS N src_name="M33" sdcube="m33_gbt_vlsr.fits" interfcube="M33_ABCD.fits" feathercube="M33_ABCD_feathered.fits"
+## PARENT N CHILD O
 
 ## UVCOMBINE (DISTRIBUTED)
 ## feather images in Fourier space with uvcombine python package
