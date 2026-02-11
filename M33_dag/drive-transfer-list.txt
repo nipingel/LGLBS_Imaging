@@ -1,1 +1,3 @@
-M33_A+B+C+D_HI_0p4kms_feathered.fits
+M33_A+B+C+D_HI_0p4kms_feathered_MW_foreground_K.fits
+M33_A+B+C+D_HI_0p4kms_feathered_K_noise.fits
+M33_A+B+C+D_HI_0p4kms_feathered_K_reimaged.fits
