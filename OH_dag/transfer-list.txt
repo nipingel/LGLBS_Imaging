@@ -1,0 +1,16 @@
+ic10ctr_A+B+C+D_oh1612.ms.tar
+ic10ctr_A+B+C+D_oh1665.ms.tar
+ic10ctr_A+B+C+D_oh1667.ms.tar
+ic10ctr_A+B+C+D_oh1720.ms.tar
+ic1613ctr_A+B+C+D_oh1612.ms.tar
+ic1613ctr_A+B+C+D_oh1665.ms.tar
+ic1613ctr_A+B+C+D_oh1667.ms.tar
+ic1613ctr_A+B+C+D_oh1720.ms.tar
+ngc6822_A+B+C+D_oh1612.ms.tar
+ngc6822_A+B+C+D_oh1665.ms.tar
+ngc6822_A+B+C+D_oh1667.ms.tar
+ngc6822_A+B+C+D_oh1720.ms.tar
+wlmctr_A+B+C+D_oh1612.ms.tar
+wlmctr_A+B+C+D_oh1665.ms.tar
+wlmctr_A+B+C+D_oh1667.ms.tar
+wlmctr_A+B+C+D_oh1720.ms.tar
