@@ -21,4 +21,4 @@ transfer_input_files = transfer_measurement_sets.sh
 request_cpus   = 1
 request_memory = 1GB
 request_disk   = 3GB
-queue fname from transfer-list_c_d.txt 
+queue fname from transfer-list_a_b.txt 
