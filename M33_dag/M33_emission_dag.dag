@@ -170,8 +170,8 @@
 ## - src_name: source name
 ## output:
 ## - tarball containing tclean output for single spectral channels
-## JOB L image_channel.sub
-## VARS L ms_name="M33_A+B+C+D.ms.wt" src_name="M33" ra_phase_center="01h33m50s" dec_phase_center="30d39m00s"
+JOB L image_channel.sub
+VARS L ms_name="M33_A+B+C+D.ms.wt.2.0kms.smoothed" src_name="M33" ra_phase_center="01h33m50s" dec_phase_center="30d39m00s"
 ## PARENT K CHILD 
 
 ## RESTART IMAGING
@@ -241,5 +241,5 @@
 ## - interfcube: name of highres cube
 ## - outpath: output path/filename
 ## - galaxy: name of galaxy
-JOB O feather_cubes_distributed.sub
-VARS O src_name="M33" sdcube="m33_gbt_vlsr_specinterp.fits" interfcube="M33_ABCD.fits" galaxy="m33"
+## JOB O feather_cubes_distributed.sub
+## VARS O src_name="M33" sdcube="m33_gbt_vlsr_specinterp.fits" interfcube="M33_ABCD.fits" galaxy="m33"
