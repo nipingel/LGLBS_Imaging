@@ -79,6 +79,7 @@ if sdfactor is None:
 ## function to read/return cubes and beam parameters
 def read_cubes(interf_name, sdname):
 	## read in cubes
+<<<<<<< HEAD
 	vla_cube = SpectralCube.read(interf_name, use_dask = True)
 	vla_cube.allow_huge_operations = True
 	gbt_cube = SpectralCube.read(sdname, use_dask = True)
@@ -157,6 +158,88 @@ def main():
 
 	# Feather with the SD scale factor applied
 	feathered_cube = feather_simple_cube(highres_cube.to(u.K),
+=======
+    vla_cube = SpectralCube.read(interf_name, use_dask = True)
+    vla_cube.allow_huge_operations = True
+	#gbt_cube = SpectralCube.read(sdname, use_dask = True)
+	#gbt_cube.allow_huge_operations = True
+
+	# Use the proper beam model size, not the one in the header!
+	#gbt_beam_model = Beam(area=3.69e5 *u.arcsec**2)
+	#gbt_beam_model.major.to(u.arcmin)
+	#gbt_cube = gbt_cube.with_beam(gbt_beam_model, raise_error_jybm=False)
+	#gbt_cube = gbt_cube.with_spectral_unit(u.km / u.s, velocity_convention='radio')
+	
+	# There is an issue with the F2F optical to radio conversion that is not being
+	# handled during reprojection. Just set to VRAD if that's the case.
+	#if "F2F" in gbt_cube.wcs.wcs.ctype[2]:
+	#	gbt_cube.wcs.wcs.ctype[2] = "VRAD"
+	#	gbt_cube.mask._wcs.wcs.ctype[2] = "VRAD"
+	#return gbt_cube, vla_cube
+    return vla_cube
+
+## function to spectrally resample lowres cube
+def spectral_resample(lowres, highres):
+	fwhm_factor = np.sqrt(8*np.log(2))
+	current_resolution = np.abs(np.diff(lowres.spectral_axis)[0]).to(u.km / u.s)
+	target_resolution = np.abs(np.diff(highres.spectral_axis)[0]).to(u.km / u.s)
+	if current_resolution < target_resolution:
+		gaussian_width = ((target_resolution**2 - current_resolution**2)**0.5 /
+						current_resolution / fwhm_factor)
+		kernel = Gaussian1DKernel(gaussian_width.value)
+		lowres_specsmooth = lowres.spectral_smooth(kernel)
+	else:
+		lowres_specsmooth = lowres
+	# Resample to the same spectral axis
+	lowres_specinterp = lowres_specsmooth.spectral_interpolate(highres.spectral_axis)
+	return lowres_specinterp    
+
+## function to perform spatial reprojection
+def reproject_single_dish(sdcube_name, lowres, highres):
+	# Do a per-channel version to avoid the problem
+	sd_filename = Path(sdcube_name).name
+	reproj_filename = output_path + f"/{sd_filename[:-5]}_highresmatch.fits"
+	print(f"Copying {interf_cubename} to {reproj_filename}")
+	#os.system(f"cp {interf_cubename} {reproj_filename}")
+	print("Per channel reprojection")
+	#with warnings.catch_warnings():
+	#	warnings.filterwarnings("ignore", message="WCS1 is missing card")
+	#	for this_chan in tqdm(range(highres.shape[0])):
+	#		reproj_chan = lowres[this_chan].reproject(highres[this_chan].header)
+	#		with fits.open(reproj_filename, mode="update") as hdulist:
+	#			hdulist[0].data[this_chan] = reproj_chan
+	#			hdulist.flush()
+	# Allow reading in the whole cube.
+	specinterp_reproj = SpectralCube.read(reproj_filename, use_dask = True)
+	specinterp_reproj.allow_huge_operations = True
+	return specinterp_reproj
+
+## function to write out feathered cube
+def write_feathered_cube(output_path, comb_cube_name, comb_cube):
+	comb_cubename_only = Path(comb_cube_name).name
+	this_feathered_filename = output_path + f"/{comb_cubename_only[:-5]}_feathered.fits"
+	comb_cube.write(this_feathered_filename, overwrite=True)
+	# Append the scfactor used into the header.
+	with fits.open(this_feathered_filename, mode="update") as hdulist:
+		hdulist[0].header["COMMENT"] = f"Feathered with uvcombine using scfactor={scfactor}"
+		hdulist.flush()
+	return
+
+def main():
+
+	## get cubes
+	#lowres_cube, highres_cube = read_cubes(interf_cubename, sd_cubename)
+    highres_cube = read_cubes(interf_cubename, sd_cubename)
+	# If needed, spectrally smooth the GBT cube
+	#lowres_cube = spectral_resample(lowres_cube, highres_cube)
+    lowres_cube=sd_cubename
+	# Grid the single dish data to the interferometer spatial grid
+    lowres_reproject = reproject_single_dish(sd_cubename, lowres_cube, highres_cube)
+
+	# Feather with the SD scale factor applied
+    print('Feathering cube')
+    feathered_cube = feather_simple_cube(highres_cube.to(u.K),
+>>>>>>> m33-dag
 		lowres_reproject.to(u.K),
 		use_dask = True,
 		use_memmap = True,
@@ -165,7 +248,11 @@ def main():
 		allow_spectral_resample=True,
 		lowresscalefactor=sdfactor)
 	## write feathered cube
+<<<<<<< HEAD
 	write_feathered_cube(output_path, interf_cubename, feathered_cube)
+=======
+    write_feathered_cube(output_path, interf_cubename, feathered_cube)
+>>>>>>> m33-dag
 
 if __name__=='__main__':
 	main()

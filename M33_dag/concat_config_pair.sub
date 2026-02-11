@@ -1,0 +1,34 @@
+# concat_all.sub
+# script to concatenate all visibilities associated with LGLBS source
+#
+# Specify the HTCondor Universe (vanilla is the default and is used
+#  for almost all jobs) and your desired name of the HTCondor log file,
+#  which is where HTCondor will describe what steps it takes to run 
+#  your job. Wherever you see $(Cluster), HTCondor will insert the 
+#  queue number assigned to this set of jobs at the time of submission.
+# Provide HTCondor with the name of your .sif file and universe information
+container_image = file:///staging/nmpingel/container_images/casa_container.sif
+
+## variables
+src_name=M33
+output_name=M33_$(config_pair).ms
+v_sys=-180
+v_width=500
+
+## commands and logs
+executable = concat_config_pair.sh
+arguments =  $(src_name) $(config_pair) $(output_name) $(v_sys) $(v_width)
+output = merge_$(config_pair)_vis.out
+error = merge_$(config_pair)_vis.err
+log = merge_$(config_pair)_vis.log
+
+# Resources
+Requirements=(Target.HasCHTCStaging == true)
++HasCHTCStaging=true
+transfer_input_files = concat_config_pair.sh, concat_config_pair.py, statwt.py, /home/nmpingel/software/analysis_scripts.tar
+request_cpus = 1
+request_memory = 20GB
+request_disk = 10GB
+
+# Tell HTCondor to run 1 instances of our job:
+queue config_pair from config_pair.txt

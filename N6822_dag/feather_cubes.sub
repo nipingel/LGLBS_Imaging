@@ -39,8 +39,13 @@ Requirements=(Target.HasCHTCStaging == true) && (OpSysMajorVer =?= 8)
 #  each job will need on the computer where it runs.
 transfer_input_files = feather_cubes.sh, feather_cubes.py
 request_cpus = 2
+<<<<<<< HEAD
 request_memory = 50GB
 request_disk = 25GB
+=======
+request_memory = 20GB
+request_disk = 50GB
+>>>>>>> m33-dag
 #
 # Tell HTCondor to run 1 instances of our job:
 queue 1

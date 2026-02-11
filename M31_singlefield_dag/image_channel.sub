@@ -19,8 +19,9 @@ docker_image = nipingel/casa:latest
 executable = image_channel.sh
 
 ## determine channel to image
-sc = $(Process)+1200
+sc = $(Process)+2877
 chan = $INT(sc,%d)
+src_name=M31
 arguments = $(chan) $(src_name)
 log = $(src_name)_image_chan$(chan).log
 output = $(src_name)_image_chan$(chan).out
@@ -40,4 +41,5 @@ request_memory = 15GB
 request_disk = 5GB
 #
 # Tell HTCondor to run 475 instances of our job:
-queue 2300
+queue 133
+## queue chan from remaining-channels.txt

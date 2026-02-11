@@ -6,7 +6,8 @@
 #  which is where HTCondor will describe what steps it takes to run 
 #  your job. Wherever you see $(Cluster), HTCondor will insert the 
 #  queue number assigned to this set of jobs at the time of submission.
-universe = vanilla
+universe = docker
+docker_image = nipingel/casa:latest
 
 #
 # Specify your executable (single binary or a script that runs several
@@ -18,8 +19,13 @@ universe = vanilla
 executable = untar_images.sh
 
 ## determine channel to untar
-sc = $(Process)+1200
+sc = $(Process)+2210
 chan = $INT(sc,%d)
+
+## suffix=image.pbcor
+## src_name=M31
+## root_file_name_1=M31_field14.comb_spw.wt
+## root_file_name_2=M31_field47.comb_spw.wt
 
 arguments = $(suffix) $(src_name) $(chan) $(root_file_name_1) $(root_file_name_2)
 output = decompress_images_$(Process).out
@@ -34,10 +40,10 @@ Requirements=(Target.HasCHTCStaging == true)
 
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
-transfer_input_files = untar_images.sh
+transfer_input_files = untar_images.sh, export_fits.py
 request_cpus = 1
 request_memory = 1GB
 request_disk = 10GB
 
 # Tell HTCondor to run 475 instances of our job:
-queue 2300
+queue 800

@@ -1,0 +1,13 @@
+imagename  = 'M31_field47.comb_spw.wt_chan2493.image.pbcor'
+fitsimage  = 'M31_field47.comb_spw.wt_chan2493.image.pbcor.fits'
+velocity   = True
+optical    = False
+bitpix     = -32
+minpix     = 0
+maxpix     = -1
+overwrite  = False
+dropstokes = False
+stokeslast = True
+history    = True
+dropdeg    = False
+#exportfits( imagename='M31_field47.comb_spw.wt_chan2493.image.pbcor',fitsimage='M31_field47.comb_spw.wt_chan2493.image.pbcor.fits',velocity=True,optical=False,bitpix=-32,minpix=0,maxpix=-1,overwrite=False,dropstokes=False,stokeslast=True,history=True,dropdeg=False )
