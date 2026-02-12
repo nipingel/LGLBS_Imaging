@@ -19,7 +19,7 @@ container_image = file:///staging/nmpingel/container_images/casa_container.sif
 executable = image_channel.sh
 
 ## determine channel to image
-sc=$(Process)+240
+sc=$(Process)+125
 chan=$INT(sc,%d)
 
 arguments = $(chan) $(ms_name) $(src_name) $(ra_phase_center) $(dec_phase_center)
@@ -45,4 +45,4 @@ request_memory=45GB
 request_disk=35GB
 
 # Tell HTCondor to run one instances of job per channel
-queue 450
+queue 235
