@@ -146,7 +146,7 @@ def main():
     target_beam = get_target_bmaj(image_list)
 
     ## make empty FITS cube
-    #make_empty_image(image_list, fits_file_path, cube_outname)
+    make_empty_image(image_list, fits_file_path, cube_outname)
 
     ## fill FITS cube
     fill_cube_with_images(image_list, target_beam, fits_file_path, cube_outname)

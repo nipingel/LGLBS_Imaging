@@ -170,8 +170,8 @@
 ## - src_name: source name
 ## output:
 ## - tarball containing tclean output for single spectral channels
-JOB L image_channel.sub
-VARS L ms_name="M33_A+B+C+D.ms.wt.2.0kms.smoothed" src_name="M33" ra_phase_center="01h33m50s" dec_phase_center="30d39m00s"
+## JOB L image_channel.sub
+## VARS L ms_name="M33_A+B+C+D.ms.wt.2.0kms.smoothed" src_name="M33" ra_phase_center="01h33m50s" dec_phase_center="30d39m00s"
 ## PARENT K CHILD 
 
 ## RESTART IMAGING
@@ -200,7 +200,7 @@ VARS L ms_name="M33_A+B+C+D.ms.wt.2.0kms.smoothed" src_name="M33" ra_phase_cente
 ## output:
 ## - extracted CASA image file in staging area
 ## JOB L untar_images.sub
-## VARS L suffix="image.pbcor" src_name="M33" root_file_name="M33_A+B+C+D.ms.wt"
+## VARS L suffix="image.pbcor" src_name="M33" root_file_name="M33_A+B+C+D.ms.wt.2.0kms.smoothed"
 ## PARENT L CHILD M
 
 ## COMBINE IMAGES
@@ -215,7 +215,7 @@ VARS L ms_name="M33_A+B+C+D.ms.wt.2.0kms.smoothed" src_name="M33" ra_phase_cente
 ## output:
 ## - final data cube
 ## JOB M fitsconcat.sub
-## VARS M suffix="image.pbcor.fits" src_name="M33" output_name="M33_ABCD"
+## VARS M suffix="image.pbcor.fits" src_name="M33" output_name="M33_ABCD_2.0kms"
 ## PARENT M CHILD N
 
 ## PREP UVCOMBINE 
@@ -228,7 +228,7 @@ VARS L ms_name="M33_A+B+C+D.ms.wt.2.0kms.smoothed" src_name="M33" ra_phase_cente
 ## - interfcube: name of highres cube
 ## - feathercube: name of feather cube
 ## JOB N prep_feather_cubes.sub
-## VARS N src_name="M33" sdcube="m33_gbt_vlsr.fits" interfcube="M33_ABCD.fits" feathercube="M33_ABCD_feathered.fits"
+## VARS N src_name="M33" sdcube="m33_gbt_vlsr.fits" interfcube="M33_ABCD_2.0kms.fits" feathercube="M33_ABCD_2.0kms_feathered.fits"
 ## PARENT N CHILD O
 
 ## UVCOMBINE (DISTRIBUTED)
@@ -241,5 +241,5 @@ VARS L ms_name="M33_A+B+C+D.ms.wt.2.0kms.smoothed" src_name="M33" ra_phase_cente
 ## - interfcube: name of highres cube
 ## - outpath: output path/filename
 ## - galaxy: name of galaxy
-## JOB O feather_cubes_distributed.sub
-## VARS O src_name="M33" sdcube="m33_gbt_vlsr_specinterp.fits" interfcube="M33_ABCD.fits" galaxy="m33"
+JOB O feather_cubes_distributed.sub
+VARS O src_name="M33" sdcube="m33_gbt_vlsr_specinterp.fits" interfcube="M33_ABCD_2.0kms.fits" galaxy="m33"

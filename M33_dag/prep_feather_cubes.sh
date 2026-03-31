@@ -14,8 +14,8 @@ source /miniconda3/etc/profile.d/conda.sh
 conda activate astro_env
 
 ## change working directory to staging area
-mv prep_feather_cubes.py /projects/vla-processing/images/${src_name}
-cd /projects/vla-processing/images/${src_name}
+mv prep_feather_cubes.py /projects/vla-processing/images/${src_name}/2.0kms_channels
+cd /projects/vla-processing/images/${src_name}/2.0kms_channels
 
 echo $PATH
 python prep_feather_cubes.py --sdcube ${sdcube} --interfcube ${interfcube} --feathercube ${feathercube}
