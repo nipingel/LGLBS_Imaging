@@ -18,9 +18,6 @@ log = collate_images_$(Process).log
 ## imaging ()
 executable = fitsconcat.sh
 
-suffix=image.pbcor.fits 
-src_name=M33 
-output_name=M33_ABCD
 arguments = $(suffix) $(src_name) $(output_name)  
 output = collate_images_$(Process).out
 error = collate_images_$(Process).err

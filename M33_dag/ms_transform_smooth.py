@@ -38,7 +38,8 @@ def main():
 		'datacolumn': 'data',
 		'regridms': True, 
 		'mode': 'velocity',
-        'restfreq':"1.420405751768GHz",
+		'restfreq':"1.420405751768GHz",
+		'hanning': True,
 		'width': channel_width,
 	}
 	mstransform(**mstransform_params)

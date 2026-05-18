@@ -171,7 +171,7 @@
 ## output:
 ## - tarball containing tclean output for single spectral channels
 ## JOB L image_channel.sub
-## VARS L ms_name="M33_A+B+C+D.ms.wt.2.0kms.smoothed" src_name="M33" ra_phase_center="01h33m50s" dec_phase_center="30d39m00s"
+## VARS L ms_name="M33_A+B+C+D.ms.wt.2.0kms.smoothed_hanning" src_name="M33" ra_phase_center="01h33m50s" dec_phase_center="30d39m00s"
 ## PARENT K CHILD 
 
 ## RESTART IMAGING
@@ -199,9 +199,9 @@
 ## - file_name: root name of files
 ## output:
 ## - extracted CASA image file in staging area
-## JOB L untar_images.sub
-## VARS L suffix="image.pbcor" src_name="M33" root_file_name="M33_A+B+C+D.ms.wt.2.0kms.smoothed"
-## PARENT L CHILD M
+JOB L untar_images.sub
+VARS L suffix="image.pbcor" src_name="M33" root_file_name="M33_A+B+C+D.ms.wt.2.0kms.smoothed_hanning"
+PARENT L CHILD M
 
 ## COMBINE IMAGES
 ## finally, combine the 2D images into 3-dimensional data cube (dims: sky position, sky position, frequency/velocity)
@@ -214,8 +214,8 @@
 ## - delta_nu: spectral width of channels in kHz
 ## output:
 ## - final data cube
-## JOB M fitsconcat.sub
-## VARS M suffix="image.pbcor.fits" src_name="M33" output_name="M33_ABCD_2.0kms"
+JOB M fitsconcat.sub
+VARS M suffix="image.pbcor.fits" src_name="M33" output_name="M33_ABCD_2.0kms"
 ## PARENT M CHILD N
 
 ## PREP UVCOMBINE 
@@ -229,7 +229,7 @@
 ## - feathercube: name of feather cube
 ## JOB N prep_feather_cubes.sub
 ## VARS N src_name="M33" sdcube="m33_gbt_vlsr.fits" interfcube="M33_ABCD_2.0kms.fits" feathercube="M33_ABCD_2.0kms_feathered.fits"
-## PARENT N CHILD O
+##PARENT N CHILD O
 
 ## UVCOMBINE (DISTRIBUTED)
 ## feather images in Fourier space with uvcombine python package
@@ -241,5 +241,5 @@
 ## - interfcube: name of highres cube
 ## - outpath: output path/filename
 ## - galaxy: name of galaxy
-JOB O feather_cubes_distributed.sub
-VARS O src_name="M33" sdcube="m33_gbt_vlsr_specinterp.fits" interfcube="M33_ABCD_2.0kms.fits" galaxy="m33"
+## JOB O feather_cubes_distributed.sub
+## VARS O src_name="M33" sdcube="m33_gbt_vlsr_specinterp.fits" interfcube="M33_ABCD_2.0kms.fits" galaxy="m33"
