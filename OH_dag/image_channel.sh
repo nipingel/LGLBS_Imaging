@@ -13,7 +13,7 @@ ms_name=$2
 src_name=$3
 ra_phase_center=$4
 dec_phase_center=$5
-ms_path=/projects/vla-processing/measurement_sets/${src_name}/${ms_name}
+ms_path=/projects/vla-processing/measurement_sets/dwarfs_OH/${src_name}/${ms_name}
 output_name=${ms_name}"_robust1.0_chan"${chan_num}
 
 ## check if 0 needs to be appended in name (channel range from 0 to 99) for alphanumeric ordering
@@ -32,7 +32,7 @@ mpicasa -n 6 casa --logfile ${output_name}".log" -c image_channel.py -v ${ms_nam
 
 ## tar result
 tar -cvf ${output_name}".tar" ${output_name}*
-mv ${output_name}".tar" /projects/vla-processing/images/${src_name}/2.0kms_channels
+mv ${output_name}".tar" /projects/vla-processing/images/dwarfs_OH/${src_name}/
 
 ## clean up 
 rm -rf ${output_name}*

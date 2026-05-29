@@ -31,9 +31,9 @@ def main():
     #casalog.filter('DEBUG2')   
     ## define tclean variables below
     ## image output properties
-    im_size = 8500
-    field_id = 'M33*'
-    cell_size = '0.75arcsec'
+    im_size = 900
+    field_id = 'IC10_1_CTR'
+    cell_size = '2.0arcsec'
     restore_beam = 'common'
     ## automasking parameters ##
     use_mask = 'pb'
@@ -49,7 +49,7 @@ def main():
     ## deconvolution parameters
     deconvolver_mode = 'multiscale'
     ms_scales = [0, 8, 16, 32, 64, 128, 256]
-    tot_niter = 100000 
+    tot_niter = 0
     min_threshold = '0.60mJy'
     restart_parameter = False
     ## tclean dictionary
@@ -57,7 +57,7 @@ def main():
         'vis':vis_path,
         'imagename':output_name,
         'phasecenter':'J2000 %s %s' % (ra_phase_center, dec_phase_center),
-        'restfreq':'1.42040571183GHz',
+        'restfreq':'1720.53MHz',
         'selectdata': True,
         'field': field_id,
         'spw': '0:0',
