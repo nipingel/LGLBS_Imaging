@@ -22,14 +22,10 @@ executable = untar_images.sh
 #sc = $(Process)
 #chan = $INT(sc,%d)
 
-suffix=image.pbcor
-src_name=ic10ctr
-root_file_name=ic10ctr_A+B+C+D_oh1720.ms
-
-arguments = $(suffix) $(root_file_name) $(src_name) $(Process)
-output = decompress_images_$(Process).out
-error = decompress_images_$(Process).err
-log = decompress_images_$(Process).log
+arguments = $(suffix) $(root_file_name) $(src_name) $(Process) $(transition)
+output = decompress_images_$(transition)_$(Process).out
+error = decompress_images__$(transition)_$(Process).err
+log = decompress_images_$(transition)_$(Process).log
 
 # Specify that HTCondor should transfer files to and from the
 #  computer where each job runs. The last of these lines *would* be
@@ -39,10 +35,10 @@ Requirements=(Target.HasCHTCStaging == true)
 
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
-transfer_input_files = untar_images.sh, export_fits.py 
+transfer_input_files = untar_images_1612MHz.sh, export_fits.py 
 request_cpus = 1
 request_memory = 1GB
 request_disk = 5GB
 
 # Tell HTCondor to run 475 instances of our job:
-queue 155
+queue $(num_chans)

@@ -11,8 +11,9 @@ conda activate astro_env
 file_suffix=$1
 src_name=$2
 output_name=$3
+transition=$4
 
 ## change working directory to staging area
-full_path=/projects/vla-processing/images/dwarfs_OH/${src_name}
+full_path=/projects/vla-processing/images/dwarfs_OH/${src_name}/${transition}MHz
 
 python fitsconcat.py -p ${full_path} -e ${file_suffix} -o ${output_name}
