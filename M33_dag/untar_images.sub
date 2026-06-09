@@ -19,7 +19,7 @@ container_image = file:///staging/nmpingel/container_images/casa_container.sif
 executable = untar_images.sh
 
 ## determine channel to untar
-sc = $(Process)+480
+sc = $(Process)+260
 chan = $INT(sc,%d)
 
 suffix=image.pbcor
