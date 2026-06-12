@@ -22,7 +22,7 @@ executable = image_channel.sh
 sc=$(Process)
 chan=$INT(sc,%d)
 
-arguments = $(chan) $(ms_name) $(src_name) $(ra_phase_center) $(dec_phase_center) $(transition)
+arguments = $(chan) $(ms_name) $(src_name) $(ra_phase_center) $(dec_phase_center) $(transition) $(rest_freq)
 
 should_transfer_files=YES
 when_to_transfer_output = ON_EXIT_OR_EVICT

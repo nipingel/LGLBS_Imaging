@@ -14,6 +14,7 @@ src_name=$3
 ra_phase_center=$4
 dec_phase_center=$5
 transition=$6
+rest_freq=$7
 ms_path=/projects/vla-processing/measurement_sets/dwarfs_OH/${src_name}/${ms_name}
 output_name=${ms_name}"_robust1.0_chan"${chan_num}
 
@@ -21,7 +22,7 @@ output_name=${ms_name}"_robust1.0_chan"${chan_num}
 casa --nologfile -c split_channels.py -p ${ms_path} -o ${ms_name} -s ${chan_num} -e ${end_chan} --indv_channel
 
 # make mpicasa call to imaging script
-mpicasa -n 6 casa --logfile ${output_name}".log" -c image_channel.py -v ${ms_name}"_chan"${chan_num} -o ${output_name} -r ${ra_phase_center} -d${dec_phase_center}
+mpicasa -n 6 casa --logfile ${output_name}".log" -c image_channel.py -v ${ms_name}"_chan"${chan_num} -o ${output_name} -r ${ra_phase_center} -d${dec_phase_center} -f ${rest_freq}
 
 ## tar result
 tar -cvf ${output_name}".tar" ${output_name}*

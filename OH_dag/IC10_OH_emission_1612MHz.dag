@@ -12,7 +12,7 @@
 ## output:
 ## - tarball containing tclean output for single spectral channels
 JOB A image_channel.sub
-VARS A ms_name="ic10ctr_A+B+C+D_oh1612.ms" src_name="ic10ctr" ra_phase_center="00h20m17.2917s" dec_phase_center="59d18m13.867s" transition="1612" num_chans="145"
+VARS A ms_name="ic10ctr_A+B+C+D_oh1612.ms" src_name="ic10ctr" ra_phase_center="00h20m17.2917s" dec_phase_center="59d18m13.867s" transition="1612" num_chans="145" rest_freq="1612.2309"
 PARENT A CHILD B
 
 ## UNTAR FOR COMBINATION

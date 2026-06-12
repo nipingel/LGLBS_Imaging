@@ -20,19 +20,21 @@ parser.add_argument('-v', '--vis_path', help = '<required> name of measurement s
 parser.add_argument('-r', '--ra', help = '<required> ra phase center in form e.g.: 00h40m13.8', required = True)
 parser.add_argument('-d', '--dec', help = '<required> ra phase center in form e.g.: +40d50m04.73', required = True)
 parser.add_argument('-o', '--output_name', help = '<required> name of output file', required = True)
+parser.add_argument('-f', '--freq_rest', help = '<required> rest frequency in MHz', required = True)
 args, unknown = parser.parse_known_args()
 
 vis_path = args.vis_path
 ra_phase_center = args.ra
 dec_phase_center = args.dec
 output_name = args.output_name
+rest_freq = args.freq_rest
 
 def main():
     #casalog.filter('DEBUG2')   
     ## define tclean variables below
     ## image output properties
     im_size = 1600
-    field_id = 'IC10_1_CTR'
+    field_id = '*CTR*,Wolf*'
     cell_size = '1.5arcsec'
     restore_beam = 'common'
     ## automasking parameters ##
@@ -56,7 +58,7 @@ def main():
         'vis':vis_path,
         'imagename':output_name,
         'phasecenter':'J2000 %s %s' % (ra_phase_center, dec_phase_center),
-        'restfreq':'1720.53MHz',
+        'restfreq':'%sMHz' % rest_freq,
         'selectdata': True,
         'field': field_id,
         'spw': '0:0',
