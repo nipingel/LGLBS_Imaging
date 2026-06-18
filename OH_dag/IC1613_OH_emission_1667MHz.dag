@@ -11,9 +11,9 @@
 ## - src_name: source name
 ## output:
 ## - tarball containing tclean output for single spectral channels
-JOB A image_channel.sub
-VARS A ms_name="ic10ctr_C+D_oh1720.ms" src_name="ic10ctr" ra_phase_center="00h20m17.2917s" dec_phase_center="59d18m13.867s" transition="1720" num_chans="155"
-PARENT A CHILD B
+## JOB A image_channel.sub
+## VARS A ms_name="ic1613ctr_A+B+C+D_oh1667_combspw.ms" src_name="ic1613ctr" ra_phase_center="01h04m47.8000s" dec_phase_center="+02d07m03.800s" transition="1667" num_chans="150" rest_freq="1667.3590"
+## PARENT A CHILD B
 
 ## UNTAR FOR COMBINATION
 ## untar and move back desired output images to staging area for combination
@@ -25,9 +25,9 @@ PARENT A CHILD B
 ## - file_name: root name of files
 ## output:
 ## - extracted CASA image file in staging area
-JOB B untar_images.sub
-VARS B suffix="image.pbcor" src_name="ic10ctr" root_file_name="ic10ctr_C+D_oh1720.ms" transition="1720" num_chans="155"
-PARENT B CHILD C
+## JOB B untar_images.sub
+## VARS B suffix="image.pbcor" src_name="ic1613ctr" root_file_name="ic1613ctr_A+B+C+D_oh1667_combspw.ms" transition="1667" num_chans="150"
+## PARENT B CHILD C
 
 ## COMBINE IMAGES
 ## finally, combine the 2D images into 3-dimensional data cube (dims: sky position, sky position, frequency/velocity)
@@ -41,4 +41,4 @@ PARENT B CHILD C
 ## output:
 ## - final data cube
 JOB C fitsconcat.sub
-VARS C suffix="image.pbcor.fits" src_name="ic10ctr" output_name="IC10_C+D_OH_1720MHz"
+VARS C suffix="image.pbcor.fits" src_name="ic1613ctr" output_name="IC1613_ABCD_OH_1667MHz" transition="1667"
