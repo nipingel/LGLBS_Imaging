@@ -1,0 +1,44 @@
+#!/usr/bin/env IC10_OH_emission.dag
+
+## IMAGING
+## run tclean to imagine single channels
+## executable:
+## - image_channel.sh (runs image_channel.py)
+## inputs:
+## - ms_name: concatenated measurement set (without channel number ID, to be appended in execution script)
+## - ra_phase_center: ra coordinate string to set phase center
+## - dec_phase_center: dec coordinate string to set phase center
+## - src_name: source name
+## output:
+## - tarball containing tclean output for single spectral channels
+JOB A image_channel.sub
+VARS A ms_name="ngc6822_A+B+C+D_oh1720_combspw.ms" src_name="ngc6822" ra_phase_center="19h44m57.7s" dec_phase_center="-14d48m11s" rest_freq="1720.5299" transition="1720" num_chans="155"
+PARENT A CHILD B
+
+## UNTAR FOR COMBINATION
+## untar and move back desired output images to staging area for combination
+## executable:
+## - untar_images.sh (runs untar_images.sh)
+## inputs:
+## - suffix: CASA file suffix to move back to staging (e.g., image, image.pbcor, residual, etc.)
+## - src_name: source_name
+## - file_name: root name of files
+## output:
+## - extracted CASA image file in staging area
+JOB B untar_images.sub
+VARS B suffix="image.pbcor" src_name="ngc6822" root_file_name="ngc6822_A+B+C+D_oh1720_combspw.ms" transition="1720" num_chans="155"
+PARENT B CHILD C
+
+## COMBINE IMAGES
+## finally, combine the 2D images into 3-dimensional data cube (dims: sky position, sky position, frequency/velocity)
+## executable:
+## - fitsconcat.sh (runs fitsconcat.py)
+## inputs:
+## - suffix: combine all files with *.suffix
+## - output_name: name of output data cube (in FITS format)
+## - src_name: source name
+## - delta_nu: spectral width of channels in kHz
+## output:
+## - final data cube
+JOB C fitsconcat.sub
+VARS C suffix="image.pbcor.fits" src_name="ngc6822" output_name="NGC6822_ABCD_OH_1720MHz" transition="1720"

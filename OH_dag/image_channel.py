@@ -34,7 +34,7 @@ def main():
     ## define tclean variables below
     ## image output properties
     im_size = 1600
-    field_id = 'IC10*'
+    field_id = 'NGC6822*'
     cell_size = '3.5arcsec'
     restore_beam = 'common'
     ## automasking parameters ##
@@ -50,7 +50,7 @@ def main():
     verbose = True
     ## deconvolution parameters
     deconvolver_mode = 'hogbom'
-    tot_niter = 25000
+    tot_niter = 50000
     min_threshold = '1.25mJy'
     restart_parameter = False
     ## tclean dictionary
