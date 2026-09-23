@@ -9,7 +9,7 @@
 ## universe = docker
 ## docker_image = nipingel/casa:latest
 # Provide HTCondor with the name of your .sif file and universe information
-container_image = file:///staging/nmpingel/container_images/casa_container.sif
+container_image = file:///staging/n/nmpingel/container_images/casa_container.sif
 
 ## feather cube distributed execution
 executable = feather_cubes_distributed.sh

@@ -1,6 +1,6 @@
 # prep_feather_cubes.sub - submission script to prepare to feather cubes
 # Provide HTCondor with the name of your .sif file and universe information
-container_image = file:///staging/nmpingel/container_images/casa_container.sif
+container_image = file:///staging/n/nmpingel/container_images/casa_container.sif
 
 ## feather cube distributed execution
 executable = prep_feather_cubes.sh

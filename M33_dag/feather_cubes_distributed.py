@@ -78,7 +78,7 @@ scale_factors = {'wlm': 1.14,
 galaxy = args.galaxy
 if galaxy is not None:
     if galaxy not in scale_factors:
-	 raise KeyError(f"{galaxy} not a valid galaxy name in the scale_factors dictionary.")
+        raise KeyError(f"{galaxy} not a valid galaxy name in the scale_factors dictionary.")
     sdfactor = scale_factors[galaxy]
 else:
     sdfactor = args.sdfactor
@@ -119,22 +119,26 @@ def feather_per_channel(highres_cube, lowres_cube, start_chan, end_chan):
     this_feathered_filename = f"{interf_cubename[:-5]}_feathered.fits"
     print("per channel combination and smoothing...")
     with warnings.catch_warnings():
-	warnings.filterwarnings("ignore", message="WCS1 is missing card")
-	for this_chan in tqdm(range(start_chan, end_chan)):
-	    ## smooth high-resolution image
-	    highres_channel = highres_cube[this_chan]
-	    
-	    ## reproject single dish
-	    lowres_channel = lowres_cube[this_chan]
-	    reprojected_channel = reproject_lowres(lowres_channel, highres_channel, this_chan)
-	    feathered_chan = feather_simple(highres_channel.to(u.K),
-		reprojected_channel.to(u.K),
-		lowresscalefactor=sdfactor)
-	    with fits.open(this_feathered_filename, mode="update", memmap=True) as hdulist:
-		hdulist[0].data[this_chan] = feathered_chan
-		hdulist[0].header['BUNIT'] = 'K'
-		hdulist.flush()
-		del hdulist[0].data
+        warnings.filterwarnings("ignore", message="WCS1 is missing card")
+        for this_chan in tqdm(range(start_chan, end_chan)):
+            ## smooth high-resolution image
+            highres_channel = highres_cube[this_chan]
+
+            ## reproject single dish
+            lowres_channel = lowres_cube[this_chan]
+            reprojected_channel = reproject_lowres(
+                lowres_channel, highres_channel, this_chan
+            )
+            feathered_chan = feather_simple(
+                highres_channel.to(u.K),
+                reprojected_channel.to(u.K),
+                lowresscalefactor=sdfactor,
+            )
+            with fits.open(this_feathered_filename, mode="update", memmap=True) as hdulist:
+                hdulist[0].data[this_chan] = feathered_chan
+                hdulist[0].header['BUNIT'] = 'K'
+                hdulist.flush()
+            del hdulist[0].data
     return
 
 def main():
