@@ -23,7 +23,7 @@ fi
 if [ "$1" -lt "100" ] && [ "$1" -gt "9" ]; then
 	output_name=${ms_name}"_robust1.0_chan0"${chan_num}
 fi
-tar -xvf M33_A+B+C+D.wt_flagged_chan830.mask.tar 
+tar -xvf M33_SDMask_chan263_264.mask.tar
 ## extract single channel from parent MS
 casa --nologfile -c split_channels.py -p ${ms_path} -o ${ms_name} -s ${chan_num} -e ${end_chan} --indv_channel
 

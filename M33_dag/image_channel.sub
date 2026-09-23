@@ -7,7 +7,7 @@
 #  your job. Wherever you see $(Cluster), HTCondor will insert the 
 #  queue number assigned to this set of jobs at the time of submission.
 # Provide HTCondor with the name of your .sif file and universe information
-container_image = file:///staging/nmpingel/container_images/casa_container.sif
+container_image = file:///staging/n/nmpingel/container_images/casa_container.sif
 
 # Specify your executable (single binary or a script that runs several
 #  commands), arguments, and a files for HTCondor to store standard
@@ -39,7 +39,7 @@ Requirements=(Target.HasCHTCStaging == true)
 
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
-transfer_input_files = image_channel.py, image_channel.sh, split_channels.py
+transfer_input_files = M33_SDMask_chan263_264.mask.tar, image_channel.py, image_channel.sh, split_channels.py
 request_cpus = 6
 request_memory=45GB
 request_disk=35GB

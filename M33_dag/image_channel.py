@@ -36,9 +36,8 @@ def main():
     cell_size = '0.75arcsec'
     restore_beam = 'common'
     ## automasking parameters ##
-    #use_mask = 'pb'
-    use_mask = 'auto-multithresh'
-    mask = 'M33_A+B+C+D.wt_flagged_chan830.mask'
+    use_mask = 'user'
+    mask = 'M33_SDMask_chan263_264.mask'
     sidelobe_threshold = 2.5
     noise_threshold = 3.5
     min_beam_frac = 0.3
@@ -50,8 +49,8 @@ def main():
     ## deconvolution parameters
     deconvolver_mode = 'multiscale'
     ms_scales = [0, 8, 16, 32, 64, 128, 256]
-    tot_niter = 100000
-    min_threshold = '0.3mJy'
+    tot_niter = 100000 
+    min_threshold = '0.60mJy'
     restart_parameter = False
     ## tclean dictionary
     tclean_params={
@@ -83,6 +82,7 @@ def main():
         'threshold':min_threshold, 
         'usemask':use_mask, 
         'pbmask':0.2, 
+	'mask': mask,
         'sidelobethreshold':sidelobe_threshold, 
         'noisethreshold':noise_threshold, 
         'minbeamfrac':min_beam_frac, 
